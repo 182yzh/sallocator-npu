@@ -1,0 +1,16 @@
+                 U aclGetTensorDescSize
+0000000000006938 T aclblasCreateHandleForGemmEx
+000000000000a460 T aclblasCreateHandleForGemvEx
+00000000000094b8 T aclblasCreateHandleForHgemm
+000000000000a788 T aclblasCreateHandleForHgemv
+00000000000099e8 T aclblasCreateHandleForS8gemm
+000000000000a8d8 T aclblasCreateHandleForS8gemv
+0000000000003ef0 T aclblasGemmEx
+000000000000a290 T aclblasGemvEx
+0000000000009630 T aclblasHgemm
+000000000000a5d8 T aclblasHgemv
+0000000000009808 T aclblasS8gemm
+000000000000aa28 T aclblasS8gemv
+                 U aclopCreateHandle
+                 U aclopExecuteV2
+                 U aclopSetAttrBool

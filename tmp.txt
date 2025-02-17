@@ -1,0 +1,148 @@
+(torch240) potato@aliyun:/mnt/yzh/test$ python accelearte.py
+The repository for deepseek-ai/deepseek-moe-16b-base contains custom code which must be executed to correctly load the model. You can inspect the repository content at https://hf.co/deepseek-ai/deepseek-moe-16b-base.
+You can avoid this prompt in future by passing the argument `trust_remote_code=True`.
+
+Do you wish to run the custom code? [y/N] y
+The repository for deepseek-ai/deepseek-moe-16b-base contains custom code which must be executed to correctly load the model. You can inspect the repository content at https://hf.co/deepseek-ai/deepseek-moe-16b-base.
+You can avoid this prompt in future by passing the argument `trust_remote_code=True`.
+
+Do you wish to run the custom code? [y/N] y
+Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:09<00:00,  1.29s/it]
+DeepseekForCausalLM(
+  (model): DeepseekModel(
+    (embed_tokens): Embedding(102400, 2048)
+    (layers): ModuleList(
+      (0): DeepseekDecoderLayer(
+        (self_attn): DeepseekSdpaAttention(
+          (q_proj): Linear(in_features=2048, out_features=2048, bias=False)
+          (k_proj): Linear(in_features=2048, out_features=2048, bias=False)
+          (v_proj): Linear(in_features=2048, out_features=2048, bias=False)
+          (o_proj): Linear(in_features=2048, out_features=2048, bias=False)
+          (rotary_emb): DeepseekRotaryEmbedding()
+        )
+        (mlp): DeepseekMLP(
+          (gate_proj): Linear(in_features=2048, out_features=10944, bias=False)
+          (up_proj): Linear(in_features=2048, out_features=10944, bias=False)
+          (down_proj): Linear(in_features=10944, out_features=2048, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): DeepseekRMSNorm()
+        (post_attention_layernorm): DeepseekRMSNorm()
+      ) // 0
+
+      (1-27): 27 x DeepseekDecoderLayer(
+        (self_attn): DeepseekSdpaAttention(
+          (q_proj): Linear(in_features=2048, out_features=2048, bias=False)
+          (k_proj): Linear(in_features=2048, out_features=2048, bias=False)
+          (v_proj): Linear(in_features=2048, out_features=2048, bias=False)
+          (o_proj): Linear(in_features=2048, out_features=2048, bias=False)
+          (rotary_emb): DeepseekRotaryEmbedding()
+        )
+        (mlp): DeepseekMoE(
+          (experts): ModuleList(
+            (0-63): 64 x DeepseekMLP(
+              (gate_proj): Linear(in_features=2048, out_features=1408, bias=False)
+              (up_proj): Linear(in_features=2048, out_features=1408, bias=False)
+              (down_proj): Linear(in_features=1408, out_features=2048, bias=False)
+              (act_fn): SiLU()
+            )
+          )
+          (gate): MoEGate()
+          (shared_experts): DeepseekMLP(
+            (gate_proj): Linear(in_features=2048, out_features=2816, bias=False)
+            (up_proj): Linear(in_features=2048, out_features=2816, bias=False)
+            (down_proj): Linear(in_features=2816, out_features=2048, bias=False)
+            (act_fn): SiLU()
+          )
+        )
+        (input_layernorm): DeepseekRMSNorm()
+        (post_attention_layernorm): DeepseekRMSNorm()
+      ) //1-27
+    )
+    (norm): DeepseekRMSNorm()
+  )
+  (lm_head): Linear(in_features=2048, out_features=102400, bias=False)
+)
+2025-02-16 13:21:42.399518
+Traceback (most recent call last):
+  File "/mnt/yzh/test/accelearte.py", line 18, in <module>
+    print(torch.cuda.memory_status([0,1,2,3]))
+AttributeError: module 'torch.cuda' has no attribute 'memory_status'. Did you mean: 'memory_stats'?
+(torch240) potato@aliyun:/mnt/yzh/test$ vim accelearte.py
+(torch240) potato@aliyun:/mnt/yzh/test$ python accelearte.py
+The repository for deepseek-ai/deepseek-moe-16b-base contains custom code which must be executed to correctly load the model. You can inspect the repository content at https://hf.co/deepseek-ai/deepseek-moe-16b-base.
+You can avoid this prompt in future by passing the argument `trust_remote_code=True`.
+
+Do you wish to run the custom code? [y/N] y
+yThe repository for deepseek-ai/deepseek-moe-16b-base contains custom code which must be executed to correctly load the model. You can inspect the repository content at https://hf.co/deepseek-ai/deepseek-moe-16b-base.
+You can avoid this prompt in future by passing the argument `trust_remote_code=True`.
+
+Do you wish to run the custom code? [y/N]
+Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:11<00:00,  1.63s/it]
+DeepseekForCausalLM(
+  (model): DeepseekModel(
+    (embed_tokens): Embedding(102400, 2048)
+    (layers): ModuleList(
+      (0): DeepseekDecoderLayer(
+        (self_attn): DeepseekSdpaAttention(
+          (q_proj): Linear(in_features=2048, out_features=2048, bias=False)
+          (k_proj): Linear(in_features=2048, out_features=2048, bias=False)
+          (v_proj): Linear(in_features=2048, out_features=2048, bias=False)
+          (o_proj): Linear(in_features=2048, out_features=2048, bias=False)
+          (rotary_emb): DeepseekRotaryEmbedding()
+        )
+        (mlp): DeepseekMLP(
+          (gate_proj): Linear(in_features=2048, out_features=10944, bias=False)
+          (up_proj): Linear(in_features=2048, out_features=10944, bias=False)
+          (down_proj): Linear(in_features=10944, out_features=2048, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): DeepseekRMSNorm()
+        (post_attention_layernorm): DeepseekRMSNorm()
+      )
+      (1-27): 27 x DeepseekDecoderLayer(
+        (self_attn): DeepseekSdpaAttention(
+          (q_proj): Linear(in_features=2048, out_features=2048, bias=False)
+          (k_proj): Linear(in_features=2048, out_features=2048, bias=False)
+          (v_proj): Linear(in_features=2048, out_features=2048, bias=False)
+          (o_proj): Linear(in_features=2048, out_features=2048, bias=False)
+          (rotary_emb): DeepseekRotaryEmbedding()
+        )
+        (mlp): DeepseekMoE(
+          (experts): ModuleList(
+            (0-63): 64 x DeepseekMLP(
+              (gate_proj): Linear(in_features=2048, out_features=1408, bias=False)
+              (up_proj): Linear(in_features=2048, out_features=1408, bias=False)
+              (down_proj): Linear(in_features=1408, out_features=2048, bias=False)
+              (act_fn): SiLU()
+            )
+          )
+          (gate): MoEGate()
+          (shared_experts): DeepseekMLP(
+            (gate_proj): Linear(in_features=2048, out_features=2816, bias=False)
+            (up_proj): Linear(in_features=2048, out_features=2816, bias=False)
+            (down_proj): Linear(in_features=2816, out_features=2048, bias=False)
+            (act_fn): SiLU()
+          )
+        )
+        (input_layernorm): DeepseekRMSNorm()
+        (post_attention_layernorm): DeepseekRMSNorm()
+      )
+    )
+    (norm): DeepseekRMSNorm()
+  )
+  (lm_head): Linear(in_features=2048, out_features=102400, bias=False)
+)
+2025-02-16 13:22:32.915146
+OrderedDict([('active.all.allocated', 1039), ('active.all.current', 1038), ('active.all.freed', 1), ('active.all.peak', 1038), ('active.large_pool.allocated', 1003), ('active.large_pool.current', 1003), ('active.large_pool.freed', 0), ('active.large_pool.peak', 1003), ('active.small_pool.allocated', 36), ('active.small_pool.current', 35), ('active.small_pool.freed', 1), ('active.small_pool.peak', 35), ('active_bytes.all.allocated', 6494408192), ('active_bytes.all.current', 6494407680), ('active_bytes.all.freed', 512), ('active_bytes.all.peak', 6494407680), ('active_bytes.large_pool.allocated', 6480461824), ('active_bytes.large_pool.current', 6480461824), ('active_bytes.large_pool.freed', 0), ('active_bytes.large_pool.peak', 6480461824), ('active_bytes.small_pool.allocated', 13946368), ('active_bytes.small_pool.current', 13945856), ('active_bytes.small_pool.freed', 512), ('active_bytes.small_pool.peak', 13945856), ('allocated_bytes.all.allocated', 6494408192), ('allocated_bytes.all.current', 6494407680), ('allocated_bytes.all.freed', 512), ('allocated_bytes.all.peak', 6494407680), ('allocated_bytes.large_pool.allocated', 6480461824), ('allocated_bytes.large_pool.current', 6480461824), ('allocated_bytes.large_pool.freed', 0), ('allocated_bytes.large_pool.peak', 6480461824), ('allocated_bytes.small_pool.allocated', 13946368), ('allocated_bytes.small_pool.current', 13945856), ('allocated_bytes.small_pool.freed', 512), ('allocated_bytes.small_pool.peak', 13945856), ('allocation.all.allocated', 1039), ('allocation.all.current', 1038), ('allocation.all.freed', 1), ('allocation.all.peak', 1038), ('allocation.large_pool.allocated', 1003), ('allocation.large_pool.current', 1003), ('allocation.large_pool.freed', 0), ('allocation.large_pool.peak', 1003), ('allocation.small_pool.allocated', 36), ('allocation.small_pool.current', 35), ('allocation.small_pool.freed', 1), ('allocation.small_pool.peak', 35), ('inactive_split.all.allocated', 343), ('inactive_split.all.current', 336), ('inactive_split.all.freed', 7), ('inactive_split.all.peak', 337), ('inactive_split.large_pool.allocated', 335), ('inactive_split.large_pool.current', 335), ('inactive_split.large_pool.freed', 0), ('inactive_split.large_pool.peak', 335), ('inactive_split.small_pool.allocated', 8), ('inactive_split.small_pool.current', 1), ('inactive_split.small_pool.freed', 7), ('inactive_split.small_pool.peak', 2), ('inactive_split_bytes.all.allocated', 5030800896), ('inactive_split_bytes.all.current', 1229403136), ('inactive_split_bytes.all.freed', 3801397760), ('inactive_split_bytes.all.peak', 1237794816), ('inactive_split_bytes.large_pool.allocated', 5020319744), ('inactive_split_bytes.large_pool.current', 1228668928), ('inactive_split_bytes.large_pool.freed', 3791650816), ('inactive_split_bytes.large_pool.peak', 1237057536), ('inactive_split_bytes.small_pool.allocated', 10481152), ('inactive_split_bytes.small_pool.current', 734208), ('inactive_split_bytes.small_pool.freed', 9746944), ('inactive_split_bytes.small_pool.peak', 2096640), ('max_split_size', -1), ('num_alloc_retries', 0), ('num_device_alloc', 359), ('num_device_free', 1), ('num_ooms', 0), ('num_sync_all_streams', 16479), ('oversize_allocations.allocated', 0), ('oversize_allocations.current', 0), ('oversize_allocations.freed', 0), ('oversize_allocations.peak', 0), ('oversize_segments.allocated', 0), ('oversize_segments.current', 0), ('oversize_segments.freed', 0), ('oversize_segments.peak', 0), ('requested_bytes.all.allocated', 6478677512), ('requested_bytes.all.current', 6478677504), ('requested_bytes.all.freed', 8), ('requested_bytes.all.peak', 6478677504), ('requested_bytes.large_pool.allocated', 6464733184), ('requested_bytes.large_pool.current', 6464733184), ('requested_bytes.large_pool.freed', 0), ('requested_bytes.large_pool.peak', 6464733184), ('requested_bytes.small_pool.allocated', 13944328), ('requested_bytes.small_pool.current', 13944320), ('requested_bytes.small_pool.freed', 8), ('requested_bytes.small_pool.peak', 13944320), ('reserved_bytes.all.allocated', 7725907968), ('reserved_bytes.all.current', 7723810816), ('reserved_bytes.all.freed', 2097152), ('reserved_bytes.all.peak', 7723810816), ('reserved_bytes.large_pool.allocated', 7709130752), ('reserved_bytes.large_pool.current', 7709130752), ('reserved_bytes.large_pool.freed', 0), ('reserved_bytes.large_pool.peak', 7709130752), ('reserved_bytes.small_pool.allocated', 16777216), ('reserved_bytes.small_pool.current', 14680064), ('reserved_bytes.small_pool.freed', 2097152), ('reserved_bytes.small_pool.peak', 14680064), ('segment.all.allocated', 359), ('segment.all.current', 358), ('segment.all.freed', 1), ('segment.all.peak', 358), ('segment.large_pool.allocated', 351), ('segment.large_pool.current', 351), ('segment.large_pool.freed', 0), ('segment.large_pool.peak', 351), ('segment.small_pool.allocated', 8), ('segment.small_pool.current', 7), ('segment.small_pool.freed', 1), ('segment.small_pool.peak', 7)])
+The `seen_tokens` attribute is deprecated and will be removed in v4.41. Use the `cache_position` model input instead.
+`get_max_cache()` is deprecated for all Cache classes. Use `get_max_cache_shape()` instead. Calling `get_max_cache()` will raise error from v4.48
+An attention function can be described as mapping a query and a set of key-value pairs to an output, where the query, keys, values, and output are all vectors. The output is a vector of attention scores, which are used to compute a weighted sum of the values.
+
+The attention function is a key component of the Transformer architecture, which is used in many natural language processing tasks. The attention function is used to compute the context vector, which is used to compute the output of the Transformer.
+
+The attention function is a key component of the Transformer architecture, which is used in many natural language processing tasks. The attention function is used to compute the context vector, which
+OrderedDict([('active.all.allocated', 66528), ('active.all.current', 1042), ('active.all.freed', 65486), ('active.all.peak', 1078), ('active.large_pool.allocated', 1005), ('active.large_pool.current', 1004), ('active.large_pool.freed', 1), ('active.large_pool.peak', 1005), ('active.small_pool.allocated', 65523), ('active.small_pool.current', 38), ('active.small_pool.freed', 65485), ('active.small_pool.peak', 74), ('active_bytes.all.allocated', 7473119744), ('active_bytes.all.current', 6490777088), ('active_bytes.all.freed', 982342656), ('active_bytes.all.peak', 6509627904), ('active_bytes.large_pool.allocated', 6505758720), ('active_bytes.large_pool.current', 6488981504), ('active_bytes.large_pool.freed', 16777216), ('active_bytes.large_pool.peak', 6505758720), ('active_bytes.small_pool.allocated', 967361024), ('active_bytes.small_pool.current', 1795584), ('active_bytes.small_pool.freed', 965565440), ('active_bytes.small_pool.peak', 15319040), ('allocated_bytes.all.allocated', 7473119744), ('allocated_bytes.all.current', 6490777088), ('allocated_bytes.all.freed', 982342656), ('allocated_bytes.all.peak', 6509627904), ('allocated_bytes.large_pool.allocated', 6505758720), ('allocated_bytes.large_pool.current', 6488981504), ('allocated_bytes.large_pool.freed', 16777216), ('allocated_bytes.large_pool.peak', 6505758720), ('allocated_bytes.small_pool.allocated', 967361024), ('allocated_bytes.small_pool.current', 1795584), ('allocated_bytes.small_pool.freed', 965565440), ('allocated_bytes.small_pool.peak', 15319040), ('allocation.all.allocated', 66528), ('allocation.all.current', 1042), ('allocation.all.freed', 65486), ('allocation.all.peak', 1078), ('allocation.large_pool.allocated', 1005), ('allocation.large_pool.current', 1004), ('allocation.large_pool.freed', 1), ('allocation.large_pool.peak', 1005), ('allocation.small_pool.allocated', 65523), ('allocation.small_pool.current', 38), ('allocation.small_pool.freed', 65485), ('allocation.small_pool.peak', 74), ('inactive_split.all.allocated', 28040), ('inactive_split.all.current', 349), ('inactive_split.all.freed', 27691), ('inactive_split.all.peak', 362), ('inactive_split.large_pool.allocated', 336), ('inactive_split.large_pool.current', 336), ('inactive_split.large_pool.freed', 0), ('inactive_split.large_pool.peak', 336), ('inactive_split.small_pool.allocated', 27704), ('inactive_split.small_pool.current', 13), ('inactive_split.small_pool.freed', 27691), ('inactive_split.small_pool.peak', 26), ('inactive_split_bytes.all.allocated', 6040882176), ('inactive_split_bytes.all.current', 1245616640), ('inactive_split_bytes.all.freed', 4795265536), ('inactive_split_bytes.all.peak', 1250198528), ('inactive_split_bytes.large_pool.allocated', 5032771584), ('inactive_split_bytes.large_pool.current', 1241120768), ('inactive_split_bytes.large_pool.freed', 3791650816), ('inactive_split_bytes.large_pool.peak', 1241120768), ('inactive_split_bytes.small_pool.allocated', 1008110592), ('inactive_split_bytes.small_pool.current', 4495872), ('inactive_split_bytes.small_pool.freed', 1003614720), ('inactive_split_bytes.small_pool.peak', 9077760), ('max_split_size', -1), ('num_alloc_retries', 0), ('num_device_alloc', 362), ('num_device_free', 1), ('num_ooms', 0), ('num_sync_all_streams', 16479), ('oversize_allocations.allocated', 0), ('oversize_allocations.current', 0), ('oversize_allocations.freed', 0), ('oversize_allocations.peak', 0), ('oversize_segments.allocated', 0), ('oversize_segments.current', 0), ('oversize_segments.freed', 0), ('oversize_segments.peak', 0), ('requested_bytes.all.allocated', 7445854381), ('requested_bytes.all.current', 6475043040), ('requested_bytes.all.freed', 970811341), ('requested_bytes.all.peak', 6493498505), ('requested_bytes.large_pool.allocated', 6489636864), ('requested_bytes.large_pool.current', 6473252864), ('requested_bytes.large_pool.freed', 16384000), ('requested_bytes.large_pool.peak', 6489636864), ('requested_bytes.small_pool.allocated', 956217517), ('requested_bytes.small_pool.current', 1790176), ('requested_bytes.small_pool.freed', 954427341), ('requested_bytes.small_pool.peak', 15314720), ('reserved_bytes.all.allocated', 7765753856), ('reserved_bytes.all.current', 7763656704), ('reserved_bytes.all.freed', 2097152), ('reserved_bytes.all.peak', 7763656704), ('reserved_bytes.large_pool.allocated', 7746879488), ('reserved_bytes.large_pool.current', 7746879488), ('reserved_bytes.large_pool.freed', 0), ('reserved_bytes.large_pool.peak', 7746879488), ('reserved_bytes.small_pool.allocated', 18874368), ('reserved_bytes.small_pool.current', 16777216), ('reserved_bytes.small_pool.freed', 2097152), ('reserved_bytes.small_pool.peak', 16777216), ('segment.all.allocated', 362), ('segment.all.current', 361), ('segment.all.freed', 1), ('segment.all.peak', 361), ('segment.large_pool.allocated', 353), ('segment.large_pool.current', 353), ('segment.large_pool.freed', 0), ('segment.large_pool.peak', 353), ('segment.small_pool.allocated', 9), ('segment.small_pool.current', 8), ('segment.small_pool.freed', 1), ('segment.small_pool.peak', 8)])
+
+
+(torch240) potato@aliyun:/mnt/yzh/test$

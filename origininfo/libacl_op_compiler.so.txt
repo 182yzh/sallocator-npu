@@ -1,0 +1,12 @@
+0000000000013440 T aclCreateGraphDumpOpt
+0000000000013490 T aclDestroyGraphDumpOpt
+0000000000017e90 T aclGenGraphAndDumpForOp
+0000000000015ab0 T aclGetCompileopt
+0000000000015778 T aclGetCompileoptSize
+0000000000014938 T aclSetCompileopt
+00000000000161c0 T aclopCompile
+00000000000172d8 T aclopCompileAndExecute
+00000000000178b0 T aclopCompileAndExecuteV2
+0000000000013348 T aclopSetCompileFlag
+                 U aclrtGetCurrentContext
+                 U aclrtSetCurrentContext
