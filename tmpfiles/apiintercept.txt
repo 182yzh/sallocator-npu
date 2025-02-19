@@ -1767,11 +1767,7 @@ aclrtQueryEventWaitStatus
 aclrtRecordEvent
 aclrtReleaseMemAddress
 aclrtReserveMemAddress
-aclrtResetDevice
-aclrtResetDeviceWithoutTsdVXX
-aclrtResetEvent
-aclrtResetOverflowStatus
-aclrtSetCurrentContext
+aclrtResetD-
 aclrtSetDevice
 aclrtSetDeviceSatMode
 aclrtSetDeviceWithoutTsdVXX
