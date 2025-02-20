@@ -2,14 +2,14 @@ origin = []
 targets = []
 
 def ReadFile():
-    filefromso = "./libascendcl.sym"
+    filefromso = "./libopcompiler.sym"
     file  = open(filefromso)
     line = file.readline()
     while line :
         origin.append(line.strip())
         line= file.readline()
     
-    filefromapi = "aclrt_head.h"
+    filefromapi = "aclopcompiler_head.h"
     file = open(filefromapi)
     line = file.readline()
     while line :
@@ -64,8 +64,8 @@ def Check(flag):
                 if cnt > 1 and (tar.find("enum") != -1 or tar.find("struct") != -1 or tar.find("union") != -1):
                     ans = tar
 
-        # if cnt != 1 :
-        #     print(sym, cnt)
+        if cnt != 1 :
+            print(sym, cnt)
         # else:
         #     targets1.remove(ans)
         
@@ -87,7 +87,7 @@ def Check(flag):
 
             if flag ==2:
                 # load so_func
-                print("    ACL_LDSYM(so_aclrt_handle, {:s});".format(func))
+                print("    ACL_LDSYM(so_aclopcompiler_handle, {:s});".format(func))
             
             """
             #define END_FUNC_HOOK_ON 
@@ -156,13 +156,13 @@ def Check(flag):
 
 
 constructor="""
-__attribute__((constructor)) void acl_init(){
-    void *so_aclrt_handle = dlopen(ACLRT_LIBFILE,RTLD_GLOBAL | RTLD_NOW);
-    if(so_aclrt_handle == NULL){
-        fprintf(stderr, "error for open the acl rt lib (file %s), error msg %s\\n", ACLRT_LIBFILE, dlerror());
+__attribute__((constructor)) void aclopcompiler_init(){
+    void *so_aclopcompiler_handle = dlopen(ACLCOMPILER_LIBFILE,RTLD_GLOBAL | RTLD_NOW);
+    if(so_aclopcompiler_handle == NULL){
+        fprintf(stderr, "error for open the acl opcompiler lib (file %s), error msg %s\\n", ACLCOMPILER_LIBFILE, dlerror());
         exit(1);
     }
-    load_all_funcs(so_aclrt_handle);
+    load_all_funcs(so_aclopcompiler_handle);
 }
 """
 def add_constructors():
@@ -175,6 +175,7 @@ headers = '''
 #include <acl/acl_rt.h>
 #include <acl/acl_op_compiler.h>
 #include <acl/acl_rt_allocator.h>
+#include <acl/acl_prof.h>
 #include "../../common.h"
 #include <dlfcn.h>
 #include <assert.h>
@@ -202,14 +203,9 @@ def add_begin_and_end_func():
 
 notes="""
 /** the following api are not find from the so files. 
-aclrtStreamConfigHandle* aclrtCreateStreamConfigHandle(void); 
-aclError aclrtDestroyStreamConfigHandle(aclrtStreamConfigHandle* handle);
 ----
 moreover, we ignore the aclAppLog api, due to the ... parameters in the function list. 
 ----
-due to the api are not find in the so files, we also do not preload those APIs. 
-aclrtResetDeviceWithoutTsdVXX
-aclrtSetDeviceWithoutTsdVXX
 */
 """
 def add_notes():
@@ -238,7 +234,7 @@ def main():
     Check(1)
     
     #add the load_all_funcs
-    print("void load_all_funcs(void *so_aclrt_handle){")
+    print("void load_all_funcs(void *so_aclopcompiler_handle){")
     Check(2)
     print("}")
 

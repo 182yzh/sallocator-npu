@@ -1,0 +1,10 @@
+aclCreateGraphDumpOpt
+aclDestroyGraphDumpOpt
+aclGenGraphAndDumpForOp
+aclGetCompileopt
+aclGetCompileoptSize
+aclSetCompileopt
+aclopCompile
+aclopCompileAndExecute
+aclopCompileAndExecuteV2
+aclopSetCompileFlag
