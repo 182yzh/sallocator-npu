@@ -1,627 +1,615 @@
-aclInitTensor 0
-aclRfft1D 0
-aclRfft1DGetWorkspaceSize 0
-aclStft 0
-aclStftGetWorkspaceSize 0
-acldumpRegCallback 0
-acldumpUnregCallback 0
-aclgrphProfGraphSubscribe 0
-aclgrphProfGraphUnSubscribe 0
-aclprofGetGraphId 0
-aclprofGetOpAttriValue 0
-aclprofGetOpFlag 0
-aclprofGetSupportedFeatures 0
-aclprofSetCategoryName 0
-aclprofSetStampCategory 0
-aclprofSetStampPayload 0
-aclrtResetD- 0
-aclrtSetDeviceWithoutTsdVXX 0
+ #include <acl/acl.h>
+#include <acl/acl_op.h>
+#include <acl/acl_rt.h>
+#include <acl/acl_op_compiler.h>
+#include "../../src/common.h"
+
+DEFFUNCV(aclAppLog);
 DEFFTYPE(void, aclAppLog, aclLogLevel logLevel, const char* func, const char* file, uint32_t line, const char* fmt, ...);
-DEFFUNCV(void, aclAppLog, aclLogLevel logLevel, const char* func, const char* file, uint32_t line, const char* fmt, ...);
+DEFFUNCV(aclCreateDataBuffer);
 DEFFTYPE(aclDataBuffer*, aclCreateDataBuffer, void* data, size_t size);
-DEFFUNCV(aclDataBuffer*, aclCreateDataBuffer, void* data, size_t size);
-DEFFTYPE(aclGraphDumpOption*, aclCreateGraphDumpOpt, );
-DEFFUNCV(aclGraphDumpOption*, aclCreateGraphDumpOpt, );
+DEFFUNCV(aclCreateGraphDumpOpt);
+DEFFTYPE(aclGraphDumpOption*, aclCreateGraphDumpOpt);
+DEFFUNCV(aclCreateTensorDesc);
 DEFFTYPE(aclTensorDesc*, aclCreateTensorDesc, aclDataType dataType, int numDims, const int64_t* dims, aclFormat format);
-DEFFUNCV(aclTensorDesc*, aclCreateTensorDesc, aclDataType dataType, int numDims, const int64_t* dims, aclFormat format);
+DEFFUNCV(aclDataTypeSize);
 DEFFTYPE(size_t, aclDataTypeSize, aclDataType dataType);
-DEFFUNCV(size_t, aclDataTypeSize, aclDataType dataType);
+DEFFUNCV(aclDestroyDataBuffer);
 DEFFTYPE(aclError, aclDestroyDataBuffer, const aclDataBuffer* dataBuffer);
-DEFFUNCV(aclError, aclDestroyDataBuffer, const aclDataBuffer* dataBuffer);
+DEFFUNCV(aclDestroyGraphDumpOpt);
 DEFFTYPE(aclError, aclDestroyGraphDumpOpt, const aclGraphDumpOption* graphDumpOpt);
-DEFFUNCV(aclError, aclDestroyGraphDumpOpt, const aclGraphDumpOption* graphDumpOpt);
+DEFFUNCV(aclDestroyTensorDesc);
 DEFFTYPE(void, aclDestroyTensorDesc, const aclTensorDesc* desc);
-DEFFUNCV(void, aclDestroyTensorDesc, const aclTensorDesc* desc);
-DEFFTYPE(aclError, aclFinalize, );
-DEFFUNCV(aclError, aclFinalize, );
+DEFFUNCV(aclFinalize);
+DEFFTYPE(aclError, aclFinalize);
+DEFFUNCV(aclFloat16ToFloat);
 DEFFTYPE(float, aclFloat16ToFloat, aclFloat16 value);
-DEFFUNCV(float, aclFloat16ToFloat, aclFloat16 value);
+DEFFUNCV(aclFloatToFloat16);
 DEFFTYPE(aclFloat16, aclFloatToFloat16, float value);
-DEFFUNCV(aclFloat16, aclFloatToFloat16, float value);
+DEFFUNCV(aclGenGraphAndDumpForOp);
 DEFFTYPE(aclError, aclGenGraphAndDumpForOp, const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], const aclDataBuffer* const inputs[], int numOutputs, const aclTensorDesc* const outputDesc[], aclDataBuffer* const outputs[], const aclopAttr* attr, aclopEngineType engineType, const char* graphDumpPath, const aclGraphDumpOption* graphDumpOpt);
-DEFFUNCV(aclError, aclGenGraphAndDumpForOp, const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], const aclDataBuffer* const inputs[], int numOutputs, const aclTensorDesc* const outputDesc[], aclDataBuffer* const outputs[], const aclopAttr* attr, aclopEngineType engineType, const char* graphDumpPath, const aclGraphDumpOption* graphDumpOpt);
+DEFFUNCV(aclGetCannAttribute);
 DEFFTYPE(aclError, aclGetCannAttribute, aclCannAttr cannAttr, int32_t* value);
-DEFFUNCV(aclError, aclGetCannAttribute, aclCannAttr cannAttr, int32_t* value);
+DEFFUNCV(aclGetCannAttributeList);
 DEFFTYPE(aclError, aclGetCannAttributeList, const aclCannAttr** cannAttrList, size_t* num);
-DEFFUNCV(aclError, aclGetCannAttributeList, const aclCannAttr** cannAttrList, size_t* num);
+DEFFUNCV(aclGetCompileopt);
 DEFFTYPE(aclError, aclGetCompileopt, aclCompileOpt opt, char* value, size_t length);
-DEFFUNCV(aclError, aclGetCompileopt, aclCompileOpt opt, char* value, size_t length);
+DEFFUNCV(aclGetCompileoptSize);
 DEFFTYPE(size_t, aclGetCompileoptSize, aclCompileOpt opt);
-DEFFUNCV(size_t, aclGetCompileoptSize, aclCompileOpt opt);
+DEFFUNCV(aclGetDataBufferAddr);
 DEFFTYPE(void*, aclGetDataBufferAddr, const aclDataBuffer* dataBuffer);
-DEFFUNCV(void*, aclGetDataBufferAddr, const aclDataBuffer* dataBuffer);
+DEFFUNCV(aclGetDataBufferSize);
 DEFFTYPE(uint32_t, aclGetDataBufferSize, const aclDataBuffer* dataBuffer);
-DEFFUNCV(uint32_t, aclGetDataBufferSize, const aclDataBuffer* dataBuffer);
+DEFFUNCV(aclGetDataBufferSizeV2);
 DEFFTYPE(size_t, aclGetDataBufferSizeV2, const aclDataBuffer* dataBuffer);
-DEFFUNCV(size_t, aclGetDataBufferSizeV2, const aclDataBuffer* dataBuffer);
+DEFFUNCV(aclGetDeviceCapability);
 DEFFTYPE(aclError, aclGetDeviceCapability, uint32_t deviceId, aclDeviceInfo deviceInfo, int64_t* value);
-DEFFUNCV(aclError, aclGetDeviceCapability, uint32_t deviceId, aclDeviceInfo deviceInfo, int64_t* value);
-DEFFTYPE(const char*, aclGetRecentErrMsg, );
-DEFFUNCV(const char*, aclGetRecentErrMsg, );
+DEFFUNCV(aclGetRecentErrMsg);
+DEFFTYPE(const char*, aclGetRecentErrMsg);
+DEFFUNCV(aclGetTensorDescAddress);
 DEFFTYPE(void*, aclGetTensorDescAddress, const aclTensorDesc* desc);
-DEFFUNCV(void*, aclGetTensorDescAddress, const aclTensorDesc* desc);
+DEFFUNCV(aclGetTensorDescByIndex);
 DEFFTYPE(aclTensorDesc*, aclGetTensorDescByIndex, aclTensorDesc* desc, size_t index);
-DEFFUNCV(aclTensorDesc*, aclGetTensorDescByIndex, aclTensorDesc* desc, size_t index);
+DEFFUNCV(aclGetTensorDescDim);
 DEFFTYPE(int64_t, aclGetTensorDescDim, const aclTensorDesc* desc, size_t index);
-DEFFUNCV(int64_t, aclGetTensorDescDim, const aclTensorDesc* desc, size_t index);
+DEFFUNCV(aclGetTensorDescDimRange);
 DEFFTYPE(aclError, aclGetTensorDescDimRange, const aclTensorDesc* desc, size_t index, size_t dimRangeNum, int64_t* dimRange);
-DEFFUNCV(aclError, aclGetTensorDescDimRange, const aclTensorDesc* desc, size_t index, size_t dimRangeNum, int64_t* dimRange);
+DEFFUNCV(aclGetTensorDescDimV2);
 DEFFTYPE(aclError, aclGetTensorDescDimV2, const aclTensorDesc* desc, size_t index, int64_t* dimSize);
-DEFFUNCV(aclError, aclGetTensorDescDimV2, const aclTensorDesc* desc, size_t index, int64_t* dimSize);
+DEFFUNCV(aclGetTensorDescElementCount);
 DEFFTYPE(size_t, aclGetTensorDescElementCount, const aclTensorDesc* desc);
-DEFFUNCV(size_t, aclGetTensorDescElementCount, const aclTensorDesc* desc);
+DEFFUNCV(aclGetTensorDescFormat);
 DEFFTYPE(aclFormat, aclGetTensorDescFormat, const aclTensorDesc* desc);
-DEFFUNCV(aclFormat, aclGetTensorDescFormat, const aclTensorDesc* desc);
+DEFFUNCV(aclGetTensorDescName);
 DEFFTYPE(const char*, aclGetTensorDescName, aclTensorDesc* desc);
-DEFFUNCV(const char*, aclGetTensorDescName, aclTensorDesc* desc);
+DEFFUNCV(aclGetTensorDescNumDims);
 DEFFTYPE(size_t, aclGetTensorDescNumDims, const aclTensorDesc* desc);
-DEFFUNCV(size_t, aclGetTensorDescNumDims, const aclTensorDesc* desc);
+DEFFUNCV(aclGetTensorDescSize);
 DEFFTYPE(size_t, aclGetTensorDescSize, const aclTensorDesc* desc);
-DEFFUNCV(size_t, aclGetTensorDescSize, const aclTensorDesc* desc);
+DEFFUNCV(aclGetTensorDescType);
 DEFFTYPE(aclDataType, aclGetTensorDescType, const aclTensorDesc* desc);
-DEFFUNCV(aclDataType, aclGetTensorDescType, const aclTensorDesc* desc);
+DEFFUNCV(aclInit);
 DEFFTYPE(aclError, aclInit, const char* configPath);
-DEFFUNCV(aclError, aclInit, const char* configPath);
 aclInitTensor cnt == 0
 aclRfft1D cnt == 0
 aclRfft1DGetWorkspaceSize cnt == 0
+DEFFUNCV(aclSetCompileopt);
 DEFFTYPE(aclError, aclSetCompileopt, aclCompileOpt opt, const char* value);
-DEFFUNCV(aclError, aclSetCompileopt, aclCompileOpt opt, const char* value);
+DEFFUNCV(aclSetTensorConst);
 DEFFTYPE(aclError, aclSetTensorConst, aclTensorDesc* desc, void* dataBuffer, size_t length);
-DEFFUNCV(aclError, aclSetTensorConst, aclTensorDesc* desc, void* dataBuffer, size_t length);
+DEFFUNCV(aclSetTensorDescName);
 DEFFTYPE(void, aclSetTensorDescName, aclTensorDesc* desc, const char* name);
-DEFFUNCV(void, aclSetTensorDescName, aclTensorDesc* desc, const char* name);
+DEFFUNCV(aclSetTensorDynamicInput);
 DEFFTYPE(aclError, aclSetTensorDynamicInput, aclTensorDesc* desc, const char* dynamicInputName);
-DEFFUNCV(aclError, aclSetTensorDynamicInput, aclTensorDesc* desc, const char* dynamicInputName);
+DEFFUNCV(aclSetTensorFormat);
 DEFFTYPE(aclError, aclSetTensorFormat, aclTensorDesc* desc, aclFormat format);
-DEFFUNCV(aclError, aclSetTensorFormat, aclTensorDesc* desc, aclFormat format);
+DEFFUNCV(aclSetTensorOriginFormat);
 DEFFTYPE(aclError, aclSetTensorOriginFormat, aclTensorDesc* desc, aclFormat format);
-DEFFUNCV(aclError, aclSetTensorOriginFormat, aclTensorDesc* desc, aclFormat format);
+DEFFUNCV(aclSetTensorOriginShape);
 DEFFTYPE(aclError, aclSetTensorOriginShape, aclTensorDesc* desc, int numDims, const int64_t* dims);
-DEFFUNCV(aclError, aclSetTensorOriginShape, aclTensorDesc* desc, int numDims, const int64_t* dims);
+DEFFUNCV(aclSetTensorPlaceMent);
 DEFFTYPE(aclError, aclSetTensorPlaceMent, aclTensorDesc* desc, aclMemType memType);
-DEFFUNCV(aclError, aclSetTensorPlaceMent, aclTensorDesc* desc, aclMemType memType);
+DEFFUNCV(aclSetTensorShape);
 DEFFTYPE(aclError, aclSetTensorShape, aclTensorDesc* desc, int numDims, const int64_t* dims);
-DEFFUNCV(aclError, aclSetTensorShape, aclTensorDesc* desc, int numDims, const int64_t* dims);
+DEFFUNCV(aclSetTensorShapeRange);
 DEFFTYPE(aclError, aclSetTensorShapeRange, aclTensorDesc* desc, size_t dimsCount, int64_t dimsRange[][ACL_TENSOR_SHAPE_RANGE_NUM]);
-DEFFUNCV(aclError, aclSetTensorShapeRange, aclTensorDesc* desc, size_t dimsCount, int64_t dimsRange[][ACL_TENSOR_SHAPE_RANGE_NUM]);
+DEFFUNCV(aclSetTensorStorageFormat);
 DEFFTYPE(aclError, aclSetTensorStorageFormat, aclTensorDesc* desc, aclFormat format);
-DEFFUNCV(aclError, aclSetTensorStorageFormat, aclTensorDesc* desc, aclFormat format);
+DEFFUNCV(aclSetTensorStorageShape);
 DEFFTYPE(aclError, aclSetTensorStorageShape, aclTensorDesc* desc, int numDims, const int64_t* dims);
-DEFFUNCV(aclError, aclSetTensorStorageShape, aclTensorDesc* desc, int numDims, const int64_t* dims);
+DEFFUNCV(aclSetTensorValueRange);
 DEFFTYPE(aclError, aclSetTensorValueRange, aclTensorDesc* desc, size_t valueCount, int64_t valueRange[][ACL_TENSOR_VALUE_RANGE_NUM]);
-DEFFUNCV(aclError, aclSetTensorValueRange, aclTensorDesc* desc, size_t valueCount, int64_t valueRange[][ACL_TENSOR_VALUE_RANGE_NUM]);
 aclStft cnt == 0
 aclStftGetWorkspaceSize cnt == 0
+DEFFUNCV(aclTransTensorDescFormat);
 DEFFTYPE(aclError, aclTransTensorDescFormat, const aclTensorDesc* srcDesc, aclFormat dstFormat, aclTensorDesc** dstDesc);
-DEFFUNCV(aclError, aclTransTensorDescFormat, const aclTensorDesc* srcDesc, aclFormat dstFormat, aclTensorDesc** dstDesc);
+DEFFUNCV(aclUpdateDataBuffer);
 DEFFTYPE(aclError, aclUpdateDataBuffer, aclDataBuffer* dataBuffer, void* data, size_t size);
-DEFFUNCV(aclError, aclUpdateDataBuffer, aclDataBuffer* dataBuffer, void* data, size_t size);
 acldumpRegCallback cnt == 0
 acldumpUnregCallback cnt == 0
 aclgrphProfGraphSubscribe cnt == 0
 aclgrphProfGraphUnSubscribe cnt == 0
+DEFFUNCV(aclmdlAddDatasetBuffer);
 DEFFTYPE(aclError, aclmdlAddDatasetBuffer, aclmdlDataset* dataset, aclDataBuffer* dataBuffer);
-DEFFUNCV(aclError, aclmdlAddDatasetBuffer, aclmdlDataset* dataset, aclDataBuffer* dataBuffer);
+DEFFUNCV(aclmdlCreateAIPP);
 DEFFTYPE(aclmdlAIPP*, aclmdlCreateAIPP, uint64_t batchSize);
-DEFFUNCV(aclmdlAIPP*, aclmdlCreateAIPP, uint64_t batchSize);
+DEFFUNCV(aclmdlCreateAndGetOpDesc);
 DEFFTYPE(aclError, aclmdlCreateAndGetOpDesc, uint32_t deviceId, uint32_t streamId, uint32_t taskId, char* opName, size_t opNameLen, aclTensorDesc** inputDesc, size_t* numInputs, aclTensorDesc** outputDesc, size_t* numOutputs);
-DEFFUNCV(aclError, aclmdlCreateAndGetOpDesc, uint32_t deviceId, uint32_t streamId, uint32_t taskId, char* opName, size_t opNameLen, aclTensorDesc** inputDesc, size_t* numInputs, aclTensorDesc** outputDesc, size_t* numOutputs);
-DEFFTYPE(aclmdlConfigHandle*, aclmdlCreateConfigHandle, );
-DEFFUNCV(aclmdlConfigHandle*, aclmdlCreateConfigHandle, );
-DEFFTYPE(aclmdlDataset*, aclmdlCreateDataset, );
-DEFFUNCV(aclmdlDataset*, aclmdlCreateDataset, );
-DEFFTYPE(aclmdlDesc*, aclmdlCreateDesc, );
-DEFFUNCV(aclmdlDesc*, aclmdlCreateDesc, );
-DEFFTYPE(aclmdlExecConfigHandle*, aclmdlCreateExecConfigHandle, );
-DEFFUNCV(aclmdlExecConfigHandle*, aclmdlCreateExecConfigHandle, );
+DEFFUNCV(aclmdlCreateConfigHandle);
+DEFFTYPE(aclmdlConfigHandle*, aclmdlCreateConfigHandle);
+DEFFUNCV(aclmdlCreateDataset);
+DEFFTYPE(aclmdlDataset*, aclmdlCreateDataset);
+DEFFUNCV(aclmdlCreateDesc);
+DEFFTYPE(aclmdlDesc*, aclmdlCreateDesc);
+DEFFUNCV(aclmdlCreateExecConfigHandle);
+DEFFTYPE(aclmdlExecConfigHandle*, aclmdlCreateExecConfigHandle);
+DEFFUNCV(aclmdlDestroyAIPP);
 DEFFTYPE(aclError, aclmdlDestroyAIPP, const aclmdlAIPP* aippParmsSet);
-DEFFUNCV(aclError, aclmdlDestroyAIPP, const aclmdlAIPP* aippParmsSet);
+DEFFUNCV(aclmdlDestroyConfigHandle);
 DEFFTYPE(aclError, aclmdlDestroyConfigHandle, aclmdlConfigHandle* handle);
-DEFFUNCV(aclError, aclmdlDestroyConfigHandle, aclmdlConfigHandle* handle);
+DEFFUNCV(aclmdlDestroyDataset);
 DEFFTYPE(aclError, aclmdlDestroyDataset, const aclmdlDataset* dataset);
-DEFFUNCV(aclError, aclmdlDestroyDataset, const aclmdlDataset* dataset);
+DEFFUNCV(aclmdlDestroyDesc);
 DEFFTYPE(aclError, aclmdlDestroyDesc, aclmdlDesc* modelDesc);
-DEFFUNCV(aclError, aclmdlDestroyDesc, aclmdlDesc* modelDesc);
+DEFFUNCV(aclmdlDestroyExecConfigHandle);
 DEFFTYPE(aclError, aclmdlDestroyExecConfigHandle, const aclmdlExecConfigHandle* handle);
-DEFFUNCV(aclError, aclmdlDestroyExecConfigHandle, const aclmdlExecConfigHandle* handle);
+DEFFUNCV(aclmdlExecute);
 DEFFTYPE(aclError, aclmdlExecute, uint32_t modelId, const aclmdlDataset* input, aclmdlDataset* output);
-DEFFUNCV(aclError, aclmdlExecute, uint32_t modelId, const aclmdlDataset* input, aclmdlDataset* output);
+DEFFUNCV(aclmdlExecuteAsync);
 DEFFTYPE(aclError, aclmdlExecuteAsync, uint32_t modelId, const aclmdlDataset* input, aclmdlDataset* output, aclrtStream stream);
-DEFFUNCV(aclError, aclmdlExecuteAsync, uint32_t modelId, const aclmdlDataset* input, aclmdlDataset* output, aclrtStream stream);
+DEFFUNCV(aclmdlExecuteV2);
 DEFFTYPE(aclError, aclmdlExecuteV2, uint32_t modelId, const aclmdlDataset* input, aclmdlDataset* output, aclrtStream stream, const aclmdlExecConfigHandle* handle);
-DEFFUNCV(aclError, aclmdlExecuteV2, uint32_t modelId, const aclmdlDataset* input, aclmdlDataset* output, aclrtStream stream, const aclmdlExecConfigHandle* handle);
-DEFFTYPE(aclError, aclmdlFinalizeDump, );
-DEFFUNCV(aclError, aclmdlFinalizeDump, );
+DEFFUNCV(aclmdlFinalizeDump);
+DEFFTYPE(aclError, aclmdlFinalizeDump);
+DEFFUNCV(aclmdlGetAippDataSize);
 DEFFTYPE(aclError, aclmdlGetAippDataSize, uint64_t batchSize, size_t* size);
-DEFFUNCV(aclError, aclmdlGetAippDataSize, uint64_t batchSize, size_t* size);
+DEFFUNCV(aclmdlGetAippType);
 DEFFTYPE(aclError, aclmdlGetAippType, uint32_t modelId, size_t index, aclmdlInputAippType* type, size_t* dynamicAttachedDataIndex);
-DEFFUNCV(aclError, aclmdlGetAippType, uint32_t modelId, size_t index, aclmdlInputAippType* type, size_t* dynamicAttachedDataIndex);
+DEFFUNCV(aclmdlGetCurOutputDims);
 DEFFTYPE(aclError, aclmdlGetCurOutputDims, const aclmdlDesc* modelDesc, size_t index, aclmdlIODims* dims);
-DEFFUNCV(aclError, aclmdlGetCurOutputDims, const aclmdlDesc* modelDesc, size_t index, aclmdlIODims* dims);
+DEFFUNCV(aclmdlGetDatasetBuffer);
 DEFFTYPE(aclDataBuffer*, aclmdlGetDatasetBuffer, const aclmdlDataset* dataset, size_t index);
-DEFFUNCV(aclDataBuffer*, aclmdlGetDatasetBuffer, const aclmdlDataset* dataset, size_t index);
+DEFFUNCV(aclmdlGetDatasetNumBuffers);
 DEFFTYPE(size_t, aclmdlGetDatasetNumBuffers, const aclmdlDataset* dataset);
-DEFFUNCV(size_t, aclmdlGetDatasetNumBuffers, const aclmdlDataset* dataset);
+DEFFUNCV(aclmdlGetDatasetTensorDesc);
 DEFFTYPE(aclTensorDesc*, aclmdlGetDatasetTensorDesc, const aclmdlDataset* dataset, size_t index);
-DEFFUNCV(aclTensorDesc*, aclmdlGetDatasetTensorDesc, const aclmdlDataset* dataset, size_t index);
+DEFFUNCV(aclmdlGetDesc);
 DEFFTYPE(aclError, aclmdlGetDesc, aclmdlDesc* modelDesc, uint32_t modelId);
-DEFFUNCV(aclError, aclmdlGetDesc, aclmdlDesc* modelDesc, uint32_t modelId);
+DEFFUNCV(aclmdlGetDynamicBatch);
 DEFFTYPE(aclError, aclmdlGetDynamicBatch, const aclmdlDesc* modelDesc, aclmdlBatch* batch);
-DEFFUNCV(aclError, aclmdlGetDynamicBatch, const aclmdlDesc* modelDesc, aclmdlBatch* batch);
+DEFFUNCV(aclmdlGetDynamicHW);
 DEFFTYPE(aclError, aclmdlGetDynamicHW, const aclmdlDesc* modelDesc, size_t index, aclmdlHW* hw);
-DEFFUNCV(aclError, aclmdlGetDynamicHW, const aclmdlDesc* modelDesc, size_t index, aclmdlHW* hw);
+DEFFUNCV(aclmdlGetFirstAippInfo);
 DEFFTYPE(aclError, aclmdlGetFirstAippInfo, uint32_t modelId, size_t index, aclAippInfo* aippInfo);
-DEFFUNCV(aclError, aclmdlGetFirstAippInfo, uint32_t modelId, size_t index, aclAippInfo* aippInfo);
+DEFFUNCV(aclmdlGetInputDataType);
 DEFFTYPE(aclDataType, aclmdlGetInputDataType, const aclmdlDesc* modelDesc, size_t index);
-DEFFUNCV(aclDataType, aclmdlGetInputDataType, const aclmdlDesc* modelDesc, size_t index);
+DEFFUNCV(aclmdlGetInputDims);
 DEFFTYPE(aclError, aclmdlGetInputDims, const aclmdlDesc* modelDesc, size_t index, aclmdlIODims* dims);
-DEFFUNCV(aclError, aclmdlGetInputDims, const aclmdlDesc* modelDesc, size_t index, aclmdlIODims* dims);
+DEFFUNCV(aclmdlGetInputDimsV2);
 DEFFTYPE(aclError, aclmdlGetInputDimsV2, const aclmdlDesc* modelDesc, size_t index, aclmdlIODims* dims);
-DEFFUNCV(aclError, aclmdlGetInputDimsV2, const aclmdlDesc* modelDesc, size_t index, aclmdlIODims* dims);
+DEFFUNCV(aclmdlGetInputDynamicDims);
 DEFFTYPE(aclError, aclmdlGetInputDynamicDims, const aclmdlDesc* modelDesc, size_t index, aclmdlIODims* dims, size_t gearCount);
-DEFFUNCV(aclError, aclmdlGetInputDynamicDims, const aclmdlDesc* modelDesc, size_t index, aclmdlIODims* dims, size_t gearCount);
+DEFFUNCV(aclmdlGetInputDynamicGearCount);
 DEFFTYPE(aclError, aclmdlGetInputDynamicGearCount, const aclmdlDesc* modelDesc, size_t index, size_t* gearCount);
-DEFFUNCV(aclError, aclmdlGetInputDynamicGearCount, const aclmdlDesc* modelDesc, size_t index, size_t* gearCount);
+DEFFUNCV(aclmdlGetInputFormat);
 DEFFTYPE(aclFormat, aclmdlGetInputFormat, const aclmdlDesc* modelDesc, size_t index);
-DEFFUNCV(aclFormat, aclmdlGetInputFormat, const aclmdlDesc* modelDesc, size_t index);
+DEFFUNCV(aclmdlGetInputIndexByName);
 DEFFTYPE(aclError, aclmdlGetInputIndexByName, const aclmdlDesc* modelDesc, const char* name, size_t* index);
-DEFFUNCV(aclError, aclmdlGetInputIndexByName, const aclmdlDesc* modelDesc, const char* name, size_t* index);
+DEFFUNCV(aclmdlGetInputNameByIndex);
 DEFFTYPE(const char*, aclmdlGetInputNameByIndex, const aclmdlDesc* modelDesc, size_t index);
-DEFFUNCV(const char*, aclmdlGetInputNameByIndex, const aclmdlDesc* modelDesc, size_t index);
+DEFFUNCV(aclmdlGetInputSizeByIndex);
 DEFFTYPE(size_t, aclmdlGetInputSizeByIndex, aclmdlDesc* modelDesc, size_t index);
-DEFFUNCV(size_t, aclmdlGetInputSizeByIndex, aclmdlDesc* modelDesc, size_t index);
+DEFFUNCV(aclmdlGetNumInputs);
 DEFFTYPE(size_t, aclmdlGetNumInputs, aclmdlDesc* modelDesc);
-DEFFUNCV(size_t, aclmdlGetNumInputs, aclmdlDesc* modelDesc);
+DEFFUNCV(aclmdlGetNumOutputs);
 DEFFTYPE(size_t, aclmdlGetNumOutputs, aclmdlDesc* modelDesc);
-DEFFUNCV(size_t, aclmdlGetNumOutputs, aclmdlDesc* modelDesc);
+DEFFUNCV(aclmdlGetOpAttr);
 DEFFTYPE(const char*, aclmdlGetOpAttr, aclmdlDesc* modelDesc, const char* opName, const char* attr);
-DEFFUNCV(const char*, aclmdlGetOpAttr, aclmdlDesc* modelDesc, const char* opName, const char* attr);
+DEFFUNCV(aclmdlGetOutputDataType);
 DEFFTYPE(aclDataType, aclmdlGetOutputDataType, const aclmdlDesc* modelDesc, size_t index);
-DEFFUNCV(aclDataType, aclmdlGetOutputDataType, const aclmdlDesc* modelDesc, size_t index);
+DEFFUNCV(aclmdlGetOutputDims);
 DEFFTYPE(aclError, aclmdlGetOutputDims, const aclmdlDesc* modelDesc, size_t index, aclmdlIODims* dims);
-DEFFUNCV(aclError, aclmdlGetOutputDims, const aclmdlDesc* modelDesc, size_t index, aclmdlIODims* dims);
+DEFFUNCV(aclmdlGetOutputFormat);
 DEFFTYPE(aclFormat, aclmdlGetOutputFormat, const aclmdlDesc* modelDesc, size_t index);
-DEFFUNCV(aclFormat, aclmdlGetOutputFormat, const aclmdlDesc* modelDesc, size_t index);
+DEFFUNCV(aclmdlGetOutputIndexByName);
 DEFFTYPE(aclError, aclmdlGetOutputIndexByName, const aclmdlDesc* modelDesc, const char* name, size_t* index);
-DEFFUNCV(aclError, aclmdlGetOutputIndexByName, const aclmdlDesc* modelDesc, const char* name, size_t* index);
+DEFFUNCV(aclmdlGetOutputNameByIndex);
 DEFFTYPE(const char*, aclmdlGetOutputNameByIndex, const aclmdlDesc* modelDesc, size_t index);
-DEFFUNCV(const char*, aclmdlGetOutputNameByIndex, const aclmdlDesc* modelDesc, size_t index);
+DEFFUNCV(aclmdlGetOutputSizeByIndex);
 DEFFTYPE(size_t, aclmdlGetOutputSizeByIndex, aclmdlDesc* modelDesc, size_t index);
-DEFFUNCV(size_t, aclmdlGetOutputSizeByIndex, aclmdlDesc* modelDesc, size_t index);
+DEFFUNCV(aclmdlGetTensorRealName);
 DEFFTYPE(const char*, aclmdlGetTensorRealName, const aclmdlDesc* modelDesc, const char* name);
-DEFFUNCV(const char*, aclmdlGetTensorRealName, const aclmdlDesc* modelDesc, const char* name);
-DEFFTYPE(aclError, aclmdlInitDump, );
-DEFFUNCV(aclError, aclmdlInitDump, );
+DEFFUNCV(aclmdlInitDump);
+DEFFTYPE(aclError, aclmdlInitDump);
+DEFFUNCV(aclmdlLoadFromFile);
 DEFFTYPE(aclError, aclmdlLoadFromFile, const char* modelPath, uint32_t* modelId);
-DEFFUNCV(aclError, aclmdlLoadFromFile, const char* modelPath, uint32_t* modelId);
+DEFFUNCV(aclmdlLoadFromFileWithMem);
 DEFFTYPE(aclError, aclmdlLoadFromFileWithMem, const char* modelPath, uint32_t* modelId, void* workPtr, size_t workSize, void* weightPtr, size_t weightSize);
-DEFFUNCV(aclError, aclmdlLoadFromFileWithMem, const char* modelPath, uint32_t* modelId, void* workPtr, size_t workSize, void* weightPtr, size_t weightSize);
+DEFFUNCV(aclmdlLoadFromFileWithQ);
 DEFFTYPE(aclError, aclmdlLoadFromFileWithQ, const char* modelPath, uint32_t* modelId, const uint32_t* inputQ, size_t inputQNum, const uint32_t* outputQ, size_t outputQNum);
-DEFFUNCV(aclError, aclmdlLoadFromFileWithQ, const char* modelPath, uint32_t* modelId, const uint32_t* inputQ, size_t inputQNum, const uint32_t* outputQ, size_t outputQNum);
+DEFFUNCV(aclmdlLoadFromMem);
 DEFFTYPE(aclError, aclmdlLoadFromMem, const void* model, size_t modelSize, uint32_t* modelId);
-DEFFUNCV(aclError, aclmdlLoadFromMem, const void* model, size_t modelSize, uint32_t* modelId);
+DEFFUNCV(aclmdlLoadFromMemWithMem);
 DEFFTYPE(aclError, aclmdlLoadFromMemWithMem, const void* model, size_t modelSize, uint32_t* modelId, void* workPtr, size_t workSize, void* weightPtr, size_t weightSize);
-DEFFUNCV(aclError, aclmdlLoadFromMemWithMem, const void* model, size_t modelSize, uint32_t* modelId, void* workPtr, size_t workSize, void* weightPtr, size_t weightSize);
+DEFFUNCV(aclmdlLoadFromMemWithQ);
 DEFFTYPE(aclError, aclmdlLoadFromMemWithQ, const void* model, size_t modelSize, uint32_t* modelId, const uint32_t* inputQ, size_t inputQNum, const uint32_t* outputQ, size_t outputQNum);
-DEFFUNCV(aclError, aclmdlLoadFromMemWithQ, const void* model, size_t modelSize, uint32_t* modelId, const uint32_t* inputQ, size_t inputQNum, const uint32_t* outputQ, size_t outputQNum);
+DEFFUNCV(aclmdlLoadWithConfig);
 DEFFTYPE(aclError, aclmdlLoadWithConfig, const aclmdlConfigHandle* handle, uint32_t* modelId);
-DEFFUNCV(aclError, aclmdlLoadWithConfig, const aclmdlConfigHandle* handle, uint32_t* modelId);
+DEFFUNCV(aclmdlQuerySize);
 DEFFTYPE(aclError, aclmdlQuerySize, const char* fileName, size_t* workSize, size_t* weightSize);
-DEFFUNCV(aclError, aclmdlQuerySize, const char* fileName, size_t* workSize, size_t* weightSize);
+DEFFUNCV(aclmdlQuerySizeFromMem);
 DEFFTYPE(aclError, aclmdlQuerySizeFromMem, const void* model, size_t modelSize, size_t* workSize, size_t* weightSize);
-DEFFUNCV(aclError, aclmdlQuerySizeFromMem, const void* model, size_t modelSize, size_t* workSize, size_t* weightSize);
+DEFFUNCV(aclmdlSetAIPPAxSwapSwitch);
 DEFFTYPE(aclError, aclmdlSetAIPPAxSwapSwitch, aclmdlAIPP* aippParmsSet, int8_t axSwapSwitch);
-DEFFUNCV(aclError, aclmdlSetAIPPAxSwapSwitch, aclmdlAIPP* aippParmsSet, int8_t axSwapSwitch);
+DEFFUNCV(aclmdlSetAIPPByInputIndex);
 DEFFTYPE(aclError, aclmdlSetAIPPByInputIndex, uint32_t modelId, aclmdlDataset* dataset, size_t index, const aclmdlAIPP* aippParmsSet);
-DEFFUNCV(aclError, aclmdlSetAIPPByInputIndex, uint32_t modelId, aclmdlDataset* dataset, size_t index, const aclmdlAIPP* aippParmsSet);
+DEFFUNCV(aclmdlSetAIPPCropParams);
 DEFFTYPE(aclError, aclmdlSetAIPPCropParams, aclmdlAIPP* aippParmsSet, int8_t cropSwitch, int32_t cropStartPosW, int32_t cropStartPosH, int32_t cropSizeW, int32_t cropSizeH, uint64_t batchIndex);
-DEFFUNCV(aclError, aclmdlSetAIPPCropParams, aclmdlAIPP* aippParmsSet, int8_t cropSwitch, int32_t cropStartPosW, int32_t cropStartPosH, int32_t cropSizeW, int32_t cropSizeH, uint64_t batchIndex);
+DEFFUNCV(aclmdlSetAIPPCscParams);
 DEFFTYPE(aclError, aclmdlSetAIPPCscParams, aclmdlAIPP* aippParmsSet, int8_t cscSwitch, int16_t cscMatrixR0C0, int16_t cscMatrixR0C1, int16_t cscMatrixR0C2, int16_t cscMatrixR1C0, int16_t cscMatrixR1C1, int16_t cscMatrixR1C2, int16_t cscMatrixR2C0, int16_t cscMatrixR2C1, int16_t cscMatrixR2C2, uint8_t cscOutputBiasR0, uint8_t cscOutputBiasR1, uint8_t cscOutputBiasR2, uint8_t cscInputBiasR0, uint8_t cscInputBiasR1, uint8_t cscInputBiasR2);
-DEFFUNCV(aclError, aclmdlSetAIPPCscParams, aclmdlAIPP* aippParmsSet, int8_t cscSwitch, int16_t cscMatrixR0C0, int16_t cscMatrixR0C1, int16_t cscMatrixR0C2, int16_t cscMatrixR1C0, int16_t cscMatrixR1C1, int16_t cscMatrixR1C2, int16_t cscMatrixR2C0, int16_t cscMatrixR2C1, int16_t cscMatrixR2C2, uint8_t cscOutputBiasR0, uint8_t cscOutputBiasR1, uint8_t cscOutputBiasR2, uint8_t cscInputBiasR0, uint8_t cscInputBiasR1, uint8_t cscInputBiasR2);
+DEFFUNCV(aclmdlSetAIPPDtcPixelMean);
 DEFFTYPE(aclError, aclmdlSetAIPPDtcPixelMean, aclmdlAIPP* aippParmsSet, int16_t dtcPixelMeanChn0, int16_t dtcPixelMeanChn1, int16_t dtcPixelMeanChn2, int16_t dtcPixelMeanChn3, uint64_t batchIndex);
-DEFFUNCV(aclError, aclmdlSetAIPPDtcPixelMean, aclmdlAIPP* aippParmsSet, int16_t dtcPixelMeanChn0, int16_t dtcPixelMeanChn1, int16_t dtcPixelMeanChn2, int16_t dtcPixelMeanChn3, uint64_t batchIndex);
+DEFFUNCV(aclmdlSetAIPPDtcPixelMin);
 DEFFTYPE(aclError, aclmdlSetAIPPDtcPixelMin, aclmdlAIPP* aippParmsSet, float dtcPixelMinChn0, float dtcPixelMinChn1, float dtcPixelMinChn2, float dtcPixelMinChn3, uint64_t batchIndex);
-DEFFUNCV(aclError, aclmdlSetAIPPDtcPixelMin, aclmdlAIPP* aippParmsSet, float dtcPixelMinChn0, float dtcPixelMinChn1, float dtcPixelMinChn2, float dtcPixelMinChn3, uint64_t batchIndex);
+DEFFUNCV(aclmdlSetAIPPInputFormat);
 DEFFTYPE(aclError, aclmdlSetAIPPInputFormat, aclmdlAIPP* aippParmsSet, aclAippInputFormat inputFormat);
-DEFFUNCV(aclError, aclmdlSetAIPPInputFormat, aclmdlAIPP* aippParmsSet, aclAippInputFormat inputFormat);
+DEFFUNCV(aclmdlSetAIPPPaddingParams);
 DEFFTYPE(aclError, aclmdlSetAIPPPaddingParams, aclmdlAIPP* aippParmsSet, int8_t paddingSwitch, int32_t paddingSizeTop, int32_t paddingSizeBottom, int32_t paddingSizeLeft, int32_t paddingSizeRight, uint64_t batchIndex);
-DEFFUNCV(aclError, aclmdlSetAIPPPaddingParams, aclmdlAIPP* aippParmsSet, int8_t paddingSwitch, int32_t paddingSizeTop, int32_t paddingSizeBottom, int32_t paddingSizeLeft, int32_t paddingSizeRight, uint64_t batchIndex);
+DEFFUNCV(aclmdlSetAIPPPixelVarReci);
 DEFFTYPE(aclError, aclmdlSetAIPPPixelVarReci, aclmdlAIPP* aippParmsSet, float dtcPixelVarReciChn0, float dtcPixelVarReciChn1, float dtcPixelVarReciChn2, float dtcPixelVarReciChn3, uint64_t batchIndex);
-DEFFUNCV(aclError, aclmdlSetAIPPPixelVarReci, aclmdlAIPP* aippParmsSet, float dtcPixelVarReciChn0, float dtcPixelVarReciChn1, float dtcPixelVarReciChn2, float dtcPixelVarReciChn3, uint64_t batchIndex);
+DEFFUNCV(aclmdlSetAIPPRbuvSwapSwitch);
 DEFFTYPE(aclError, aclmdlSetAIPPRbuvSwapSwitch, aclmdlAIPP* aippParmsSet, int8_t rbuvSwapSwitch);
-DEFFUNCV(aclError, aclmdlSetAIPPRbuvSwapSwitch, aclmdlAIPP* aippParmsSet, int8_t rbuvSwapSwitch);
+DEFFUNCV(aclmdlSetAIPPScfParams);
 DEFFTYPE(aclError, aclmdlSetAIPPScfParams, aclmdlAIPP* aippParmsSet, int8_t scfSwitch, int32_t scfInputSizeW, int32_t scfInputSizeH, int32_t scfOutputSizeW, int32_t scfOutputSizeH, uint64_t batchIndex);
-DEFFUNCV(aclError, aclmdlSetAIPPScfParams, aclmdlAIPP* aippParmsSet, int8_t scfSwitch, int32_t scfInputSizeW, int32_t scfInputSizeH, int32_t scfOutputSizeW, int32_t scfOutputSizeH, uint64_t batchIndex);
+DEFFUNCV(aclmdlSetAIPPSrcImageSize);
 DEFFTYPE(aclError, aclmdlSetAIPPSrcImageSize, aclmdlAIPP* aippParmsSet, int32_t srcImageSizeW, int32_t srcImageSizeH);
-DEFFUNCV(aclError, aclmdlSetAIPPSrcImageSize, aclmdlAIPP* aippParmsSet, int32_t srcImageSizeW, int32_t srcImageSizeH);
+DEFFUNCV(aclmdlSetConfigOpt);
 DEFFTYPE(aclError, aclmdlSetConfigOpt, aclmdlConfigHandle* handle, aclmdlConfigAttr attr, const void* attrValue, size_t valueSize);
-DEFFUNCV(aclError, aclmdlSetConfigOpt, aclmdlConfigHandle* handle, aclmdlConfigAttr attr, const void* attrValue, size_t valueSize);
+DEFFUNCV(aclmdlSetDatasetTensorDesc);
 DEFFTYPE(aclError, aclmdlSetDatasetTensorDesc, aclmdlDataset* dataset, aclTensorDesc* tensorDesc, size_t index);
-DEFFUNCV(aclError, aclmdlSetDatasetTensorDesc, aclmdlDataset* dataset, aclTensorDesc* tensorDesc, size_t index);
+DEFFUNCV(aclmdlSetDump);
 DEFFTYPE(aclError, aclmdlSetDump, const char* dumpCfgPath);
-DEFFUNCV(aclError, aclmdlSetDump, const char* dumpCfgPath);
+DEFFUNCV(aclmdlSetDynamicBatchSize);
 DEFFTYPE(aclError, aclmdlSetDynamicBatchSize, uint32_t modelId, aclmdlDataset* dataset, size_t index, uint64_t batchSize);
-DEFFUNCV(aclError, aclmdlSetDynamicBatchSize, uint32_t modelId, aclmdlDataset* dataset, size_t index, uint64_t batchSize);
+DEFFUNCV(aclmdlSetDynamicHWSize);
 DEFFTYPE(aclError, aclmdlSetDynamicHWSize, uint32_t modelId, aclmdlDataset* dataset, size_t index, uint64_t height, uint64_t width);
-DEFFUNCV(aclError, aclmdlSetDynamicHWSize, uint32_t modelId, aclmdlDataset* dataset, size_t index, uint64_t height, uint64_t width);
+DEFFUNCV(aclmdlSetExecConfigOpt);
 DEFFTYPE(aclError, aclmdlSetExecConfigOpt, aclmdlExecConfigHandle* handle, aclmdlExecConfigAttr attr, const void* attrValue, size_t valueSize);
-DEFFUNCV(aclError, aclmdlSetExecConfigOpt, aclmdlExecConfigHandle* handle, aclmdlExecConfigAttr attr, const void* attrValue, size_t valueSize);
+DEFFUNCV(aclmdlSetInputAIPP);
 DEFFTYPE(aclError, aclmdlSetInputAIPP, uint32_t modelId, aclmdlDataset* dataset, size_t index, const aclmdlAIPP* aippParmsSet);
-DEFFUNCV(aclError, aclmdlSetInputAIPP, uint32_t modelId, aclmdlDataset* dataset, size_t index, const aclmdlAIPP* aippParmsSet);
+DEFFUNCV(aclmdlSetInputDynamicDims);
 DEFFTYPE(aclError, aclmdlSetInputDynamicDims, uint32_t modelId, aclmdlDataset* dataset, size_t index, const aclmdlIODims* dims);
-DEFFUNCV(aclError, aclmdlSetInputDynamicDims, uint32_t modelId, aclmdlDataset* dataset, size_t index, const aclmdlIODims* dims);
+DEFFUNCV(aclmdlUnload);
 DEFFTYPE(aclError, aclmdlUnload, uint32_t modelId);
-DEFFUNCV(aclError, aclmdlUnload, uint32_t modelId);
+DEFFUNCV(aclopCast);
 DEFFTYPE(aclError, aclopCast, const aclTensorDesc* srcDesc, const aclDataBuffer* srcBuffer, const aclTensorDesc* dstDesc, aclDataBuffer* dstBuffer, uint8_t truncate, aclrtStream stream);
-DEFFUNCV(aclError, aclopCast, const aclTensorDesc* srcDesc, const aclDataBuffer* srcBuffer, const aclTensorDesc* dstDesc, aclDataBuffer* dstBuffer, uint8_t truncate, aclrtStream stream);
+DEFFUNCV(aclopCompile);
 DEFFTYPE(aclError, aclopCompile, const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], int numOutputs, const aclTensorDesc* const outputDesc[], const aclopAttr* attr, aclopEngineType engineType, aclopCompileType compileFlag, const char* opPath);
-DEFFUNCV(aclError, aclopCompile, const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], int numOutputs, const aclTensorDesc* const outputDesc[], const aclopAttr* attr, aclopEngineType engineType, aclopCompileType compileFlag, const char* opPath);
+DEFFUNCV(aclopCompileAndExecute);
 DEFFTYPE(aclError, aclopCompileAndExecute, const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], const aclDataBuffer* const inputs[], int numOutputs, const aclTensorDesc* const outputDesc[], aclDataBuffer* const outputs[], const aclopAttr* attr, aclopEngineType engineType, aclopCompileType compileFlag, const char* opPath, aclrtStream stream);
-DEFFUNCV(aclError, aclopCompileAndExecute, const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], const aclDataBuffer* const inputs[], int numOutputs, const aclTensorDesc* const outputDesc[], aclDataBuffer* const outputs[], const aclopAttr* attr, aclopEngineType engineType, aclopCompileType compileFlag, const char* opPath, aclrtStream stream);
+DEFFUNCV(aclopCompileAndExecuteV2);
 DEFFTYPE(aclError, aclopCompileAndExecuteV2, const char* opType, int numInputs, aclTensorDesc* inputDesc[], aclDataBuffer* inputs[], int numOutputs, aclTensorDesc* outputDesc[], aclDataBuffer* outputs[], aclopAttr* attr, aclopEngineType engineType, aclopCompileType compileFlag, const char* opPath, aclrtStream stream);
-DEFFUNCV(aclError, aclopCompileAndExecuteV2, const char* opType, int numInputs, aclTensorDesc* inputDesc[], aclDataBuffer* inputs[], int numOutputs, aclTensorDesc* outputDesc[], aclDataBuffer* outputs[], aclopAttr* attr, aclopEngineType engineType, aclopCompileType compileFlag, const char* opPath, aclrtStream stream);
-DEFFTYPE(aclopAttr*, aclopCreateAttr, );
-DEFFUNCV(aclopAttr*, aclopCreateAttr, );
+DEFFUNCV(aclopCreateAttr);
+DEFFTYPE(aclopAttr*, aclopCreateAttr);
+DEFFUNCV(aclopCreateHandle);
 DEFFTYPE(aclError, aclopCreateHandle, const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], int numOutputs, const aclTensorDesc* const outputDesc[], const aclopAttr* opAttr, aclopHandle** handle);
-DEFFUNCV(aclError, aclopCreateHandle, const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], int numOutputs, const aclTensorDesc* const outputDesc[], const aclopAttr* opAttr, aclopHandle** handle);
+DEFFUNCV(aclopCreateHandleForCast);
 DEFFTYPE(aclError, aclopCreateHandleForCast, aclTensorDesc* srcDesc, aclTensorDesc* dstDesc, uint8_t truncate, aclopHandle** handle);
-DEFFUNCV(aclError, aclopCreateHandleForCast, aclTensorDesc* srcDesc, aclTensorDesc* dstDesc, uint8_t truncate, aclopHandle** handle);
+DEFFUNCV(aclopCreateKernel);
 DEFFTYPE(aclError, aclopCreateKernel, const char* opType, const char* kernelId, const char* kernelName, void* binData, int binSize, aclopEngineType enginetype, aclDataDeallocator deallocator);
-DEFFUNCV(aclError, aclopCreateKernel, const char* opType, const char* kernelId, const char* kernelName, void* binData, int binSize, aclopEngineType enginetype, aclDataDeallocator deallocator);
+DEFFUNCV(aclopDestroyAttr);
 DEFFTYPE(void, aclopDestroyAttr, const aclopAttr* attr);
-DEFFUNCV(void, aclopDestroyAttr, const aclopAttr* attr);
+DEFFUNCV(aclopDestroyHandle);
 DEFFTYPE(void, aclopDestroyHandle, aclopHandle* handle);
-DEFFUNCV(void, aclopDestroyHandle, aclopHandle* handle);
+DEFFUNCV(aclopExecWithHandle);
 DEFFTYPE(aclError, aclopExecWithHandle, aclopHandle* handle, int numInputs, const aclDataBuffer* const inputs[], int numOutputs, aclDataBuffer* const outputs[], aclrtStream stream);
-DEFFUNCV(aclError, aclopExecWithHandle, aclopHandle* handle, int numInputs, const aclDataBuffer* const inputs[], int numOutputs, aclDataBuffer* const outputs[], aclrtStream stream);
+DEFFUNCV(aclopExecute);
 DEFFTYPE(aclError, aclopExecute, const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], const aclDataBuffer* const inputs[], int numOutputs, const aclTensorDesc* const outputDesc[], aclDataBuffer* const outputs[], const aclopAttr* attr, aclrtStream stream);
-DEFFUNCV(aclError, aclopExecute, const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], const aclDataBuffer* const inputs[], int numOutputs, const aclTensorDesc* const outputDesc[], aclDataBuffer* const outputs[], const aclopAttr* attr, aclrtStream stream);
+DEFFUNCV(aclopExecuteV2);
 DEFFTYPE(aclError, aclopExecuteV2, const char* opType, int numInputs, aclTensorDesc* inputDesc[], aclDataBuffer* inputs[], int numOutputs, aclTensorDesc* outputDesc[], aclDataBuffer* outputs[], aclopAttr* attr, aclrtStream stream);
-DEFFUNCV(aclError, aclopExecuteV2, const char* opType, int numInputs, aclTensorDesc* inputDesc[], aclDataBuffer* inputs[], int numOutputs, aclTensorDesc* outputDesc[], aclDataBuffer* outputs[], aclopAttr* attr, aclrtStream stream);
+DEFFUNCV(aclopInferShape);
 DEFFTYPE(aclError, aclopInferShape, const char* opType, int numInputs, aclTensorDesc* inputDesc[], aclDataBuffer* inputs[], int numOutputs, aclTensorDesc* outputDesc[], aclopAttr* attr);
-DEFFUNCV(aclError, aclopInferShape, const char* opType, int numInputs, aclTensorDesc* inputDesc[], aclDataBuffer* inputs[], int numOutputs, aclTensorDesc* outputDesc[], aclopAttr* attr);
+DEFFUNCV(aclopLoad);
 DEFFTYPE(aclError, aclopLoad, const void* model, size_t modelSize);
-DEFFUNCV(aclError, aclopLoad, const void* model, size_t modelSize);
+DEFFUNCV(aclopRegisterCompileFunc);
 DEFFTYPE(aclError, aclopRegisterCompileFunc, const char* opType, aclopCompileFunc func);
-DEFFUNCV(aclError, aclopRegisterCompileFunc, const char* opType, aclopCompileFunc func);
+DEFFUNCV(aclopSetAttrBool);
 DEFFTYPE(aclError, aclopSetAttrBool, aclopAttr* attr, const char* attrName, uint8_t attrValue);
-DEFFUNCV(aclError, aclopSetAttrBool, aclopAttr* attr, const char* attrName, uint8_t attrValue);
+DEFFUNCV(aclopSetAttrDataType);
 DEFFTYPE(aclError, aclopSetAttrDataType, aclopAttr* attr, const char* attrName, aclDataType attrValue);
-DEFFUNCV(aclError, aclopSetAttrDataType, aclopAttr* attr, const char* attrName, aclDataType attrValue);
+DEFFUNCV(aclopSetAttrFloat);
 DEFFTYPE(aclError, aclopSetAttrFloat, aclopAttr* attr, const char* attrName, float attrValue);
-DEFFUNCV(aclError, aclopSetAttrFloat, aclopAttr* attr, const char* attrName, float attrValue);
+DEFFUNCV(aclopSetAttrInt);
 DEFFTYPE(aclError, aclopSetAttrInt, aclopAttr* attr, const char* attrName, int64_t attrValue);
-DEFFUNCV(aclError, aclopSetAttrInt, aclopAttr* attr, const char* attrName, int64_t attrValue);
+DEFFUNCV(aclopSetAttrListBool);
 DEFFTYPE(aclError, aclopSetAttrListBool, aclopAttr* attr, const char* attrName, int numValues, const uint8_t* values);
-DEFFUNCV(aclError, aclopSetAttrListBool, aclopAttr* attr, const char* attrName, int numValues, const uint8_t* values);
+DEFFUNCV(aclopSetAttrListDataType);
 DEFFTYPE(aclError, aclopSetAttrListDataType, aclopAttr* attr, const char* attrName, int numValues, const aclDataType values[]);
-DEFFUNCV(aclError, aclopSetAttrListDataType, aclopAttr* attr, const char* attrName, int numValues, const aclDataType values[]);
+DEFFUNCV(aclopSetAttrListFloat);
 DEFFTYPE(aclError, aclopSetAttrListFloat, aclopAttr* attr, const char* attrName, int numValues, const float* values);
-DEFFUNCV(aclError, aclopSetAttrListFloat, aclopAttr* attr, const char* attrName, int numValues, const float* values);
+DEFFUNCV(aclopSetAttrListInt);
 DEFFTYPE(aclError, aclopSetAttrListInt, aclopAttr* attr, const char* attrName, int numValues, const int64_t* values);
-DEFFUNCV(aclError, aclopSetAttrListInt, aclopAttr* attr, const char* attrName, int numValues, const int64_t* values);
+DEFFUNCV(aclopSetAttrListListInt);
 DEFFTYPE(aclError, aclopSetAttrListListInt, aclopAttr* attr, const char* attrName, int numLists, const int* numValues, const int64_t* const values[]);
-DEFFUNCV(aclError, aclopSetAttrListListInt, aclopAttr* attr, const char* attrName, int numLists, const int* numValues, const int64_t* const values[]);
+DEFFUNCV(aclopSetAttrListString);
 DEFFTYPE(aclError, aclopSetAttrListString, aclopAttr* attr, const char* attrName, int numValues, const char** values);
-DEFFUNCV(aclError, aclopSetAttrListString, aclopAttr* attr, const char* attrName, int numValues, const char** values);
+DEFFUNCV(aclopSetAttrString);
 DEFFTYPE(aclError, aclopSetAttrString, aclopAttr* attr, const char* attrName, const char* attrValue);
-DEFFUNCV(aclError, aclopSetAttrString, aclopAttr* attr, const char* attrName, const char* attrValue);
+DEFFUNCV(aclopSetCompileFlag);
 DEFFTYPE(aclError, aclopSetCompileFlag, aclOpCompileFlag flag);
-DEFFUNCV(aclError, aclopSetCompileFlag, aclOpCompileFlag flag);
+DEFFUNCV(aclopSetKernelArgs);
 DEFFTYPE(aclError, aclopSetKernelArgs, aclopKernelDesc* kernelDesc, const char* kernelId, uint32_t blockDim, const void* args, uint32_t argSize);
-DEFFUNCV(aclError, aclopSetKernelArgs, aclopKernelDesc* kernelDesc, const char* kernelId, uint32_t blockDim, const void* args, uint32_t argSize);
+DEFFUNCV(aclopSetKernelWorkspaceSizes);
 DEFFTYPE(aclError, aclopSetKernelWorkspaceSizes, aclopKernelDesc* kernelDesc, int numWorkspaces, size_t* workspaceSizes);
-DEFFUNCV(aclError, aclopSetKernelWorkspaceSizes, aclopKernelDesc* kernelDesc, int numWorkspaces, size_t* workspaceSizes);
+DEFFUNCV(aclopSetModelDir);
 DEFFTYPE(aclError, aclopSetModelDir, const char* modelDir);
-DEFFUNCV(aclError, aclopSetModelDir, const char* modelDir);
+DEFFUNCV(aclopStartDumpArgs);
 DEFFTYPE(aclError, aclopStartDumpArgs, uint32_t dumpType, const char* path);
-DEFFUNCV(aclError, aclopStartDumpArgs, uint32_t dumpType, const char* path);
+DEFFUNCV(aclopStopDumpArgs);
 DEFFTYPE(aclError, aclopStopDumpArgs, uint32_t dumpType);
-DEFFUNCV(aclError, aclopStopDumpArgs, uint32_t dumpType);
+DEFFUNCV(aclopUnregisterCompileFunc);
 DEFFTYPE(aclError, aclopUnregisterCompileFunc, const char* opType);
-DEFFUNCV(aclError, aclopUnregisterCompileFunc, const char* opType);
+DEFFUNCV(aclopUpdateParams);
 DEFFTYPE(aclError, aclopUpdateParams, const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], int numOutputs, const aclTensorDesc* const outputDesc[], const aclopAttr* attr);
-DEFFUNCV(aclError, aclopUpdateParams, const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], int numOutputs, const aclTensorDesc* const outputDesc[], const aclopAttr* attr);
+DEFFUNCV(aclprofCreateConfig);
 DEFFTYPE(aclprofConfig*, aclprofCreateConfig, uint32_t* deviceIdList, uint32_t deviceNums, aclprofAicoreMetrics aicoreMetrics, aclprofAicoreEvents* aicoreEvents, uint64_t dataTypeConfig);
-DEFFUNCV(aclprofConfig*, aclprofCreateConfig, uint32_t* deviceIdList, uint32_t deviceNums, aclprofAicoreMetrics aicoreMetrics, aclprofAicoreEvents* aicoreEvents, uint64_t dataTypeConfig);
-DEFFTYPE(void*, aclprofCreateStamp, void);
-DEFFUNCV(void*, aclprofCreateStamp, void);
-DEFFTYPE(aclprofStepInfo*, aclprofCreateStepInfo, void);
-DEFFUNCV(aclprofStepInfo*, aclprofCreateStepInfo, void);
+DEFFUNCV(aclprofCreateStamp);
+DEFFTYPE(void*, aclprofCreateStamp);
+DEFFUNCV(aclprofCreateStepInfo);
+DEFFTYPE(aclprofStepInfo*, aclprofCreateStepInfo);
+DEFFUNCV(aclprofCreateSubscribeConfig);
 DEFFTYPE(aclprofSubscribeConfig*, aclprofCreateSubscribeConfig, int8_t timeInfoSwitch, aclprofAicoreMetrics aicoreMetrics, void* fd);
-DEFFUNCV(aclprofSubscribeConfig*, aclprofCreateSubscribeConfig, int8_t timeInfoSwitch, aclprofAicoreMetrics aicoreMetrics, void* fd);
+DEFFUNCV(aclprofDestroyConfig);
 DEFFTYPE(aclError, aclprofDestroyConfig, const aclprofConfig* profilerConfig);
-DEFFUNCV(aclError, aclprofDestroyConfig, const aclprofConfig* profilerConfig);
+DEFFUNCV(aclprofDestroyStamp);
 DEFFTYPE(void, aclprofDestroyStamp, void* stamp);
-DEFFUNCV(void, aclprofDestroyStamp, void* stamp);
+DEFFUNCV(aclprofDestroyStepInfo);
 DEFFTYPE(void, aclprofDestroyStepInfo, aclprofStepInfo* stepinfo);
-DEFFUNCV(void, aclprofDestroyStepInfo, aclprofStepInfo* stepinfo);
+DEFFUNCV(aclprofDestroySubscribeConfig);
 DEFFTYPE(aclError, aclprofDestroySubscribeConfig, const aclprofSubscribeConfig* profSubscribeConfig);
-DEFFUNCV(aclError, aclprofDestroySubscribeConfig, const aclprofSubscribeConfig* profSubscribeConfig);
-DEFFTYPE(aclError, aclprofFinalize, );
-DEFFUNCV(aclError, aclprofFinalize, );
+DEFFUNCV(aclprofFinalize);
+DEFFTYPE(aclError, aclprofFinalize);
 aclprofGetGraphId cnt == 0
+DEFFUNCV(aclprofGetModelId);
 DEFFTYPE(size_t, aclprofGetModelId, const void* opInfo, size_t opInfoLen, uint32_t index);
-DEFFUNCV(size_t, aclprofGetModelId, const void* opInfo, size_t opInfoLen, uint32_t index);
 aclprofGetOpAttriValue cnt == 0
+DEFFUNCV(aclprofGetOpDescSize);
 DEFFTYPE(aclError, aclprofGetOpDescSize, size_t* opDescSize);
-DEFFUNCV(aclError, aclprofGetOpDescSize, size_t* opDescSize);
+DEFFUNCV(aclprofGetOpDuration);
 DEFFTYPE(uint64_t, aclprofGetOpDuration, const void* opInfo, size_t opInfoLen, uint32_t index);
-DEFFUNCV(uint64_t, aclprofGetOpDuration, const void* opInfo, size_t opInfoLen, uint32_t index);
+DEFFUNCV(aclprofGetOpEnd);
 DEFFTYPE(uint64_t, aclprofGetOpEnd, const void* opInfo, size_t opInfoLen, uint32_t index);
-DEFFUNCV(uint64_t, aclprofGetOpEnd, const void* opInfo, size_t opInfoLen, uint32_t index);
 aclprofGetOpFlag cnt == 0
+DEFFUNCV(aclprofGetOpName);
 DEFFTYPE(aclError, aclprofGetOpName, const void* opInfo, size_t opInfoLen, uint32_t index, char* opName, size_t opNameLen);
-DEFFUNCV(aclError, aclprofGetOpName, const void* opInfo, size_t opInfoLen, uint32_t index, char* opName, size_t opNameLen);
+DEFFUNCV(aclprofGetOpNameLen);
 DEFFTYPE(aclError, aclprofGetOpNameLen, const void* opInfo, size_t opInfoLen, uint32_t index, size_t* opNameLen);
-DEFFUNCV(aclError, aclprofGetOpNameLen, const void* opInfo, size_t opInfoLen, uint32_t index, size_t* opNameLen);
+DEFFUNCV(aclprofGetOpNum);
 DEFFTYPE(aclError, aclprofGetOpNum, const void* opInfo, size_t opInfoLen, uint32_t* opNumber);
-DEFFUNCV(aclError, aclprofGetOpNum, const void* opInfo, size_t opInfoLen, uint32_t* opNumber);
+DEFFUNCV(aclprofGetOpStart);
 DEFFTYPE(uint64_t, aclprofGetOpStart, const void* opInfo, size_t opInfoLen, uint32_t index);
-DEFFUNCV(uint64_t, aclprofGetOpStart, const void* opInfo, size_t opInfoLen, uint32_t index);
+DEFFUNCV(aclprofGetOpType);
 DEFFTYPE(aclError, aclprofGetOpType, const void* opInfo, size_t opInfoLen, uint32_t index, char* opType, size_t opTypeLen);
-DEFFUNCV(aclError, aclprofGetOpType, const void* opInfo, size_t opInfoLen, uint32_t index, char* opType, size_t opTypeLen);
+DEFFUNCV(aclprofGetOpTypeLen);
 DEFFTYPE(aclError, aclprofGetOpTypeLen, const void* opInfo, size_t opInfoLen, uint32_t index, size_t* opTypeLen);
-DEFFUNCV(aclError, aclprofGetOpTypeLen, const void* opInfo, size_t opInfoLen, uint32_t index, size_t* opTypeLen);
+DEFFUNCV(aclprofGetStepTimestamp);
 DEFFTYPE(aclError, aclprofGetStepTimestamp, aclprofStepInfo* stepInfo, aclprofStepTag tag, aclrtStream stream);
-DEFFUNCV(aclError, aclprofGetStepTimestamp, aclprofStepInfo* stepInfo, aclprofStepTag tag, aclrtStream stream);
 aclprofGetSupportedFeatures cnt == 0
+DEFFUNCV(aclprofInit);
 DEFFTYPE(aclError, aclprofInit, const char* profilerResultPath, size_t length);
-DEFFUNCV(aclError, aclprofInit, const char* profilerResultPath, size_t length);
+DEFFUNCV(aclprofMark);
 DEFFTYPE(aclError, aclprofMark, void* stamp);
-DEFFUNCV(aclError, aclprofMark, void* stamp);
+DEFFUNCV(aclprofMarkEx);
 DEFFTYPE(aclError, aclprofMarkEx, const char* msg, size_t msgLen, aclrtStream stream);
-DEFFUNCV(aclError, aclprofMarkEx, const char* msg, size_t msgLen, aclrtStream stream);
+DEFFUNCV(aclprofModelSubscribe);
 DEFFTYPE(aclError, aclprofModelSubscribe, uint32_t modelId, const aclprofSubscribeConfig* profSubscribeConfig);
-DEFFUNCV(aclError, aclprofModelSubscribe, uint32_t modelId, const aclprofSubscribeConfig* profSubscribeConfig);
+DEFFUNCV(aclprofModelUnSubscribe);
 DEFFTYPE(aclError, aclprofModelUnSubscribe, uint32_t modelId);
-DEFFUNCV(aclError, aclprofModelUnSubscribe, uint32_t modelId);
-DEFFTYPE(aclError, aclprofPop, );
-DEFFUNCV(aclError, aclprofPop, );
+DEFFUNCV(aclprofPop);
+DEFFTYPE(aclError, aclprofPop);
+DEFFUNCV(aclprofPush);
 DEFFTYPE(aclError, aclprofPush, void* stamp);
-DEFFUNCV(aclError, aclprofPush, void* stamp);
+DEFFUNCV(aclprofRangeStart);
 DEFFTYPE(aclError, aclprofRangeStart, void* stamp, uint32_t* rangeId);
-DEFFUNCV(aclError, aclprofRangeStart, void* stamp, uint32_t* rangeId);
+DEFFUNCV(aclprofRangeStop);
 DEFFTYPE(aclError, aclprofRangeStop, uint32_t rangeId);
-DEFFUNCV(aclError, aclprofRangeStop, uint32_t rangeId);
 aclprofSetCategoryName cnt == 0
+DEFFUNCV(aclprofSetConfig);
 DEFFTYPE(aclError, aclprofSetConfig, aclprofConfigType configType, const char* config, size_t configLength);
-DEFFUNCV(aclError, aclprofSetConfig, aclprofConfigType configType, const char* config, size_t configLength);
 aclprofSetStampCategory cnt == 0
 aclprofSetStampPayload cnt == 0
+DEFFUNCV(aclprofSetStampTraceMessage);
 DEFFTYPE(aclError, aclprofSetStampTraceMessage, void* stamp, const char* msg, uint32_t msgLen);
-DEFFUNCV(aclError, aclprofSetStampTraceMessage, void* stamp, const char* msg, uint32_t msgLen);
+DEFFUNCV(aclprofStart);
 DEFFTYPE(aclError, aclprofStart, const aclprofConfig* profilerConfig);
-DEFFUNCV(aclError, aclprofStart, const aclprofConfig* profilerConfig);
+DEFFUNCV(aclprofStop);
 DEFFTYPE(aclError, aclprofStop, const aclprofConfig* profilerConfig);
-DEFFUNCV(aclError, aclprofStop, const aclprofConfig* profilerConfig);
-DEFFTYPE(aclrtAllocatorDesc, aclrtAllocatorCreateDesc, );
-DEFFUNCV(aclrtAllocatorDesc, aclrtAllocatorCreateDesc, );
+DEFFUNCV(aclrtAllocatorCreateDesc);
+DEFFTYPE(aclrtAllocatorDesc, aclrtAllocatorCreateDesc);
+DEFFUNCV(aclrtAllocatorDestroyDesc);
 DEFFTYPE(aclError, aclrtAllocatorDestroyDesc, aclrtAllocatorDesc allocatorDesc);
-DEFFUNCV(aclError, aclrtAllocatorDestroyDesc, aclrtAllocatorDesc allocatorDesc);
+DEFFUNCV(aclrtAllocatorRegister);
 DEFFTYPE(aclError, aclrtAllocatorRegister, aclrtStream stream, aclrtAllocatorDesc allocatorDesc);
-DEFFUNCV(aclError, aclrtAllocatorRegister, aclrtStream stream, aclrtAllocatorDesc allocatorDesc);
+DEFFUNCV(aclrtAllocatorSetAllocAdviseFuncToDesc);
 DEFFTYPE(aclError, aclrtAllocatorSetAllocAdviseFuncToDesc, aclrtAllocatorDesc allocatorDesc, aclrtAllocatorAllocAdviseFunc func);
-DEFFUNCV(aclError, aclrtAllocatorSetAllocAdviseFuncToDesc, aclrtAllocatorDesc allocatorDesc, aclrtAllocatorAllocAdviseFunc func);
+DEFFUNCV(aclrtAllocatorSetAllocFuncToDesc);
 DEFFTYPE(aclError, aclrtAllocatorSetAllocFuncToDesc, aclrtAllocatorDesc allocatorDesc, aclrtAllocatorAllocFunc func);
-DEFFUNCV(aclError, aclrtAllocatorSetAllocFuncToDesc, aclrtAllocatorDesc allocatorDesc, aclrtAllocatorAllocFunc func);
+DEFFUNCV(aclrtAllocatorSetFreeFuncToDesc);
 DEFFTYPE(aclError, aclrtAllocatorSetFreeFuncToDesc, aclrtAllocatorDesc allocatorDesc, aclrtAllocatorFreeFunc func);
-DEFFUNCV(aclError, aclrtAllocatorSetFreeFuncToDesc, aclrtAllocatorDesc allocatorDesc, aclrtAllocatorFreeFunc func);
+DEFFUNCV(aclrtAllocatorSetGetAddrFromBlockFuncToDesc);
 DEFFTYPE(aclError, aclrtAllocatorSetGetAddrFromBlockFuncToDesc, aclrtAllocatorDesc allocatorDesc, aclrtAllocatorGetAddrFromBlockFunc func);
-DEFFUNCV(aclError, aclrtAllocatorSetGetAddrFromBlockFuncToDesc, aclrtAllocatorDesc allocatorDesc, aclrtAllocatorGetAddrFromBlockFunc func);
+DEFFUNCV(aclrtAllocatorSetObjToDesc);
 DEFFTYPE(aclError, aclrtAllocatorSetObjToDesc, aclrtAllocatorDesc allocatorDesc, aclrtAllocator allocator);
-DEFFUNCV(aclError, aclrtAllocatorSetObjToDesc, aclrtAllocatorDesc allocatorDesc, aclrtAllocator allocator);
+DEFFUNCV(aclrtAllocatorUnregister);
 DEFFTYPE(aclError, aclrtAllocatorUnregister, aclrtStream stream);
-DEFFUNCV(aclError, aclrtAllocatorUnregister, aclrtStream stream);
+DEFFUNCV(aclrtBinaryGetFunction);
 DEFFTYPE(aclError, aclrtBinaryGetFunction, const aclrtBinHandle binHandle, const char* kernelName, aclrtFuncHandle* funcHandle);
-DEFFUNCV(aclError, aclrtBinaryGetFunction, const aclrtBinHandle binHandle, const char* kernelName, aclrtFuncHandle* funcHandle);
+DEFFUNCV(aclrtBinaryLoad);
 DEFFTYPE(aclError, aclrtBinaryLoad, const aclrtBinary binary, aclrtBinHandle* binHandle);
-DEFFUNCV(aclError, aclrtBinaryLoad, const aclrtBinary binary, aclrtBinHandle* binHandle);
+DEFFUNCV(aclrtBinaryUnLoad);
 DEFFTYPE(aclError, aclrtBinaryUnLoad, aclrtBinHandle binHandle);
-DEFFUNCV(aclError, aclrtBinaryUnLoad, aclrtBinHandle binHandle);
+DEFFUNCV(aclrtCreateBinary);
 DEFFTYPE(aclrtBinary, aclrtCreateBinary, const void* data, size_t dataLen);
-DEFFUNCV(aclrtBinary, aclrtCreateBinary, const void* data, size_t dataLen);
+DEFFUNCV(aclrtCreateContext);
 DEFFTYPE(aclError, aclrtCreateContext, aclrtContext* context, int32_t deviceId);
-DEFFUNCV(aclError, aclrtCreateContext, aclrtContext* context, int32_t deviceId);
+DEFFUNCV(aclrtCreateEvent);
 DEFFTYPE(aclError, aclrtCreateEvent, aclrtEvent* event);
-DEFFUNCV(aclError, aclrtCreateEvent, aclrtEvent* event);
+DEFFUNCV(aclrtCreateEventExWithFlag);
 DEFFTYPE(aclError, aclrtCreateEventExWithFlag, aclrtEvent* event, uint32_t flag);
-DEFFUNCV(aclError, aclrtCreateEventExWithFlag, aclrtEvent* event, uint32_t flag);
+DEFFUNCV(aclrtCreateEventWithFlag);
 DEFFTYPE(aclError, aclrtCreateEventWithFlag, aclrtEvent* event, uint32_t flag);
-DEFFUNCV(aclError, aclrtCreateEventWithFlag, aclrtEvent* event, uint32_t flag);
-DEFFTYPE(aclrtGroupInfo*, aclrtCreateGroupInfo, );
-DEFFUNCV(aclrtGroupInfo*, aclrtCreateGroupInfo, );
+DEFFUNCV(aclrtCreateGroupInfo);
+DEFFTYPE(aclrtGroupInfo*, aclrtCreateGroupInfo);
+DEFFUNCV(aclrtCreateStream);
 DEFFTYPE(aclError, aclrtCreateStream, aclrtStream* stream);
-DEFFUNCV(aclError, aclrtCreateStream, aclrtStream* stream);
+DEFFUNCV(aclrtCreateStreamWithConfig);
 DEFFTYPE(aclError, aclrtCreateStreamWithConfig, aclrtStream* stream, uint32_t priority, uint32_t flag);
-DEFFUNCV(aclError, aclrtCreateStreamWithConfig, aclrtStream* stream, uint32_t priority, uint32_t flag);
+DEFFUNCV(aclrtCtxGetSysParamOpt);
 DEFFTYPE(aclError, aclrtCtxGetSysParamOpt, aclSysParamOpt opt, int64_t* value);
-DEFFUNCV(aclError, aclrtCtxGetSysParamOpt, aclSysParamOpt opt, int64_t* value);
+DEFFUNCV(aclrtCtxSetSysParamOpt);
 DEFFTYPE(aclError, aclrtCtxSetSysParamOpt, aclSysParamOpt opt, int64_t value);
-DEFFUNCV(aclError, aclrtCtxSetSysParamOpt, aclSysParamOpt opt, int64_t value);
+DEFFUNCV(aclrtDestroyBinary);
 DEFFTYPE(aclError, aclrtDestroyBinary, aclrtBinary binary);
-DEFFUNCV(aclError, aclrtDestroyBinary, aclrtBinary binary);
+DEFFUNCV(aclrtDestroyContext);
 DEFFTYPE(aclError, aclrtDestroyContext, aclrtContext context);
-DEFFUNCV(aclError, aclrtDestroyContext, aclrtContext context);
+DEFFUNCV(aclrtDestroyEvent);
 DEFFTYPE(aclError, aclrtDestroyEvent, aclrtEvent event);
-DEFFUNCV(aclError, aclrtDestroyEvent, aclrtEvent event);
+DEFFUNCV(aclrtDestroyGroupInfo);
 DEFFTYPE(aclError, aclrtDestroyGroupInfo, aclrtGroupInfo* groupInfo);
-DEFFUNCV(aclError, aclrtDestroyGroupInfo, aclrtGroupInfo* groupInfo);
+DEFFUNCV(aclrtDestroyStream);
 DEFFTYPE(aclError, aclrtDestroyStream, aclrtStream stream);
-DEFFUNCV(aclError, aclrtDestroyStream, aclrtStream stream);
+DEFFUNCV(aclrtDestroyStreamForce);
 DEFFTYPE(aclError, aclrtDestroyStreamForce, aclrtStream stream);
-DEFFUNCV(aclError, aclrtDestroyStreamForce, aclrtStream stream);
+DEFFUNCV(aclrtDeviceCanAccessPeer);
 DEFFTYPE(aclError, aclrtDeviceCanAccessPeer, int32_t* canAccessPeer, int32_t deviceId, int32_t peerDeviceId);
-DEFFUNCV(aclError, aclrtDeviceCanAccessPeer, int32_t* canAccessPeer, int32_t deviceId, int32_t peerDeviceId);
+DEFFUNCV(aclrtDeviceDisablePeerAccess);
 DEFFTYPE(aclError, aclrtDeviceDisablePeerAccess, int32_t peerDeviceId);
-DEFFUNCV(aclError, aclrtDeviceDisablePeerAccess, int32_t peerDeviceId);
+DEFFUNCV(aclrtDeviceEnablePeerAccess);
 DEFFTYPE(aclError, aclrtDeviceEnablePeerAccess, int32_t peerDeviceId, uint32_t flags);
-DEFFUNCV(aclError, aclrtDeviceEnablePeerAccess, int32_t peerDeviceId, uint32_t flags);
+DEFFUNCV(aclrtDeviceGetBareTgid);
 DEFFTYPE(aclError, aclrtDeviceGetBareTgid, int32_t* pid);
-DEFFUNCV(aclError, aclrtDeviceGetBareTgid, int32_t* pid);
+DEFFUNCV(aclrtEventElapsedTime);
 DEFFTYPE(aclError, aclrtEventElapsedTime, float* ms, aclrtEvent startEvent, aclrtEvent endEvent);
-DEFFUNCV(aclError, aclrtEventElapsedTime, float* ms, aclrtEvent startEvent, aclrtEvent endEvent);
+DEFFUNCV(aclrtFree);
 DEFFTYPE(aclError, aclrtFree, void* devPtr);
-DEFFUNCV(aclError, aclrtFree, void* devPtr);
+DEFFUNCV(aclrtFreeHost);
 DEFFTYPE(aclError, aclrtFreeHost, void* hostPtr);
-DEFFUNCV(aclError, aclrtFreeHost, void* hostPtr);
+DEFFUNCV(aclrtFreePhysical);
 DEFFTYPE(aclError, aclrtFreePhysical, aclrtDrvMemHandle handle);
-DEFFUNCV(aclError, aclrtFreePhysical, aclrtDrvMemHandle handle);
+DEFFUNCV(aclrtGetAllGroupInfo);
 DEFFTYPE(aclError, aclrtGetAllGroupInfo, aclrtGroupInfo* groupInfo);
-DEFFUNCV(aclError, aclrtGetAllGroupInfo, aclrtGroupInfo* groupInfo);
+DEFFUNCV(aclrtGetCurrentContext);
 DEFFTYPE(aclError, aclrtGetCurrentContext, aclrtContext* context);
-DEFFUNCV(aclError, aclrtGetCurrentContext, aclrtContext* context);
+DEFFUNCV(aclrtGetDevice);
 DEFFTYPE(aclError, aclrtGetDevice, int32_t* deviceId);
-DEFFUNCV(aclError, aclrtGetDevice, int32_t* deviceId);
+DEFFUNCV(aclrtGetDeviceCount);
 DEFFTYPE(aclError, aclrtGetDeviceCount, uint32_t* count);
-DEFFUNCV(aclError, aclrtGetDeviceCount, uint32_t* count);
+DEFFUNCV(aclrtGetDeviceIdFromExceptionInfo);
 DEFFTYPE(uint32_t, aclrtGetDeviceIdFromExceptionInfo, const aclrtExceptionInfo* info);
-DEFFUNCV(uint32_t, aclrtGetDeviceIdFromExceptionInfo, const aclrtExceptionInfo* info);
+DEFFUNCV(aclrtGetDeviceSatMode);
 DEFFTYPE(aclError, aclrtGetDeviceSatMode, aclrtFloatOverflowMode* mode);
-DEFFUNCV(aclError, aclrtGetDeviceSatMode, aclrtFloatOverflowMode* mode);
+DEFFUNCV(aclrtGetDeviceUtilizationRate);
 DEFFTYPE(aclError, aclrtGetDeviceUtilizationRate, int32_t deviceId, aclrtUtilizationInfo* utilizationInfo);
-DEFFUNCV(aclError, aclrtGetDeviceUtilizationRate, int32_t deviceId, aclrtUtilizationInfo* utilizationInfo);
+DEFFUNCV(aclrtGetErrorCodeFromExceptionInfo);
 DEFFTYPE(uint32_t, aclrtGetErrorCodeFromExceptionInfo, const aclrtExceptionInfo* info);
-DEFFUNCV(uint32_t, aclrtGetErrorCodeFromExceptionInfo, const aclrtExceptionInfo* info);
+DEFFUNCV(aclrtGetGroupCount);
 DEFFTYPE(aclError, aclrtGetGroupCount, uint32_t* count);
-DEFFUNCV(aclError, aclrtGetGroupCount, uint32_t* count);
+DEFFUNCV(aclrtGetGroupInfoDetail);
 DEFFTYPE(aclError, aclrtGetGroupInfoDetail, const aclrtGroupInfo* groupInfo, int32_t groupIndex, aclrtGroupAttr attr, void* attrValue, size_t valueLen, size_t* paramRetSize);
-DEFFUNCV(aclError, aclrtGetGroupInfoDetail, const aclrtGroupInfo* groupInfo, int32_t groupIndex, aclrtGroupAttr attr, void* attrValue, size_t valueLen, size_t* paramRetSize);
+DEFFUNCV(aclrtGetMemInfo);
 DEFFTYPE(aclError, aclrtGetMemInfo, aclrtMemAttr attr, size_t* free, size_t* total);
-DEFFUNCV(aclError, aclrtGetMemInfo, aclrtMemAttr attr, size_t* free, size_t* total);
+DEFFUNCV(aclrtGetOverflowStatus);
 DEFFTYPE(aclError, aclrtGetOverflowStatus, void* outputAddr, size_t outputSize, aclrtStream stream);
-DEFFUNCV(aclError, aclrtGetOverflowStatus, void* outputAddr, size_t outputSize, aclrtStream stream);
+DEFFUNCV(aclrtGetRunMode);
 DEFFTYPE(aclError, aclrtGetRunMode, aclrtRunMode* runMode);
-DEFFUNCV(aclError, aclrtGetRunMode, aclrtRunMode* runMode);
-DEFFTYPE(const char*, aclrtGetSocName, );
-DEFFUNCV(const char*, aclrtGetSocName, );
+DEFFUNCV(aclrtGetSocName);
+DEFFTYPE(const char*, aclrtGetSocName);
+DEFFUNCV(aclrtGetStreamIdFromExceptionInfo);
 DEFFTYPE(uint32_t, aclrtGetStreamIdFromExceptionInfo, const aclrtExceptionInfo* info);
-DEFFUNCV(uint32_t, aclrtGetStreamIdFromExceptionInfo, const aclrtExceptionInfo* info);
+DEFFUNCV(aclrtGetStreamOverflowSwitch);
 DEFFTYPE(aclError, aclrtGetStreamOverflowSwitch, aclrtStream stream, uint32_t* flag);
-DEFFUNCV(aclError, aclrtGetStreamOverflowSwitch, aclrtStream stream, uint32_t* flag);
+DEFFUNCV(aclrtGetTaskIdFromExceptionInfo);
 DEFFTYPE(uint32_t, aclrtGetTaskIdFromExceptionInfo, const aclrtExceptionInfo* info);
-DEFFUNCV(uint32_t, aclrtGetTaskIdFromExceptionInfo, const aclrtExceptionInfo* info);
+DEFFUNCV(aclrtGetThreadIdFromExceptionInfo);
 DEFFTYPE(uint32_t, aclrtGetThreadIdFromExceptionInfo, const aclrtExceptionInfo* info);
-DEFFUNCV(uint32_t, aclrtGetThreadIdFromExceptionInfo, const aclrtExceptionInfo* info);
+DEFFUNCV(aclrtGetVersion);
 DEFFTYPE(aclError, aclrtGetVersion, int32_t* majorVersion, int32_t* minorVersion, int32_t* patchVersion);
-DEFFUNCV(aclError, aclrtGetVersion, int32_t* majorVersion, int32_t* minorVersion, int32_t* patchVersion);
+DEFFUNCV(aclrtLaunchCallback);
 DEFFTYPE(aclError, aclrtLaunchCallback, aclrtCallback fn, void* userData, aclrtCallbackBlockType blockType, aclrtStream stream);
-DEFFUNCV(aclError, aclrtLaunchCallback, aclrtCallback fn, void* userData, aclrtCallbackBlockType blockType, aclrtStream stream);
+DEFFUNCV(aclrtLaunchKernel);
 DEFFTYPE(aclError, aclrtLaunchKernel, aclrtFuncHandle funcHandle, uint32_t blockDim, const void* argsData, size_t argsSize, aclrtStream stream);
-DEFFUNCV(aclError, aclrtLaunchKernel, aclrtFuncHandle funcHandle, uint32_t blockDim, const void* argsData, size_t argsSize, aclrtStream stream);
+DEFFUNCV(aclrtMalloc);
 DEFFTYPE(aclError, aclrtMalloc, void** devPtr, size_t size, aclrtMemMallocPolicy policy);
-DEFFUNCV(aclError, aclrtMalloc, void** devPtr, size_t size, aclrtMemMallocPolicy policy);
+DEFFUNCV(aclrtMallocAlign32);
 DEFFTYPE(aclError, aclrtMallocAlign32, void** devPtr, size_t size, aclrtMemMallocPolicy policy);
-DEFFUNCV(aclError, aclrtMallocAlign32, void** devPtr, size_t size, aclrtMemMallocPolicy policy);
+DEFFUNCV(aclrtMallocCached);
 DEFFTYPE(aclError, aclrtMallocCached, void** devPtr, size_t size, aclrtMemMallocPolicy policy);
-DEFFUNCV(aclError, aclrtMallocCached, void** devPtr, size_t size, aclrtMemMallocPolicy policy);
+DEFFUNCV(aclrtMallocHost);
 DEFFTYPE(aclError, aclrtMallocHost, void** hostPtr, size_t size);
-DEFFUNCV(aclError, aclrtMallocHost, void** hostPtr, size_t size);
+DEFFUNCV(aclrtMallocPhysical);
 DEFFTYPE(aclError, aclrtMallocPhysical, aclrtDrvMemHandle* handle, size_t size, const aclrtPhysicalMemProp* prop, uint64_t flags);
-DEFFUNCV(aclError, aclrtMallocPhysical, aclrtDrvMemHandle* handle, size_t size, const aclrtPhysicalMemProp* prop, uint64_t flags);
+DEFFUNCV(aclrtMapMem);
 DEFFTYPE(aclError, aclrtMapMem, void* virPtr, size_t size, size_t offset, aclrtDrvMemHandle handle, uint64_t flags);
-DEFFUNCV(aclError, aclrtMapMem, void* virPtr, size_t size, size_t offset, aclrtDrvMemHandle handle, uint64_t flags);
+DEFFUNCV(aclrtMemExportToShareableHandle);
 DEFFTYPE(aclError, aclrtMemExportToShareableHandle, aclrtDrvMemHandle handle, aclrtMemHandleType handleType, uint64_t flags, uint64_t* shareableHandle);
-DEFFUNCV(aclError, aclrtMemExportToShareableHandle, aclrtDrvMemHandle handle, aclrtMemHandleType handleType, uint64_t flags, uint64_t* shareableHandle);
+DEFFUNCV(aclrtMemFlush);
 DEFFTYPE(aclError, aclrtMemFlush, void* devPtr, size_t size);
-DEFFUNCV(aclError, aclrtMemFlush, void* devPtr, size_t size);
+DEFFUNCV(aclrtMemGetAllocationGranularity);
 DEFFTYPE(aclError, aclrtMemGetAllocationGranularity, aclrtPhysicalMemProp* prop, aclrtMemGranularityOptions option, size_t* granularity);
-DEFFUNCV(aclError, aclrtMemGetAllocationGranularity, aclrtPhysicalMemProp* prop, aclrtMemGranularityOptions option, size_t* granularity);
+DEFFUNCV(aclrtMemImportFromShareableHandle);
 DEFFTYPE(aclError, aclrtMemImportFromShareableHandle, uint64_t shareableHandle, int32_t deviceId, aclrtDrvMemHandle* handle);
-DEFFUNCV(aclError, aclrtMemImportFromShareableHandle, uint64_t shareableHandle, int32_t deviceId, aclrtDrvMemHandle* handle);
+DEFFUNCV(aclrtMemInvalidate);
 DEFFTYPE(aclError, aclrtMemInvalidate, void* devPtr, size_t size);
-DEFFUNCV(aclError, aclrtMemInvalidate, void* devPtr, size_t size);
+DEFFUNCV(aclrtMemSetPidToShareableHandle);
 DEFFTYPE(aclError, aclrtMemSetPidToShareableHandle, uint64_t shareableHandle, int32_t* pid, size_t pidNum);
-DEFFUNCV(aclError, aclrtMemSetPidToShareableHandle, uint64_t shareableHandle, int32_t* pid, size_t pidNum);
+DEFFUNCV(aclrtMemcpy);
 DEFFTYPE(aclError, aclrtMemcpy, void* dst, size_t destMax, const void* src, size_t count, aclrtMemcpyKind kind);
-DEFFUNCV(aclError, aclrtMemcpy, void* dst, size_t destMax, const void* src, size_t count, aclrtMemcpyKind kind);
+DEFFUNCV(aclrtMemcpy2d);
 DEFFTYPE(aclError, aclrtMemcpy2d, void* dst, size_t dpitch, const void* src, size_t spitch, size_t width, size_t height, aclrtMemcpyKind kind);
-DEFFUNCV(aclError, aclrtMemcpy2d, void* dst, size_t dpitch, const void* src, size_t spitch, size_t width, size_t height, aclrtMemcpyKind kind);
+DEFFUNCV(aclrtMemcpy2dAsync);
 DEFFTYPE(aclError, aclrtMemcpy2dAsync, void* dst, size_t dpitch, const void* src, size_t spitch, size_t width, size_t height, aclrtMemcpyKind kind, aclrtStream stream);
-DEFFUNCV(aclError, aclrtMemcpy2dAsync, void* dst, size_t dpitch, const void* src, size_t spitch, size_t width, size_t height, aclrtMemcpyKind kind, aclrtStream stream);
+DEFFUNCV(aclrtMemcpyAsync);
 DEFFTYPE(aclError, aclrtMemcpyAsync, void* dst, size_t destMax, const void* src, size_t count, aclrtMemcpyKind kind, aclrtStream stream);
-DEFFUNCV(aclError, aclrtMemcpyAsync, void* dst, size_t destMax, const void* src, size_t count, aclrtMemcpyKind kind, aclrtStream stream);
+DEFFUNCV(aclrtMemset);
 DEFFTYPE(aclError, aclrtMemset, void* devPtr, size_t maxCount, int32_t value, size_t count);
-DEFFUNCV(aclError, aclrtMemset, void* devPtr, size_t maxCount, int32_t value, size_t count);
+DEFFUNCV(aclrtMemsetAsync);
 DEFFTYPE(aclError, aclrtMemsetAsync, void* devPtr, size_t maxCount, int32_t value, size_t count, aclrtStream stream);
-DEFFUNCV(aclError, aclrtMemsetAsync, void* devPtr, size_t maxCount, int32_t value, size_t count, aclrtStream stream);
+DEFFUNCV(aclrtProcessReport);
 DEFFTYPE(aclError, aclrtProcessReport, int32_t timeout);
-DEFFUNCV(aclError, aclrtProcessReport, int32_t timeout);
+DEFFUNCV(aclrtQueryDeviceStatus);
 DEFFTYPE(aclError, aclrtQueryDeviceStatus, int32_t deviceId, aclrtDeviceStatus* deviceStatus);
-DEFFUNCV(aclError, aclrtQueryDeviceStatus, int32_t deviceId, aclrtDeviceStatus* deviceStatus);
+DEFFUNCV(aclrtQueryEvent);
 DEFFTYPE(aclError, aclrtQueryEvent, aclrtEvent event, aclrtEventStatus* status);
-DEFFUNCV(aclError, aclrtQueryEvent, aclrtEvent event, aclrtEventStatus* status);
+DEFFUNCV(aclrtQueryEventStatus);
 DEFFTYPE(aclError, aclrtQueryEventStatus, aclrtEvent event, aclrtEventRecordedStatus* status);
-DEFFUNCV(aclError, aclrtQueryEventStatus, aclrtEvent event, aclrtEventRecordedStatus* status);
+DEFFUNCV(aclrtQueryEventWaitStatus);
 DEFFTYPE(aclError, aclrtQueryEventWaitStatus, aclrtEvent event, aclrtEventWaitStatus* status);
-DEFFUNCV(aclError, aclrtQueryEventWaitStatus, aclrtEvent event, aclrtEventWaitStatus* status);
+DEFFUNCV(aclrtRecordEvent);
 DEFFTYPE(aclError, aclrtRecordEvent, aclrtEvent event, aclrtStream stream);
-DEFFUNCV(aclError, aclrtRecordEvent, aclrtEvent event, aclrtStream stream);
+DEFFUNCV(aclrtReleaseMemAddress);
 DEFFTYPE(aclError, aclrtReleaseMemAddress, void* virPtr);
-DEFFUNCV(aclError, aclrtReleaseMemAddress, void* virPtr);
+DEFFUNCV(aclrtReserveMemAddress);
 DEFFTYPE(aclError, aclrtReserveMemAddress, void** virPtr, size_t size, size_t alignment, void* expectPtr, uint64_t flags);
-DEFFUNCV(aclError, aclrtReserveMemAddress, void** virPtr, size_t size, size_t alignment, void* expectPtr, uint64_t flags);
 aclrtResetD- cnt == 0
+DEFFUNCV(aclrtSetDevice);
 DEFFTYPE(aclError, aclrtSetDevice, int32_t deviceId);
-DEFFUNCV(aclError, aclrtSetDevice, int32_t deviceId);
+DEFFUNCV(aclrtSetDeviceSatMode);
 DEFFTYPE(aclError, aclrtSetDeviceSatMode, aclrtFloatOverflowMode mode);
-DEFFUNCV(aclError, aclrtSetDeviceSatMode, aclrtFloatOverflowMode mode);
 aclrtSetDeviceWithoutTsdVXX cnt == 0
+DEFFUNCV(aclrtSetExceptionInfoCallback);
 DEFFTYPE(aclError, aclrtSetExceptionInfoCallback, aclrtExceptionInfoCallback callback);
-DEFFUNCV(aclError, aclrtSetExceptionInfoCallback, aclrtExceptionInfoCallback callback);
+DEFFUNCV(aclrtSetGroup);
 DEFFTYPE(aclError, aclrtSetGroup, int32_t groupId);
-DEFFUNCV(aclError, aclrtSetGroup, int32_t groupId);
+DEFFUNCV(aclrtSetOpExecuteTimeOut);
 DEFFTYPE(aclError, aclrtSetOpExecuteTimeOut, uint32_t timeout);
-DEFFUNCV(aclError, aclrtSetOpExecuteTimeOut, uint32_t timeout);
+DEFFUNCV(aclrtSetOpWaitTimeout);
 DEFFTYPE(aclError, aclrtSetOpWaitTimeout, uint32_t timeout);
-DEFFUNCV(aclError, aclrtSetOpWaitTimeout, uint32_t timeout);
+DEFFUNCV(aclrtSetStreamFailureMode);
 DEFFTYPE(aclError, aclrtSetStreamFailureMode, aclrtStream stream, uint64_t mode);
-DEFFUNCV(aclError, aclrtSetStreamFailureMode, aclrtStream stream, uint64_t mode);
+DEFFUNCV(aclrtSetStreamOverflowSwitch);
 DEFFTYPE(aclError, aclrtSetStreamOverflowSwitch, aclrtStream stream, uint32_t flag);
-DEFFUNCV(aclError, aclrtSetStreamOverflowSwitch, aclrtStream stream, uint32_t flag);
+DEFFUNCV(aclrtSetTsDevice);
 DEFFTYPE(aclError, aclrtSetTsDevice, aclrtTsId tsId);
-DEFFUNCV(aclError, aclrtSetTsDevice, aclrtTsId tsId);
+DEFFUNCV(aclrtStreamQuery);
 DEFFTYPE(aclError, aclrtStreamQuery, aclrtStream stream, aclrtStreamStatus* status);
-DEFFUNCV(aclError, aclrtStreamQuery, aclrtStream stream, aclrtStreamStatus* status);
+DEFFUNCV(aclrtStreamWaitEvent);
 DEFFTYPE(aclError, aclrtStreamWaitEvent, aclrtStream stream, aclrtEvent event);
-DEFFUNCV(aclError, aclrtStreamWaitEvent, aclrtStream stream, aclrtEvent event);
+DEFFUNCV(aclrtSubscribeReport);
 DEFFTYPE(aclError, aclrtSubscribeReport, uint64_t threadId, aclrtStream stream);
-DEFFUNCV(aclError, aclrtSubscribeReport, uint64_t threadId, aclrtStream stream);
-DEFFTYPE(aclError, aclrtSynchronizeDevice, void);
-DEFFUNCV(aclError, aclrtSynchronizeDevice, void);
+DEFFUNCV(aclrtSynchronizeDevice);
+DEFFTYPE(aclError, aclrtSynchronizeDevice);
+DEFFUNCV(aclrtSynchronizeEvent);
 DEFFTYPE(aclError, aclrtSynchronizeEvent, aclrtEvent event);
-DEFFUNCV(aclError, aclrtSynchronizeEvent, aclrtEvent event);
+DEFFUNCV(aclrtSynchronizeEventWithTimeout);
 DEFFTYPE(aclError, aclrtSynchronizeEventWithTimeout, aclrtEvent event, int32_t timeout);
-DEFFUNCV(aclError, aclrtSynchronizeEventWithTimeout, aclrtEvent event, int32_t timeout);
+DEFFUNCV(aclrtSynchronizeStream);
 DEFFTYPE(aclError, aclrtSynchronizeStream, aclrtStream stream);
-DEFFUNCV(aclError, aclrtSynchronizeStream, aclrtStream stream);
+DEFFUNCV(aclrtSynchronizeStreamWithTimeout);
 DEFFTYPE(aclError, aclrtSynchronizeStreamWithTimeout, aclrtStream stream, int32_t timeout);
-DEFFUNCV(aclError, aclrtSynchronizeStreamWithTimeout, aclrtStream stream, int32_t timeout);
+DEFFUNCV(aclrtUnSubscribeReport);
 DEFFTYPE(aclError, aclrtUnSubscribeReport, uint64_t threadId, aclrtStream stream);
-DEFFUNCV(aclError, aclrtUnSubscribeReport, uint64_t threadId, aclrtStream stream);
+DEFFUNCV(aclrtUnmapMem);
 DEFFTYPE(aclError, aclrtUnmapMem, void* virPtr);
-DEFFUNCV(aclError, aclrtUnmapMem, void* virPtr);
 ACL_LDSYM(so_handle, aclAppLog);
 ACL_LDSYM(so_handle, aclCreateDataBuffer);
 ACL_LDSYM(so_handle, aclCreateGraphDumpOpt);
@@ -919,22 +907,22 @@ ACL_LDSYM(so_handle, aclrtUnmapMem);
 void aclAppLog(aclLogLevel logLevel, const char* func, const char* file, uint32_t line, const char* fmt, ...){
     BEGIN_FUNC_HOOK(aclAppLog);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclAppLog, logLevel, , , , , );
+        PASS_FUNC(aclAppLog, logLevel, func, file, line, fmt, ...);
     #else
-        CALL_FUNC_WITHOUT_RETURN(so_aclAppLog,logLevel, , , , , );
+        CALL_FUNC_WITHOUT_RETURN(so_aclAppLog,logLevel, func, file, line, fmt, ...);
     #endif
     #ifdef END_FUNC_HOOK_ON
         END_FUNC_HOOK(func);
     #endif
-    return result;
+    return ;
 }
 aclDataBuffer* aclCreateDataBuffer(void* data, size_t size){
     BEGIN_FUNC_HOOK(aclCreateDataBuffer);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclCreateDataBuffer, data, );
+        PASS_FUNC(aclCreateDataBuffer, data, size);
     #else
         DEFINE_RETURN_VARIBLE(aclDataBuffer*, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclCreateDataBuffer,data, );
+        CALL_FUNC_WITH_RETURN(result,so_aclCreateDataBuffer,data, size);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -963,10 +951,10 @@ aclGraphDumpOption* aclCreateGraphDumpOpt(){
 aclTensorDesc* aclCreateTensorDesc(aclDataType dataType, int numDims, const int64_t* dims, aclFormat format){
     BEGIN_FUNC_HOOK(aclCreateTensorDesc);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclCreateTensorDesc, dataType, , , );
+        PASS_FUNC(aclCreateTensorDesc, dataType, numDims, dims, format);
     #else
         DEFINE_RETURN_VARIBLE(aclTensorDesc*, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclCreateTensorDesc,dataType, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclCreateTensorDesc,dataType, numDims, dims, format);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1034,7 +1022,7 @@ void aclDestroyTensorDesc(const aclTensorDesc* desc){
     #ifdef END_FUNC_HOOK_ON
         END_FUNC_HOOK(func);
     #endif
-    return result;
+    return ;
 }
 aclError aclFinalize(){
     BEGIN_FUNC_HOOK(aclFinalize);
@@ -1087,10 +1075,10 @@ aclFloat16 aclFloatToFloat16(float value){
 aclError aclGenGraphAndDumpForOp(const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], const aclDataBuffer* const inputs[], int numOutputs, const aclTensorDesc* const outputDesc[], aclDataBuffer* const outputs[], const aclopAttr* attr, aclopEngineType engineType, const char* graphDumpPath, const aclGraphDumpOption* graphDumpOpt){
     BEGIN_FUNC_HOOK(aclGenGraphAndDumpForOp);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclGenGraphAndDumpForOp, opType, , , , , , , , , , );
+        PASS_FUNC(aclGenGraphAndDumpForOp, opType, numInputs, inputDesc, inputs, numOutputs, outputDesc, outputs, attr, engineType, graphDumpPath, graphDumpOpt);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclGenGraphAndDumpForOp,opType, , , , , , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclGenGraphAndDumpForOp,opType, numInputs, inputDesc, inputs, numOutputs, outputDesc, outputs, attr, engineType, graphDumpPath, graphDumpOpt);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1103,10 +1091,10 @@ aclError aclGenGraphAndDumpForOp(const char* opType, int numInputs, const aclTen
 aclError aclGetCannAttribute(aclCannAttr cannAttr, int32_t* value){
     BEGIN_FUNC_HOOK(aclGetCannAttribute);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclGetCannAttribute, cannAttr, );
+        PASS_FUNC(aclGetCannAttribute, cannAttr, value);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclGetCannAttribute,cannAttr, );
+        CALL_FUNC_WITH_RETURN(result,so_aclGetCannAttribute,cannAttr, value);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1119,10 +1107,10 @@ aclError aclGetCannAttribute(aclCannAttr cannAttr, int32_t* value){
 aclError aclGetCannAttributeList(const aclCannAttr** cannAttrList, size_t* num){
     BEGIN_FUNC_HOOK(aclGetCannAttributeList);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclGetCannAttributeList, cannAttrList, );
+        PASS_FUNC(aclGetCannAttributeList, cannAttrList, num);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclGetCannAttributeList,cannAttrList, );
+        CALL_FUNC_WITH_RETURN(result,so_aclGetCannAttributeList,cannAttrList, num);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1135,10 +1123,10 @@ aclError aclGetCannAttributeList(const aclCannAttr** cannAttrList, size_t* num){
 aclError aclGetCompileopt(aclCompileOpt opt, char* value, size_t length){
     BEGIN_FUNC_HOOK(aclGetCompileopt);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclGetCompileopt, opt, , );
+        PASS_FUNC(aclGetCompileopt, opt, value, length);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclGetCompileopt,opt, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclGetCompileopt,opt, value, length);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1215,10 +1203,10 @@ size_t aclGetDataBufferSizeV2(const aclDataBuffer* dataBuffer){
 aclError aclGetDeviceCapability(uint32_t deviceId, aclDeviceInfo deviceInfo, int64_t* value){
     BEGIN_FUNC_HOOK(aclGetDeviceCapability);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclGetDeviceCapability, deviceId, , );
+        PASS_FUNC(aclGetDeviceCapability, deviceId, deviceInfo, value);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclGetDeviceCapability,deviceId, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclGetDeviceCapability,deviceId, deviceInfo, value);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1263,10 +1251,10 @@ void* aclGetTensorDescAddress(const aclTensorDesc* desc){
 aclTensorDesc* aclGetTensorDescByIndex(aclTensorDesc* desc, size_t index){
     BEGIN_FUNC_HOOK(aclGetTensorDescByIndex);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclGetTensorDescByIndex, desc, );
+        PASS_FUNC(aclGetTensorDescByIndex, desc, index);
     #else
         DEFINE_RETURN_VARIBLE(aclTensorDesc*, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclGetTensorDescByIndex,desc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclGetTensorDescByIndex,desc, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1279,10 +1267,10 @@ aclTensorDesc* aclGetTensorDescByIndex(aclTensorDesc* desc, size_t index){
 int64_t aclGetTensorDescDim(const aclTensorDesc* desc, size_t index){
     BEGIN_FUNC_HOOK(aclGetTensorDescDim);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclGetTensorDescDim, desc, );
+        PASS_FUNC(aclGetTensorDescDim, desc, index);
     #else
         DEFINE_RETURN_VARIBLE(int64_t, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclGetTensorDescDim,desc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclGetTensorDescDim,desc, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1295,10 +1283,10 @@ int64_t aclGetTensorDescDim(const aclTensorDesc* desc, size_t index){
 aclError aclGetTensorDescDimRange(const aclTensorDesc* desc, size_t index, size_t dimRangeNum, int64_t* dimRange){
     BEGIN_FUNC_HOOK(aclGetTensorDescDimRange);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclGetTensorDescDimRange, desc, , , );
+        PASS_FUNC(aclGetTensorDescDimRange, desc, index, dimRangeNum, dimRange);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclGetTensorDescDimRange,desc, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclGetTensorDescDimRange,desc, index, dimRangeNum, dimRange);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1311,10 +1299,10 @@ aclError aclGetTensorDescDimRange(const aclTensorDesc* desc, size_t index, size_
 aclError aclGetTensorDescDimV2(const aclTensorDesc* desc, size_t index, int64_t* dimSize){
     BEGIN_FUNC_HOOK(aclGetTensorDescDimV2);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclGetTensorDescDimV2, desc, , );
+        PASS_FUNC(aclGetTensorDescDimV2, desc, index, dimSize);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclGetTensorDescDimV2,desc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclGetTensorDescDimV2,desc, index, dimSize);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1439,10 +1427,10 @@ aclError aclInit(const char* configPath){
 aclError aclSetCompileopt(aclCompileOpt opt, const char* value){
     BEGIN_FUNC_HOOK(aclSetCompileopt);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclSetCompileopt, opt, );
+        PASS_FUNC(aclSetCompileopt, opt, value);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclSetCompileopt,opt, );
+        CALL_FUNC_WITH_RETURN(result,so_aclSetCompileopt,opt, value);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1455,10 +1443,10 @@ aclError aclSetCompileopt(aclCompileOpt opt, const char* value){
 aclError aclSetTensorConst(aclTensorDesc* desc, void* dataBuffer, size_t length){
     BEGIN_FUNC_HOOK(aclSetTensorConst);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclSetTensorConst, desc, , );
+        PASS_FUNC(aclSetTensorConst, desc, dataBuffer, length);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorConst,desc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorConst,desc, dataBuffer, length);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1471,22 +1459,22 @@ aclError aclSetTensorConst(aclTensorDesc* desc, void* dataBuffer, size_t length)
 void aclSetTensorDescName(aclTensorDesc* desc, const char* name){
     BEGIN_FUNC_HOOK(aclSetTensorDescName);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclSetTensorDescName, desc, );
+        PASS_FUNC(aclSetTensorDescName, desc, name);
     #else
-        CALL_FUNC_WITHOUT_RETURN(so_aclSetTensorDescName,desc, );
+        CALL_FUNC_WITHOUT_RETURN(so_aclSetTensorDescName,desc, name);
     #endif
     #ifdef END_FUNC_HOOK_ON
         END_FUNC_HOOK(func);
     #endif
-    return result;
+    return ;
 }
 aclError aclSetTensorDynamicInput(aclTensorDesc* desc, const char* dynamicInputName){
     BEGIN_FUNC_HOOK(aclSetTensorDynamicInput);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclSetTensorDynamicInput, desc, );
+        PASS_FUNC(aclSetTensorDynamicInput, desc, dynamicInputName);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorDynamicInput,desc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorDynamicInput,desc, dynamicInputName);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1499,10 +1487,10 @@ aclError aclSetTensorDynamicInput(aclTensorDesc* desc, const char* dynamicInputN
 aclError aclSetTensorFormat(aclTensorDesc* desc, aclFormat format){
     BEGIN_FUNC_HOOK(aclSetTensorFormat);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclSetTensorFormat, desc, );
+        PASS_FUNC(aclSetTensorFormat, desc, format);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorFormat,desc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorFormat,desc, format);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1515,10 +1503,10 @@ aclError aclSetTensorFormat(aclTensorDesc* desc, aclFormat format){
 aclError aclSetTensorOriginFormat(aclTensorDesc* desc, aclFormat format){
     BEGIN_FUNC_HOOK(aclSetTensorOriginFormat);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclSetTensorOriginFormat, desc, );
+        PASS_FUNC(aclSetTensorOriginFormat, desc, format);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorOriginFormat,desc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorOriginFormat,desc, format);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1531,10 +1519,10 @@ aclError aclSetTensorOriginFormat(aclTensorDesc* desc, aclFormat format){
 aclError aclSetTensorOriginShape(aclTensorDesc* desc, int numDims, const int64_t* dims){
     BEGIN_FUNC_HOOK(aclSetTensorOriginShape);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclSetTensorOriginShape, desc, , );
+        PASS_FUNC(aclSetTensorOriginShape, desc, numDims, dims);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorOriginShape,desc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorOriginShape,desc, numDims, dims);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1547,10 +1535,10 @@ aclError aclSetTensorOriginShape(aclTensorDesc* desc, int numDims, const int64_t
 aclError aclSetTensorPlaceMent(aclTensorDesc* desc, aclMemType memType){
     BEGIN_FUNC_HOOK(aclSetTensorPlaceMent);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclSetTensorPlaceMent, desc, );
+        PASS_FUNC(aclSetTensorPlaceMent, desc, memType);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorPlaceMent,desc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorPlaceMent,desc, memType);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1563,10 +1551,10 @@ aclError aclSetTensorPlaceMent(aclTensorDesc* desc, aclMemType memType){
 aclError aclSetTensorShape(aclTensorDesc* desc, int numDims, const int64_t* dims){
     BEGIN_FUNC_HOOK(aclSetTensorShape);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclSetTensorShape, desc, , );
+        PASS_FUNC(aclSetTensorShape, desc, numDims, dims);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorShape,desc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorShape,desc, numDims, dims);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1579,10 +1567,10 @@ aclError aclSetTensorShape(aclTensorDesc* desc, int numDims, const int64_t* dims
 aclError aclSetTensorShapeRange(aclTensorDesc* desc, size_t dimsCount, int64_t dimsRange[][ACL_TENSOR_SHAPE_RANGE_NUM]){
     BEGIN_FUNC_HOOK(aclSetTensorShapeRange);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclSetTensorShapeRange, desc, , );
+        PASS_FUNC(aclSetTensorShapeRange, desc, dimsCount, dimsRange);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorShapeRange,desc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorShapeRange,desc, dimsCount, dimsRange);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1595,10 +1583,10 @@ aclError aclSetTensorShapeRange(aclTensorDesc* desc, size_t dimsCount, int64_t d
 aclError aclSetTensorStorageFormat(aclTensorDesc* desc, aclFormat format){
     BEGIN_FUNC_HOOK(aclSetTensorStorageFormat);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclSetTensorStorageFormat, desc, );
+        PASS_FUNC(aclSetTensorStorageFormat, desc, format);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorStorageFormat,desc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorStorageFormat,desc, format);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1611,10 +1599,10 @@ aclError aclSetTensorStorageFormat(aclTensorDesc* desc, aclFormat format){
 aclError aclSetTensorStorageShape(aclTensorDesc* desc, int numDims, const int64_t* dims){
     BEGIN_FUNC_HOOK(aclSetTensorStorageShape);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclSetTensorStorageShape, desc, , );
+        PASS_FUNC(aclSetTensorStorageShape, desc, numDims, dims);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorStorageShape,desc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorStorageShape,desc, numDims, dims);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1627,10 +1615,10 @@ aclError aclSetTensorStorageShape(aclTensorDesc* desc, int numDims, const int64_
 aclError aclSetTensorValueRange(aclTensorDesc* desc, size_t valueCount, int64_t valueRange[][ACL_TENSOR_VALUE_RANGE_NUM]){
     BEGIN_FUNC_HOOK(aclSetTensorValueRange);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclSetTensorValueRange, desc, , );
+        PASS_FUNC(aclSetTensorValueRange, desc, valueCount, valueRange);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorValueRange,desc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclSetTensorValueRange,desc, valueCount, valueRange);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1643,10 +1631,10 @@ aclError aclSetTensorValueRange(aclTensorDesc* desc, size_t valueCount, int64_t 
 aclError aclTransTensorDescFormat(const aclTensorDesc* srcDesc, aclFormat dstFormat, aclTensorDesc** dstDesc){
     BEGIN_FUNC_HOOK(aclTransTensorDescFormat);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclTransTensorDescFormat, srcDesc, , );
+        PASS_FUNC(aclTransTensorDescFormat, srcDesc, dstFormat, dstDesc);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclTransTensorDescFormat,srcDesc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclTransTensorDescFormat,srcDesc, dstFormat, dstDesc);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1659,10 +1647,10 @@ aclError aclTransTensorDescFormat(const aclTensorDesc* srcDesc, aclFormat dstFor
 aclError aclUpdateDataBuffer(aclDataBuffer* dataBuffer, void* data, size_t size){
     BEGIN_FUNC_HOOK(aclUpdateDataBuffer);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclUpdateDataBuffer, dataBuffer, , );
+        PASS_FUNC(aclUpdateDataBuffer, dataBuffer, data, size);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclUpdateDataBuffer,dataBuffer, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclUpdateDataBuffer,dataBuffer, data, size);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1675,10 +1663,10 @@ aclError aclUpdateDataBuffer(aclDataBuffer* dataBuffer, void* data, size_t size)
 aclError aclmdlAddDatasetBuffer(aclmdlDataset* dataset, aclDataBuffer* dataBuffer){
     BEGIN_FUNC_HOOK(aclmdlAddDatasetBuffer);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlAddDatasetBuffer, dataset, );
+        PASS_FUNC(aclmdlAddDatasetBuffer, dataset, dataBuffer);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlAddDatasetBuffer,dataset, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlAddDatasetBuffer,dataset, dataBuffer);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1707,10 +1695,10 @@ aclmdlAIPP* aclmdlCreateAIPP(uint64_t batchSize){
 aclError aclmdlCreateAndGetOpDesc(uint32_t deviceId, uint32_t streamId, uint32_t taskId, char* opName, size_t opNameLen, aclTensorDesc** inputDesc, size_t* numInputs, aclTensorDesc** outputDesc, size_t* numOutputs){
     BEGIN_FUNC_HOOK(aclmdlCreateAndGetOpDesc);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlCreateAndGetOpDesc, deviceId, , , , , , , , );
+        PASS_FUNC(aclmdlCreateAndGetOpDesc, deviceId, streamId, taskId, opName, opNameLen, inputDesc, numInputs, outputDesc, numOutputs);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlCreateAndGetOpDesc,deviceId, , , , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlCreateAndGetOpDesc,deviceId, streamId, taskId, opName, opNameLen, inputDesc, numInputs, outputDesc, numOutputs);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1867,10 +1855,10 @@ aclError aclmdlDestroyExecConfigHandle(const aclmdlExecConfigHandle* handle){
 aclError aclmdlExecute(uint32_t modelId, const aclmdlDataset* input, aclmdlDataset* output){
     BEGIN_FUNC_HOOK(aclmdlExecute);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlExecute, modelId, , );
+        PASS_FUNC(aclmdlExecute, modelId, input, output);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlExecute,modelId, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlExecute,modelId, input, output);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1883,10 +1871,10 @@ aclError aclmdlExecute(uint32_t modelId, const aclmdlDataset* input, aclmdlDatas
 aclError aclmdlExecuteAsync(uint32_t modelId, const aclmdlDataset* input, aclmdlDataset* output, aclrtStream stream){
     BEGIN_FUNC_HOOK(aclmdlExecuteAsync);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlExecuteAsync, modelId, , , );
+        PASS_FUNC(aclmdlExecuteAsync, modelId, input, output, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlExecuteAsync,modelId, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlExecuteAsync,modelId, input, output, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1899,10 +1887,10 @@ aclError aclmdlExecuteAsync(uint32_t modelId, const aclmdlDataset* input, aclmdl
 aclError aclmdlExecuteV2(uint32_t modelId, const aclmdlDataset* input, aclmdlDataset* output, aclrtStream stream, const aclmdlExecConfigHandle* handle){
     BEGIN_FUNC_HOOK(aclmdlExecuteV2);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlExecuteV2, modelId, , , , );
+        PASS_FUNC(aclmdlExecuteV2, modelId, input, output, stream, handle);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlExecuteV2,modelId, , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlExecuteV2,modelId, input, output, stream, handle);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1931,10 +1919,10 @@ aclError aclmdlFinalizeDump(){
 aclError aclmdlGetAippDataSize(uint64_t batchSize, size_t* size){
     BEGIN_FUNC_HOOK(aclmdlGetAippDataSize);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetAippDataSize, batchSize, );
+        PASS_FUNC(aclmdlGetAippDataSize, batchSize, size);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetAippDataSize,batchSize, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetAippDataSize,batchSize, size);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1947,10 +1935,10 @@ aclError aclmdlGetAippDataSize(uint64_t batchSize, size_t* size){
 aclError aclmdlGetAippType(uint32_t modelId, size_t index, aclmdlInputAippType* type, size_t* dynamicAttachedDataIndex){
     BEGIN_FUNC_HOOK(aclmdlGetAippType);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetAippType, modelId, , , );
+        PASS_FUNC(aclmdlGetAippType, modelId, index, type, dynamicAttachedDataIndex);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetAippType,modelId, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetAippType,modelId, index, type, dynamicAttachedDataIndex);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1963,10 +1951,10 @@ aclError aclmdlGetAippType(uint32_t modelId, size_t index, aclmdlInputAippType* 
 aclError aclmdlGetCurOutputDims(const aclmdlDesc* modelDesc, size_t index, aclmdlIODims* dims){
     BEGIN_FUNC_HOOK(aclmdlGetCurOutputDims);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetCurOutputDims, modelDesc, , );
+        PASS_FUNC(aclmdlGetCurOutputDims, modelDesc, index, dims);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetCurOutputDims,modelDesc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetCurOutputDims,modelDesc, index, dims);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -1979,10 +1967,10 @@ aclError aclmdlGetCurOutputDims(const aclmdlDesc* modelDesc, size_t index, aclmd
 aclDataBuffer* aclmdlGetDatasetBuffer(const aclmdlDataset* dataset, size_t index){
     BEGIN_FUNC_HOOK(aclmdlGetDatasetBuffer);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetDatasetBuffer, dataset, );
+        PASS_FUNC(aclmdlGetDatasetBuffer, dataset, index);
     #else
         DEFINE_RETURN_VARIBLE(aclDataBuffer*, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetDatasetBuffer,dataset, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetDatasetBuffer,dataset, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2011,10 +1999,10 @@ size_t aclmdlGetDatasetNumBuffers(const aclmdlDataset* dataset){
 aclTensorDesc* aclmdlGetDatasetTensorDesc(const aclmdlDataset* dataset, size_t index){
     BEGIN_FUNC_HOOK(aclmdlGetDatasetTensorDesc);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetDatasetTensorDesc, dataset, );
+        PASS_FUNC(aclmdlGetDatasetTensorDesc, dataset, index);
     #else
         DEFINE_RETURN_VARIBLE(aclTensorDesc*, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetDatasetTensorDesc,dataset, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetDatasetTensorDesc,dataset, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2027,10 +2015,10 @@ aclTensorDesc* aclmdlGetDatasetTensorDesc(const aclmdlDataset* dataset, size_t i
 aclError aclmdlGetDesc(aclmdlDesc* modelDesc, uint32_t modelId){
     BEGIN_FUNC_HOOK(aclmdlGetDesc);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetDesc, modelDesc, );
+        PASS_FUNC(aclmdlGetDesc, modelDesc, modelId);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetDesc,modelDesc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetDesc,modelDesc, modelId);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2043,10 +2031,10 @@ aclError aclmdlGetDesc(aclmdlDesc* modelDesc, uint32_t modelId){
 aclError aclmdlGetDynamicBatch(const aclmdlDesc* modelDesc, aclmdlBatch* batch){
     BEGIN_FUNC_HOOK(aclmdlGetDynamicBatch);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetDynamicBatch, modelDesc, );
+        PASS_FUNC(aclmdlGetDynamicBatch, modelDesc, batch);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetDynamicBatch,modelDesc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetDynamicBatch,modelDesc, batch);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2059,10 +2047,10 @@ aclError aclmdlGetDynamicBatch(const aclmdlDesc* modelDesc, aclmdlBatch* batch){
 aclError aclmdlGetDynamicHW(const aclmdlDesc* modelDesc, size_t index, aclmdlHW* hw){
     BEGIN_FUNC_HOOK(aclmdlGetDynamicHW);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetDynamicHW, modelDesc, , );
+        PASS_FUNC(aclmdlGetDynamicHW, modelDesc, index, hw);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetDynamicHW,modelDesc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetDynamicHW,modelDesc, index, hw);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2075,10 +2063,10 @@ aclError aclmdlGetDynamicHW(const aclmdlDesc* modelDesc, size_t index, aclmdlHW*
 aclError aclmdlGetFirstAippInfo(uint32_t modelId, size_t index, aclAippInfo* aippInfo){
     BEGIN_FUNC_HOOK(aclmdlGetFirstAippInfo);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetFirstAippInfo, modelId, , );
+        PASS_FUNC(aclmdlGetFirstAippInfo, modelId, index, aippInfo);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetFirstAippInfo,modelId, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetFirstAippInfo,modelId, index, aippInfo);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2091,10 +2079,10 @@ aclError aclmdlGetFirstAippInfo(uint32_t modelId, size_t index, aclAippInfo* aip
 aclDataType aclmdlGetInputDataType(const aclmdlDesc* modelDesc, size_t index){
     BEGIN_FUNC_HOOK(aclmdlGetInputDataType);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetInputDataType, modelDesc, );
+        PASS_FUNC(aclmdlGetInputDataType, modelDesc, index);
     #else
         DEFINE_RETURN_VARIBLE(aclDataType, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputDataType,modelDesc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputDataType,modelDesc, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2107,10 +2095,10 @@ aclDataType aclmdlGetInputDataType(const aclmdlDesc* modelDesc, size_t index){
 aclError aclmdlGetInputDims(const aclmdlDesc* modelDesc, size_t index, aclmdlIODims* dims){
     BEGIN_FUNC_HOOK(aclmdlGetInputDims);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetInputDims, modelDesc, , );
+        PASS_FUNC(aclmdlGetInputDims, modelDesc, index, dims);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputDims,modelDesc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputDims,modelDesc, index, dims);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2123,10 +2111,10 @@ aclError aclmdlGetInputDims(const aclmdlDesc* modelDesc, size_t index, aclmdlIOD
 aclError aclmdlGetInputDimsV2(const aclmdlDesc* modelDesc, size_t index, aclmdlIODims* dims){
     BEGIN_FUNC_HOOK(aclmdlGetInputDimsV2);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetInputDimsV2, modelDesc, , );
+        PASS_FUNC(aclmdlGetInputDimsV2, modelDesc, index, dims);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputDimsV2,modelDesc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputDimsV2,modelDesc, index, dims);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2139,10 +2127,10 @@ aclError aclmdlGetInputDimsV2(const aclmdlDesc* modelDesc, size_t index, aclmdlI
 aclError aclmdlGetInputDynamicDims(const aclmdlDesc* modelDesc, size_t index, aclmdlIODims* dims, size_t gearCount){
     BEGIN_FUNC_HOOK(aclmdlGetInputDynamicDims);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetInputDynamicDims, modelDesc, , , );
+        PASS_FUNC(aclmdlGetInputDynamicDims, modelDesc, index, dims, gearCount);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputDynamicDims,modelDesc, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputDynamicDims,modelDesc, index, dims, gearCount);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2155,10 +2143,10 @@ aclError aclmdlGetInputDynamicDims(const aclmdlDesc* modelDesc, size_t index, ac
 aclError aclmdlGetInputDynamicGearCount(const aclmdlDesc* modelDesc, size_t index, size_t* gearCount){
     BEGIN_FUNC_HOOK(aclmdlGetInputDynamicGearCount);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetInputDynamicGearCount, modelDesc, , );
+        PASS_FUNC(aclmdlGetInputDynamicGearCount, modelDesc, index, gearCount);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputDynamicGearCount,modelDesc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputDynamicGearCount,modelDesc, index, gearCount);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2171,10 +2159,10 @@ aclError aclmdlGetInputDynamicGearCount(const aclmdlDesc* modelDesc, size_t inde
 aclFormat aclmdlGetInputFormat(const aclmdlDesc* modelDesc, size_t index){
     BEGIN_FUNC_HOOK(aclmdlGetInputFormat);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetInputFormat, modelDesc, );
+        PASS_FUNC(aclmdlGetInputFormat, modelDesc, index);
     #else
         DEFINE_RETURN_VARIBLE(aclFormat, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputFormat,modelDesc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputFormat,modelDesc, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2187,10 +2175,10 @@ aclFormat aclmdlGetInputFormat(const aclmdlDesc* modelDesc, size_t index){
 aclError aclmdlGetInputIndexByName(const aclmdlDesc* modelDesc, const char* name, size_t* index){
     BEGIN_FUNC_HOOK(aclmdlGetInputIndexByName);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetInputIndexByName, modelDesc, , );
+        PASS_FUNC(aclmdlGetInputIndexByName, modelDesc, name, index);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputIndexByName,modelDesc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputIndexByName,modelDesc, name, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2203,10 +2191,10 @@ aclError aclmdlGetInputIndexByName(const aclmdlDesc* modelDesc, const char* name
 const char* aclmdlGetInputNameByIndex(const aclmdlDesc* modelDesc, size_t index){
     BEGIN_FUNC_HOOK(aclmdlGetInputNameByIndex);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetInputNameByIndex, modelDesc, );
+        PASS_FUNC(aclmdlGetInputNameByIndex, modelDesc, index);
     #else
         DEFINE_RETURN_VARIBLE(const char*, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputNameByIndex,modelDesc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputNameByIndex,modelDesc, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2219,10 +2207,10 @@ const char* aclmdlGetInputNameByIndex(const aclmdlDesc* modelDesc, size_t index)
 size_t aclmdlGetInputSizeByIndex(aclmdlDesc* modelDesc, size_t index){
     BEGIN_FUNC_HOOK(aclmdlGetInputSizeByIndex);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetInputSizeByIndex, modelDesc, );
+        PASS_FUNC(aclmdlGetInputSizeByIndex, modelDesc, index);
     #else
         DEFINE_RETURN_VARIBLE(size_t, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputSizeByIndex,modelDesc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetInputSizeByIndex,modelDesc, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2267,10 +2255,10 @@ size_t aclmdlGetNumOutputs(aclmdlDesc* modelDesc){
 const char* aclmdlGetOpAttr(aclmdlDesc* modelDesc, const char* opName, const char* attr){
     BEGIN_FUNC_HOOK(aclmdlGetOpAttr);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetOpAttr, modelDesc, , );
+        PASS_FUNC(aclmdlGetOpAttr, modelDesc, opName, attr);
     #else
         DEFINE_RETURN_VARIBLE(const char*, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetOpAttr,modelDesc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetOpAttr,modelDesc, opName, attr);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2283,10 +2271,10 @@ const char* aclmdlGetOpAttr(aclmdlDesc* modelDesc, const char* opName, const cha
 aclDataType aclmdlGetOutputDataType(const aclmdlDesc* modelDesc, size_t index){
     BEGIN_FUNC_HOOK(aclmdlGetOutputDataType);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetOutputDataType, modelDesc, );
+        PASS_FUNC(aclmdlGetOutputDataType, modelDesc, index);
     #else
         DEFINE_RETURN_VARIBLE(aclDataType, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetOutputDataType,modelDesc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetOutputDataType,modelDesc, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2299,10 +2287,10 @@ aclDataType aclmdlGetOutputDataType(const aclmdlDesc* modelDesc, size_t index){
 aclError aclmdlGetOutputDims(const aclmdlDesc* modelDesc, size_t index, aclmdlIODims* dims){
     BEGIN_FUNC_HOOK(aclmdlGetOutputDims);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetOutputDims, modelDesc, , );
+        PASS_FUNC(aclmdlGetOutputDims, modelDesc, index, dims);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetOutputDims,modelDesc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetOutputDims,modelDesc, index, dims);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2315,10 +2303,10 @@ aclError aclmdlGetOutputDims(const aclmdlDesc* modelDesc, size_t index, aclmdlIO
 aclFormat aclmdlGetOutputFormat(const aclmdlDesc* modelDesc, size_t index){
     BEGIN_FUNC_HOOK(aclmdlGetOutputFormat);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetOutputFormat, modelDesc, );
+        PASS_FUNC(aclmdlGetOutputFormat, modelDesc, index);
     #else
         DEFINE_RETURN_VARIBLE(aclFormat, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetOutputFormat,modelDesc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetOutputFormat,modelDesc, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2331,10 +2319,10 @@ aclFormat aclmdlGetOutputFormat(const aclmdlDesc* modelDesc, size_t index){
 aclError aclmdlGetOutputIndexByName(const aclmdlDesc* modelDesc, const char* name, size_t* index){
     BEGIN_FUNC_HOOK(aclmdlGetOutputIndexByName);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetOutputIndexByName, modelDesc, , );
+        PASS_FUNC(aclmdlGetOutputIndexByName, modelDesc, name, index);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetOutputIndexByName,modelDesc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetOutputIndexByName,modelDesc, name, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2347,10 +2335,10 @@ aclError aclmdlGetOutputIndexByName(const aclmdlDesc* modelDesc, const char* nam
 const char* aclmdlGetOutputNameByIndex(const aclmdlDesc* modelDesc, size_t index){
     BEGIN_FUNC_HOOK(aclmdlGetOutputNameByIndex);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetOutputNameByIndex, modelDesc, );
+        PASS_FUNC(aclmdlGetOutputNameByIndex, modelDesc, index);
     #else
         DEFINE_RETURN_VARIBLE(const char*, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetOutputNameByIndex,modelDesc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetOutputNameByIndex,modelDesc, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2363,10 +2351,10 @@ const char* aclmdlGetOutputNameByIndex(const aclmdlDesc* modelDesc, size_t index
 size_t aclmdlGetOutputSizeByIndex(aclmdlDesc* modelDesc, size_t index){
     BEGIN_FUNC_HOOK(aclmdlGetOutputSizeByIndex);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetOutputSizeByIndex, modelDesc, );
+        PASS_FUNC(aclmdlGetOutputSizeByIndex, modelDesc, index);
     #else
         DEFINE_RETURN_VARIBLE(size_t, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetOutputSizeByIndex,modelDesc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetOutputSizeByIndex,modelDesc, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2379,10 +2367,10 @@ size_t aclmdlGetOutputSizeByIndex(aclmdlDesc* modelDesc, size_t index){
 const char* aclmdlGetTensorRealName(const aclmdlDesc* modelDesc, const char* name){
     BEGIN_FUNC_HOOK(aclmdlGetTensorRealName);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlGetTensorRealName, modelDesc, );
+        PASS_FUNC(aclmdlGetTensorRealName, modelDesc, name);
     #else
         DEFINE_RETURN_VARIBLE(const char*, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetTensorRealName,modelDesc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlGetTensorRealName,modelDesc, name);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2411,10 +2399,10 @@ aclError aclmdlInitDump(){
 aclError aclmdlLoadFromFile(const char* modelPath, uint32_t* modelId){
     BEGIN_FUNC_HOOK(aclmdlLoadFromFile);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlLoadFromFile, modelPath, );
+        PASS_FUNC(aclmdlLoadFromFile, modelPath, modelId);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlLoadFromFile,modelPath, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlLoadFromFile,modelPath, modelId);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2427,10 +2415,10 @@ aclError aclmdlLoadFromFile(const char* modelPath, uint32_t* modelId){
 aclError aclmdlLoadFromFileWithMem(const char* modelPath, uint32_t* modelId, void* workPtr, size_t workSize, void* weightPtr, size_t weightSize){
     BEGIN_FUNC_HOOK(aclmdlLoadFromFileWithMem);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlLoadFromFileWithMem, modelPath, , , , , );
+        PASS_FUNC(aclmdlLoadFromFileWithMem, modelPath, modelId, workPtr, workSize, weightPtr, weightSize);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlLoadFromFileWithMem,modelPath, , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlLoadFromFileWithMem,modelPath, modelId, workPtr, workSize, weightPtr, weightSize);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2443,10 +2431,10 @@ aclError aclmdlLoadFromFileWithMem(const char* modelPath, uint32_t* modelId, voi
 aclError aclmdlLoadFromFileWithQ(const char* modelPath, uint32_t* modelId, const uint32_t* inputQ, size_t inputQNum, const uint32_t* outputQ, size_t outputQNum){
     BEGIN_FUNC_HOOK(aclmdlLoadFromFileWithQ);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlLoadFromFileWithQ, modelPath, , , , , );
+        PASS_FUNC(aclmdlLoadFromFileWithQ, modelPath, modelId, inputQ, inputQNum, outputQ, outputQNum);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlLoadFromFileWithQ,modelPath, , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlLoadFromFileWithQ,modelPath, modelId, inputQ, inputQNum, outputQ, outputQNum);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2459,10 +2447,10 @@ aclError aclmdlLoadFromFileWithQ(const char* modelPath, uint32_t* modelId, const
 aclError aclmdlLoadFromMem(const void* model, size_t modelSize, uint32_t* modelId){
     BEGIN_FUNC_HOOK(aclmdlLoadFromMem);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlLoadFromMem, model, , );
+        PASS_FUNC(aclmdlLoadFromMem, model, modelSize, modelId);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlLoadFromMem,model, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlLoadFromMem,model, modelSize, modelId);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2475,10 +2463,10 @@ aclError aclmdlLoadFromMem(const void* model, size_t modelSize, uint32_t* modelI
 aclError aclmdlLoadFromMemWithMem(const void* model, size_t modelSize, uint32_t* modelId, void* workPtr, size_t workSize, void* weightPtr, size_t weightSize){
     BEGIN_FUNC_HOOK(aclmdlLoadFromMemWithMem);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlLoadFromMemWithMem, model, , , , , , );
+        PASS_FUNC(aclmdlLoadFromMemWithMem, model, modelSize, modelId, workPtr, workSize, weightPtr, weightSize);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlLoadFromMemWithMem,model, , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlLoadFromMemWithMem,model, modelSize, modelId, workPtr, workSize, weightPtr, weightSize);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2491,10 +2479,10 @@ aclError aclmdlLoadFromMemWithMem(const void* model, size_t modelSize, uint32_t*
 aclError aclmdlLoadFromMemWithQ(const void* model, size_t modelSize, uint32_t* modelId, const uint32_t* inputQ, size_t inputQNum, const uint32_t* outputQ, size_t outputQNum){
     BEGIN_FUNC_HOOK(aclmdlLoadFromMemWithQ);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlLoadFromMemWithQ, model, , , , , , );
+        PASS_FUNC(aclmdlLoadFromMemWithQ, model, modelSize, modelId, inputQ, inputQNum, outputQ, outputQNum);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlLoadFromMemWithQ,model, , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlLoadFromMemWithQ,model, modelSize, modelId, inputQ, inputQNum, outputQ, outputQNum);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2507,10 +2495,10 @@ aclError aclmdlLoadFromMemWithQ(const void* model, size_t modelSize, uint32_t* m
 aclError aclmdlLoadWithConfig(const aclmdlConfigHandle* handle, uint32_t* modelId){
     BEGIN_FUNC_HOOK(aclmdlLoadWithConfig);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlLoadWithConfig, handle, );
+        PASS_FUNC(aclmdlLoadWithConfig, handle, modelId);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlLoadWithConfig,handle, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlLoadWithConfig,handle, modelId);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2523,10 +2511,10 @@ aclError aclmdlLoadWithConfig(const aclmdlConfigHandle* handle, uint32_t* modelI
 aclError aclmdlQuerySize(const char* fileName, size_t* workSize, size_t* weightSize){
     BEGIN_FUNC_HOOK(aclmdlQuerySize);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlQuerySize, fileName, , );
+        PASS_FUNC(aclmdlQuerySize, fileName, workSize, weightSize);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlQuerySize,fileName, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlQuerySize,fileName, workSize, weightSize);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2539,10 +2527,10 @@ aclError aclmdlQuerySize(const char* fileName, size_t* workSize, size_t* weightS
 aclError aclmdlQuerySizeFromMem(const void* model, size_t modelSize, size_t* workSize, size_t* weightSize){
     BEGIN_FUNC_HOOK(aclmdlQuerySizeFromMem);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlQuerySizeFromMem, model, , , );
+        PASS_FUNC(aclmdlQuerySizeFromMem, model, modelSize, workSize, weightSize);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlQuerySizeFromMem,model, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlQuerySizeFromMem,model, modelSize, workSize, weightSize);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2555,10 +2543,10 @@ aclError aclmdlQuerySizeFromMem(const void* model, size_t modelSize, size_t* wor
 aclError aclmdlSetAIPPAxSwapSwitch(aclmdlAIPP* aippParmsSet, int8_t axSwapSwitch){
     BEGIN_FUNC_HOOK(aclmdlSetAIPPAxSwapSwitch);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetAIPPAxSwapSwitch, aippParmsSet, );
+        PASS_FUNC(aclmdlSetAIPPAxSwapSwitch, aippParmsSet, axSwapSwitch);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPAxSwapSwitch,aippParmsSet, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPAxSwapSwitch,aippParmsSet, axSwapSwitch);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2571,10 +2559,10 @@ aclError aclmdlSetAIPPAxSwapSwitch(aclmdlAIPP* aippParmsSet, int8_t axSwapSwitch
 aclError aclmdlSetAIPPByInputIndex(uint32_t modelId, aclmdlDataset* dataset, size_t index, const aclmdlAIPP* aippParmsSet){
     BEGIN_FUNC_HOOK(aclmdlSetAIPPByInputIndex);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetAIPPByInputIndex, modelId, , , );
+        PASS_FUNC(aclmdlSetAIPPByInputIndex, modelId, dataset, index, aippParmsSet);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPByInputIndex,modelId, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPByInputIndex,modelId, dataset, index, aippParmsSet);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2587,10 +2575,10 @@ aclError aclmdlSetAIPPByInputIndex(uint32_t modelId, aclmdlDataset* dataset, siz
 aclError aclmdlSetAIPPCropParams(aclmdlAIPP* aippParmsSet, int8_t cropSwitch, int32_t cropStartPosW, int32_t cropStartPosH, int32_t cropSizeW, int32_t cropSizeH, uint64_t batchIndex){
     BEGIN_FUNC_HOOK(aclmdlSetAIPPCropParams);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetAIPPCropParams, aippParmsSet, , , , , , );
+        PASS_FUNC(aclmdlSetAIPPCropParams, aippParmsSet, cropSwitch, cropStartPosW, cropStartPosH, cropSizeW, cropSizeH, batchIndex);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPCropParams,aippParmsSet, , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPCropParams,aippParmsSet, cropSwitch, cropStartPosW, cropStartPosH, cropSizeW, cropSizeH, batchIndex);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2603,10 +2591,10 @@ aclError aclmdlSetAIPPCropParams(aclmdlAIPP* aippParmsSet, int8_t cropSwitch, in
 aclError aclmdlSetAIPPCscParams(aclmdlAIPP* aippParmsSet, int8_t cscSwitch, int16_t cscMatrixR0C0, int16_t cscMatrixR0C1, int16_t cscMatrixR0C2, int16_t cscMatrixR1C0, int16_t cscMatrixR1C1, int16_t cscMatrixR1C2, int16_t cscMatrixR2C0, int16_t cscMatrixR2C1, int16_t cscMatrixR2C2, uint8_t cscOutputBiasR0, uint8_t cscOutputBiasR1, uint8_t cscOutputBiasR2, uint8_t cscInputBiasR0, uint8_t cscInputBiasR1, uint8_t cscInputBiasR2){
     BEGIN_FUNC_HOOK(aclmdlSetAIPPCscParams);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetAIPPCscParams, aippParmsSet, , , , , , , , , , , , , , , , );
+        PASS_FUNC(aclmdlSetAIPPCscParams, aippParmsSet, cscSwitch, cscMatrixR0C0, cscMatrixR0C1, cscMatrixR0C2, cscMatrixR1C0, cscMatrixR1C1, cscMatrixR1C2, cscMatrixR2C0, cscMatrixR2C1, cscMatrixR2C2, cscOutputBiasR0, cscOutputBiasR1, cscOutputBiasR2, cscInputBiasR0, cscInputBiasR1, cscInputBiasR2);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPCscParams,aippParmsSet, , , , , , , , , , , , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPCscParams,aippParmsSet, cscSwitch, cscMatrixR0C0, cscMatrixR0C1, cscMatrixR0C2, cscMatrixR1C0, cscMatrixR1C1, cscMatrixR1C2, cscMatrixR2C0, cscMatrixR2C1, cscMatrixR2C2, cscOutputBiasR0, cscOutputBiasR1, cscOutputBiasR2, cscInputBiasR0, cscInputBiasR1, cscInputBiasR2);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2619,10 +2607,10 @@ aclError aclmdlSetAIPPCscParams(aclmdlAIPP* aippParmsSet, int8_t cscSwitch, int1
 aclError aclmdlSetAIPPDtcPixelMean(aclmdlAIPP* aippParmsSet, int16_t dtcPixelMeanChn0, int16_t dtcPixelMeanChn1, int16_t dtcPixelMeanChn2, int16_t dtcPixelMeanChn3, uint64_t batchIndex){
     BEGIN_FUNC_HOOK(aclmdlSetAIPPDtcPixelMean);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetAIPPDtcPixelMean, aippParmsSet, , , , , );
+        PASS_FUNC(aclmdlSetAIPPDtcPixelMean, aippParmsSet, dtcPixelMeanChn0, dtcPixelMeanChn1, dtcPixelMeanChn2, dtcPixelMeanChn3, batchIndex);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPDtcPixelMean,aippParmsSet, , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPDtcPixelMean,aippParmsSet, dtcPixelMeanChn0, dtcPixelMeanChn1, dtcPixelMeanChn2, dtcPixelMeanChn3, batchIndex);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2635,10 +2623,10 @@ aclError aclmdlSetAIPPDtcPixelMean(aclmdlAIPP* aippParmsSet, int16_t dtcPixelMea
 aclError aclmdlSetAIPPDtcPixelMin(aclmdlAIPP* aippParmsSet, float dtcPixelMinChn0, float dtcPixelMinChn1, float dtcPixelMinChn2, float dtcPixelMinChn3, uint64_t batchIndex){
     BEGIN_FUNC_HOOK(aclmdlSetAIPPDtcPixelMin);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetAIPPDtcPixelMin, aippParmsSet, , , , , );
+        PASS_FUNC(aclmdlSetAIPPDtcPixelMin, aippParmsSet, dtcPixelMinChn0, dtcPixelMinChn1, dtcPixelMinChn2, dtcPixelMinChn3, batchIndex);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPDtcPixelMin,aippParmsSet, , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPDtcPixelMin,aippParmsSet, dtcPixelMinChn0, dtcPixelMinChn1, dtcPixelMinChn2, dtcPixelMinChn3, batchIndex);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2651,10 +2639,10 @@ aclError aclmdlSetAIPPDtcPixelMin(aclmdlAIPP* aippParmsSet, float dtcPixelMinChn
 aclError aclmdlSetAIPPInputFormat(aclmdlAIPP* aippParmsSet, aclAippInputFormat inputFormat){
     BEGIN_FUNC_HOOK(aclmdlSetAIPPInputFormat);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetAIPPInputFormat, aippParmsSet, );
+        PASS_FUNC(aclmdlSetAIPPInputFormat, aippParmsSet, inputFormat);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPInputFormat,aippParmsSet, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPInputFormat,aippParmsSet, inputFormat);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2667,10 +2655,10 @@ aclError aclmdlSetAIPPInputFormat(aclmdlAIPP* aippParmsSet, aclAippInputFormat i
 aclError aclmdlSetAIPPPaddingParams(aclmdlAIPP* aippParmsSet, int8_t paddingSwitch, int32_t paddingSizeTop, int32_t paddingSizeBottom, int32_t paddingSizeLeft, int32_t paddingSizeRight, uint64_t batchIndex){
     BEGIN_FUNC_HOOK(aclmdlSetAIPPPaddingParams);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetAIPPPaddingParams, aippParmsSet, , , , , , );
+        PASS_FUNC(aclmdlSetAIPPPaddingParams, aippParmsSet, paddingSwitch, paddingSizeTop, paddingSizeBottom, paddingSizeLeft, paddingSizeRight, batchIndex);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPPaddingParams,aippParmsSet, , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPPaddingParams,aippParmsSet, paddingSwitch, paddingSizeTop, paddingSizeBottom, paddingSizeLeft, paddingSizeRight, batchIndex);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2683,10 +2671,10 @@ aclError aclmdlSetAIPPPaddingParams(aclmdlAIPP* aippParmsSet, int8_t paddingSwit
 aclError aclmdlSetAIPPPixelVarReci(aclmdlAIPP* aippParmsSet, float dtcPixelVarReciChn0, float dtcPixelVarReciChn1, float dtcPixelVarReciChn2, float dtcPixelVarReciChn3, uint64_t batchIndex){
     BEGIN_FUNC_HOOK(aclmdlSetAIPPPixelVarReci);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetAIPPPixelVarReci, aippParmsSet, , , , , );
+        PASS_FUNC(aclmdlSetAIPPPixelVarReci, aippParmsSet, dtcPixelVarReciChn0, dtcPixelVarReciChn1, dtcPixelVarReciChn2, dtcPixelVarReciChn3, batchIndex);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPPixelVarReci,aippParmsSet, , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPPixelVarReci,aippParmsSet, dtcPixelVarReciChn0, dtcPixelVarReciChn1, dtcPixelVarReciChn2, dtcPixelVarReciChn3, batchIndex);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2699,10 +2687,10 @@ aclError aclmdlSetAIPPPixelVarReci(aclmdlAIPP* aippParmsSet, float dtcPixelVarRe
 aclError aclmdlSetAIPPRbuvSwapSwitch(aclmdlAIPP* aippParmsSet, int8_t rbuvSwapSwitch){
     BEGIN_FUNC_HOOK(aclmdlSetAIPPRbuvSwapSwitch);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetAIPPRbuvSwapSwitch, aippParmsSet, );
+        PASS_FUNC(aclmdlSetAIPPRbuvSwapSwitch, aippParmsSet, rbuvSwapSwitch);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPRbuvSwapSwitch,aippParmsSet, );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPRbuvSwapSwitch,aippParmsSet, rbuvSwapSwitch);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2715,10 +2703,10 @@ aclError aclmdlSetAIPPRbuvSwapSwitch(aclmdlAIPP* aippParmsSet, int8_t rbuvSwapSw
 aclError aclmdlSetAIPPScfParams(aclmdlAIPP* aippParmsSet, int8_t scfSwitch, int32_t scfInputSizeW, int32_t scfInputSizeH, int32_t scfOutputSizeW, int32_t scfOutputSizeH, uint64_t batchIndex){
     BEGIN_FUNC_HOOK(aclmdlSetAIPPScfParams);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetAIPPScfParams, aippParmsSet, , , , , , );
+        PASS_FUNC(aclmdlSetAIPPScfParams, aippParmsSet, scfSwitch, scfInputSizeW, scfInputSizeH, scfOutputSizeW, scfOutputSizeH, batchIndex);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPScfParams,aippParmsSet, , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPScfParams,aippParmsSet, scfSwitch, scfInputSizeW, scfInputSizeH, scfOutputSizeW, scfOutputSizeH, batchIndex);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2731,10 +2719,10 @@ aclError aclmdlSetAIPPScfParams(aclmdlAIPP* aippParmsSet, int8_t scfSwitch, int3
 aclError aclmdlSetAIPPSrcImageSize(aclmdlAIPP* aippParmsSet, int32_t srcImageSizeW, int32_t srcImageSizeH){
     BEGIN_FUNC_HOOK(aclmdlSetAIPPSrcImageSize);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetAIPPSrcImageSize, aippParmsSet, , );
+        PASS_FUNC(aclmdlSetAIPPSrcImageSize, aippParmsSet, srcImageSizeW, srcImageSizeH);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPSrcImageSize,aippParmsSet, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetAIPPSrcImageSize,aippParmsSet, srcImageSizeW, srcImageSizeH);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2747,10 +2735,10 @@ aclError aclmdlSetAIPPSrcImageSize(aclmdlAIPP* aippParmsSet, int32_t srcImageSiz
 aclError aclmdlSetConfigOpt(aclmdlConfigHandle* handle, aclmdlConfigAttr attr, const void* attrValue, size_t valueSize){
     BEGIN_FUNC_HOOK(aclmdlSetConfigOpt);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetConfigOpt, handle, , , );
+        PASS_FUNC(aclmdlSetConfigOpt, handle, attr, attrValue, valueSize);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetConfigOpt,handle, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetConfigOpt,handle, attr, attrValue, valueSize);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2763,10 +2751,10 @@ aclError aclmdlSetConfigOpt(aclmdlConfigHandle* handle, aclmdlConfigAttr attr, c
 aclError aclmdlSetDatasetTensorDesc(aclmdlDataset* dataset, aclTensorDesc* tensorDesc, size_t index){
     BEGIN_FUNC_HOOK(aclmdlSetDatasetTensorDesc);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetDatasetTensorDesc, dataset, , );
+        PASS_FUNC(aclmdlSetDatasetTensorDesc, dataset, tensorDesc, index);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetDatasetTensorDesc,dataset, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetDatasetTensorDesc,dataset, tensorDesc, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2795,10 +2783,10 @@ aclError aclmdlSetDump(const char* dumpCfgPath){
 aclError aclmdlSetDynamicBatchSize(uint32_t modelId, aclmdlDataset* dataset, size_t index, uint64_t batchSize){
     BEGIN_FUNC_HOOK(aclmdlSetDynamicBatchSize);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetDynamicBatchSize, modelId, , , );
+        PASS_FUNC(aclmdlSetDynamicBatchSize, modelId, dataset, index, batchSize);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetDynamicBatchSize,modelId, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetDynamicBatchSize,modelId, dataset, index, batchSize);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2811,10 +2799,10 @@ aclError aclmdlSetDynamicBatchSize(uint32_t modelId, aclmdlDataset* dataset, siz
 aclError aclmdlSetDynamicHWSize(uint32_t modelId, aclmdlDataset* dataset, size_t index, uint64_t height, uint64_t width){
     BEGIN_FUNC_HOOK(aclmdlSetDynamicHWSize);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetDynamicHWSize, modelId, , , , );
+        PASS_FUNC(aclmdlSetDynamicHWSize, modelId, dataset, index, height, width);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetDynamicHWSize,modelId, , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetDynamicHWSize,modelId, dataset, index, height, width);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2827,10 +2815,10 @@ aclError aclmdlSetDynamicHWSize(uint32_t modelId, aclmdlDataset* dataset, size_t
 aclError aclmdlSetExecConfigOpt(aclmdlExecConfigHandle* handle, aclmdlExecConfigAttr attr, const void* attrValue, size_t valueSize){
     BEGIN_FUNC_HOOK(aclmdlSetExecConfigOpt);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetExecConfigOpt, handle, , , );
+        PASS_FUNC(aclmdlSetExecConfigOpt, handle, attr, attrValue, valueSize);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetExecConfigOpt,handle, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetExecConfigOpt,handle, attr, attrValue, valueSize);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2843,10 +2831,10 @@ aclError aclmdlSetExecConfigOpt(aclmdlExecConfigHandle* handle, aclmdlExecConfig
 aclError aclmdlSetInputAIPP(uint32_t modelId, aclmdlDataset* dataset, size_t index, const aclmdlAIPP* aippParmsSet){
     BEGIN_FUNC_HOOK(aclmdlSetInputAIPP);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetInputAIPP, modelId, , , );
+        PASS_FUNC(aclmdlSetInputAIPP, modelId, dataset, index, aippParmsSet);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetInputAIPP,modelId, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetInputAIPP,modelId, dataset, index, aippParmsSet);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2859,10 +2847,10 @@ aclError aclmdlSetInputAIPP(uint32_t modelId, aclmdlDataset* dataset, size_t ind
 aclError aclmdlSetInputDynamicDims(uint32_t modelId, aclmdlDataset* dataset, size_t index, const aclmdlIODims* dims){
     BEGIN_FUNC_HOOK(aclmdlSetInputDynamicDims);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclmdlSetInputDynamicDims, modelId, , , );
+        PASS_FUNC(aclmdlSetInputDynamicDims, modelId, dataset, index, dims);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetInputDynamicDims,modelId, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclmdlSetInputDynamicDims,modelId, dataset, index, dims);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2891,10 +2879,10 @@ aclError aclmdlUnload(uint32_t modelId){
 aclError aclopCast(const aclTensorDesc* srcDesc, const aclDataBuffer* srcBuffer, const aclTensorDesc* dstDesc, aclDataBuffer* dstBuffer, uint8_t truncate, aclrtStream stream){
     BEGIN_FUNC_HOOK(aclopCast);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopCast, srcDesc, , , , , );
+        PASS_FUNC(aclopCast, srcDesc, srcBuffer, dstDesc, dstBuffer, truncate, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopCast,srcDesc, , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopCast,srcDesc, srcBuffer, dstDesc, dstBuffer, truncate, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2907,10 +2895,10 @@ aclError aclopCast(const aclTensorDesc* srcDesc, const aclDataBuffer* srcBuffer,
 aclError aclopCompile(const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], int numOutputs, const aclTensorDesc* const outputDesc[], const aclopAttr* attr, aclopEngineType engineType, aclopCompileType compileFlag, const char* opPath){
     BEGIN_FUNC_HOOK(aclopCompile);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopCompile, opType, , , , , , , , );
+        PASS_FUNC(aclopCompile, opType, numInputs, inputDesc, numOutputs, outputDesc, attr, engineType, compileFlag, opPath);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopCompile,opType, , , , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopCompile,opType, numInputs, inputDesc, numOutputs, outputDesc, attr, engineType, compileFlag, opPath);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2923,10 +2911,10 @@ aclError aclopCompile(const char* opType, int numInputs, const aclTensorDesc* co
 aclError aclopCompileAndExecute(const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], const aclDataBuffer* const inputs[], int numOutputs, const aclTensorDesc* const outputDesc[], aclDataBuffer* const outputs[], const aclopAttr* attr, aclopEngineType engineType, aclopCompileType compileFlag, const char* opPath, aclrtStream stream){
     BEGIN_FUNC_HOOK(aclopCompileAndExecute);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopCompileAndExecute, opType, , , , , , , , , , , );
+        PASS_FUNC(aclopCompileAndExecute, opType, numInputs, inputDesc, inputs, numOutputs, outputDesc, outputs, attr, engineType, compileFlag, opPath, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopCompileAndExecute,opType, , , , , , , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopCompileAndExecute,opType, numInputs, inputDesc, inputs, numOutputs, outputDesc, outputs, attr, engineType, compileFlag, opPath, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2939,10 +2927,10 @@ aclError aclopCompileAndExecute(const char* opType, int numInputs, const aclTens
 aclError aclopCompileAndExecuteV2(const char* opType, int numInputs, aclTensorDesc* inputDesc[], aclDataBuffer* inputs[], int numOutputs, aclTensorDesc* outputDesc[], aclDataBuffer* outputs[], aclopAttr* attr, aclopEngineType engineType, aclopCompileType compileFlag, const char* opPath, aclrtStream stream){
     BEGIN_FUNC_HOOK(aclopCompileAndExecuteV2);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopCompileAndExecuteV2, opType, , , , , , , , , , , );
+        PASS_FUNC(aclopCompileAndExecuteV2, opType, numInputs, inputDesc, inputs, numOutputs, outputDesc, outputs, attr, engineType, compileFlag, opPath, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopCompileAndExecuteV2,opType, , , , , , , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopCompileAndExecuteV2,opType, numInputs, inputDesc, inputs, numOutputs, outputDesc, outputs, attr, engineType, compileFlag, opPath, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2971,10 +2959,10 @@ aclopAttr* aclopCreateAttr(){
 aclError aclopCreateHandle(const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], int numOutputs, const aclTensorDesc* const outputDesc[], const aclopAttr* opAttr, aclopHandle** handle){
     BEGIN_FUNC_HOOK(aclopCreateHandle);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopCreateHandle, opType, , , , , , );
+        PASS_FUNC(aclopCreateHandle, opType, numInputs, inputDesc, numOutputs, outputDesc, opAttr, handle);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopCreateHandle,opType, , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopCreateHandle,opType, numInputs, inputDesc, numOutputs, outputDesc, opAttr, handle);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -2987,10 +2975,10 @@ aclError aclopCreateHandle(const char* opType, int numInputs, const aclTensorDes
 aclError aclopCreateHandleForCast(aclTensorDesc* srcDesc, aclTensorDesc* dstDesc, uint8_t truncate, aclopHandle** handle){
     BEGIN_FUNC_HOOK(aclopCreateHandleForCast);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopCreateHandleForCast, srcDesc, , , );
+        PASS_FUNC(aclopCreateHandleForCast, srcDesc, dstDesc, truncate, handle);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopCreateHandleForCast,srcDesc, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopCreateHandleForCast,srcDesc, dstDesc, truncate, handle);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3003,10 +2991,10 @@ aclError aclopCreateHandleForCast(aclTensorDesc* srcDesc, aclTensorDesc* dstDesc
 aclError aclopCreateKernel(const char* opType, const char* kernelId, const char* kernelName, void* binData, int binSize, aclopEngineType enginetype, aclDataDeallocator deallocator){
     BEGIN_FUNC_HOOK(aclopCreateKernel);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopCreateKernel, opType, , , , , , );
+        PASS_FUNC(aclopCreateKernel, opType, kernelId, kernelName, binData, binSize, enginetype, deallocator);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopCreateKernel,opType, , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopCreateKernel,opType, kernelId, kernelName, binData, binSize, enginetype, deallocator);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3026,7 +3014,7 @@ void aclopDestroyAttr(const aclopAttr* attr){
     #ifdef END_FUNC_HOOK_ON
         END_FUNC_HOOK(func);
     #endif
-    return result;
+    return ;
 }
 void aclopDestroyHandle(aclopHandle* handle){
     BEGIN_FUNC_HOOK(aclopDestroyHandle);
@@ -3038,15 +3026,15 @@ void aclopDestroyHandle(aclopHandle* handle){
     #ifdef END_FUNC_HOOK_ON
         END_FUNC_HOOK(func);
     #endif
-    return result;
+    return ;
 }
 aclError aclopExecWithHandle(aclopHandle* handle, int numInputs, const aclDataBuffer* const inputs[], int numOutputs, aclDataBuffer* const outputs[], aclrtStream stream){
     BEGIN_FUNC_HOOK(aclopExecWithHandle);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopExecWithHandle, handle, , , , , );
+        PASS_FUNC(aclopExecWithHandle, handle, numInputs, inputs, numOutputs, outputs, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopExecWithHandle,handle, , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopExecWithHandle,handle, numInputs, inputs, numOutputs, outputs, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3059,10 +3047,10 @@ aclError aclopExecWithHandle(aclopHandle* handle, int numInputs, const aclDataBu
 aclError aclopExecute(const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], const aclDataBuffer* const inputs[], int numOutputs, const aclTensorDesc* const outputDesc[], aclDataBuffer* const outputs[], const aclopAttr* attr, aclrtStream stream){
     BEGIN_FUNC_HOOK(aclopExecute);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopExecute, opType, , , , , , , , );
+        PASS_FUNC(aclopExecute, opType, numInputs, inputDesc, inputs, numOutputs, outputDesc, outputs, attr, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopExecute,opType, , , , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopExecute,opType, numInputs, inputDesc, inputs, numOutputs, outputDesc, outputs, attr, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3075,10 +3063,10 @@ aclError aclopExecute(const char* opType, int numInputs, const aclTensorDesc* co
 aclError aclopExecuteV2(const char* opType, int numInputs, aclTensorDesc* inputDesc[], aclDataBuffer* inputs[], int numOutputs, aclTensorDesc* outputDesc[], aclDataBuffer* outputs[], aclopAttr* attr, aclrtStream stream){
     BEGIN_FUNC_HOOK(aclopExecuteV2);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopExecuteV2, opType, , , , , , , , );
+        PASS_FUNC(aclopExecuteV2, opType, numInputs, inputDesc, inputs, numOutputs, outputDesc, outputs, attr, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopExecuteV2,opType, , , , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopExecuteV2,opType, numInputs, inputDesc, inputs, numOutputs, outputDesc, outputs, attr, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3091,10 +3079,10 @@ aclError aclopExecuteV2(const char* opType, int numInputs, aclTensorDesc* inputD
 aclError aclopInferShape(const char* opType, int numInputs, aclTensorDesc* inputDesc[], aclDataBuffer* inputs[], int numOutputs, aclTensorDesc* outputDesc[], aclopAttr* attr){
     BEGIN_FUNC_HOOK(aclopInferShape);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopInferShape, opType, , , , , , );
+        PASS_FUNC(aclopInferShape, opType, numInputs, inputDesc, inputs, numOutputs, outputDesc, attr);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopInferShape,opType, , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopInferShape,opType, numInputs, inputDesc, inputs, numOutputs, outputDesc, attr);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3107,10 +3095,10 @@ aclError aclopInferShape(const char* opType, int numInputs, aclTensorDesc* input
 aclError aclopLoad(const void* model, size_t modelSize){
     BEGIN_FUNC_HOOK(aclopLoad);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopLoad, model, );
+        PASS_FUNC(aclopLoad, model, modelSize);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopLoad,model, );
+        CALL_FUNC_WITH_RETURN(result,so_aclopLoad,model, modelSize);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3123,10 +3111,10 @@ aclError aclopLoad(const void* model, size_t modelSize){
 aclError aclopRegisterCompileFunc(const char* opType, aclopCompileFunc func){
     BEGIN_FUNC_HOOK(aclopRegisterCompileFunc);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopRegisterCompileFunc, opType, );
+        PASS_FUNC(aclopRegisterCompileFunc, opType, func);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopRegisterCompileFunc,opType, );
+        CALL_FUNC_WITH_RETURN(result,so_aclopRegisterCompileFunc,opType, func);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3139,10 +3127,10 @@ aclError aclopRegisterCompileFunc(const char* opType, aclopCompileFunc func){
 aclError aclopSetAttrBool(aclopAttr* attr, const char* attrName, uint8_t attrValue){
     BEGIN_FUNC_HOOK(aclopSetAttrBool);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopSetAttrBool, attr, , );
+        PASS_FUNC(aclopSetAttrBool, attr, attrName, attrValue);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrBool,attr, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrBool,attr, attrName, attrValue);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3155,10 +3143,10 @@ aclError aclopSetAttrBool(aclopAttr* attr, const char* attrName, uint8_t attrVal
 aclError aclopSetAttrDataType(aclopAttr* attr, const char* attrName, aclDataType attrValue){
     BEGIN_FUNC_HOOK(aclopSetAttrDataType);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopSetAttrDataType, attr, , );
+        PASS_FUNC(aclopSetAttrDataType, attr, attrName, attrValue);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrDataType,attr, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrDataType,attr, attrName, attrValue);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3171,10 +3159,10 @@ aclError aclopSetAttrDataType(aclopAttr* attr, const char* attrName, aclDataType
 aclError aclopSetAttrFloat(aclopAttr* attr, const char* attrName, float attrValue){
     BEGIN_FUNC_HOOK(aclopSetAttrFloat);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopSetAttrFloat, attr, , );
+        PASS_FUNC(aclopSetAttrFloat, attr, attrName, attrValue);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrFloat,attr, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrFloat,attr, attrName, attrValue);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3187,10 +3175,10 @@ aclError aclopSetAttrFloat(aclopAttr* attr, const char* attrName, float attrValu
 aclError aclopSetAttrInt(aclopAttr* attr, const char* attrName, int64_t attrValue){
     BEGIN_FUNC_HOOK(aclopSetAttrInt);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopSetAttrInt, attr, , );
+        PASS_FUNC(aclopSetAttrInt, attr, attrName, attrValue);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrInt,attr, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrInt,attr, attrName, attrValue);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3203,10 +3191,10 @@ aclError aclopSetAttrInt(aclopAttr* attr, const char* attrName, int64_t attrValu
 aclError aclopSetAttrListBool(aclopAttr* attr, const char* attrName, int numValues, const uint8_t* values){
     BEGIN_FUNC_HOOK(aclopSetAttrListBool);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopSetAttrListBool, attr, , , );
+        PASS_FUNC(aclopSetAttrListBool, attr, attrName, numValues, values);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrListBool,attr, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrListBool,attr, attrName, numValues, values);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3219,10 +3207,10 @@ aclError aclopSetAttrListBool(aclopAttr* attr, const char* attrName, int numValu
 aclError aclopSetAttrListDataType(aclopAttr* attr, const char* attrName, int numValues, const aclDataType values[]){
     BEGIN_FUNC_HOOK(aclopSetAttrListDataType);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopSetAttrListDataType, attr, , , );
+        PASS_FUNC(aclopSetAttrListDataType, attr, attrName, numValues, values);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrListDataType,attr, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrListDataType,attr, attrName, numValues, values);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3235,10 +3223,10 @@ aclError aclopSetAttrListDataType(aclopAttr* attr, const char* attrName, int num
 aclError aclopSetAttrListFloat(aclopAttr* attr, const char* attrName, int numValues, const float* values){
     BEGIN_FUNC_HOOK(aclopSetAttrListFloat);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopSetAttrListFloat, attr, , , );
+        PASS_FUNC(aclopSetAttrListFloat, attr, attrName, numValues, values);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrListFloat,attr, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrListFloat,attr, attrName, numValues, values);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3251,10 +3239,10 @@ aclError aclopSetAttrListFloat(aclopAttr* attr, const char* attrName, int numVal
 aclError aclopSetAttrListInt(aclopAttr* attr, const char* attrName, int numValues, const int64_t* values){
     BEGIN_FUNC_HOOK(aclopSetAttrListInt);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopSetAttrListInt, attr, , , );
+        PASS_FUNC(aclopSetAttrListInt, attr, attrName, numValues, values);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrListInt,attr, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrListInt,attr, attrName, numValues, values);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3267,10 +3255,10 @@ aclError aclopSetAttrListInt(aclopAttr* attr, const char* attrName, int numValue
 aclError aclopSetAttrListListInt(aclopAttr* attr, const char* attrName, int numLists, const int* numValues, const int64_t* const values[]){
     BEGIN_FUNC_HOOK(aclopSetAttrListListInt);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopSetAttrListListInt, attr, , , , );
+        PASS_FUNC(aclopSetAttrListListInt, attr, attrName, numLists, numValues, values);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrListListInt,attr, , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrListListInt,attr, attrName, numLists, numValues, values);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3283,10 +3271,10 @@ aclError aclopSetAttrListListInt(aclopAttr* attr, const char* attrName, int numL
 aclError aclopSetAttrListString(aclopAttr* attr, const char* attrName, int numValues, const char** values){
     BEGIN_FUNC_HOOK(aclopSetAttrListString);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopSetAttrListString, attr, , , );
+        PASS_FUNC(aclopSetAttrListString, attr, attrName, numValues, values);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrListString,attr, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrListString,attr, attrName, numValues, values);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3299,10 +3287,10 @@ aclError aclopSetAttrListString(aclopAttr* attr, const char* attrName, int numVa
 aclError aclopSetAttrString(aclopAttr* attr, const char* attrName, const char* attrValue){
     BEGIN_FUNC_HOOK(aclopSetAttrString);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopSetAttrString, attr, , );
+        PASS_FUNC(aclopSetAttrString, attr, attrName, attrValue);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrString,attr, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopSetAttrString,attr, attrName, attrValue);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3331,10 +3319,10 @@ aclError aclopSetCompileFlag(aclOpCompileFlag flag){
 aclError aclopSetKernelArgs(aclopKernelDesc* kernelDesc, const char* kernelId, uint32_t blockDim, const void* args, uint32_t argSize){
     BEGIN_FUNC_HOOK(aclopSetKernelArgs);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopSetKernelArgs, kernelDesc, , , , );
+        PASS_FUNC(aclopSetKernelArgs, kernelDesc, kernelId, blockDim, args, argSize);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopSetKernelArgs,kernelDesc, , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopSetKernelArgs,kernelDesc, kernelId, blockDim, args, argSize);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3347,10 +3335,10 @@ aclError aclopSetKernelArgs(aclopKernelDesc* kernelDesc, const char* kernelId, u
 aclError aclopSetKernelWorkspaceSizes(aclopKernelDesc* kernelDesc, int numWorkspaces, size_t* workspaceSizes){
     BEGIN_FUNC_HOOK(aclopSetKernelWorkspaceSizes);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopSetKernelWorkspaceSizes, kernelDesc, , );
+        PASS_FUNC(aclopSetKernelWorkspaceSizes, kernelDesc, numWorkspaces, workspaceSizes);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopSetKernelWorkspaceSizes,kernelDesc, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopSetKernelWorkspaceSizes,kernelDesc, numWorkspaces, workspaceSizes);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3379,10 +3367,10 @@ aclError aclopSetModelDir(const char* modelDir){
 aclError aclopStartDumpArgs(uint32_t dumpType, const char* path){
     BEGIN_FUNC_HOOK(aclopStartDumpArgs);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopStartDumpArgs, dumpType, );
+        PASS_FUNC(aclopStartDumpArgs, dumpType, path);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopStartDumpArgs,dumpType, );
+        CALL_FUNC_WITH_RETURN(result,so_aclopStartDumpArgs,dumpType, path);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3427,10 +3415,10 @@ aclError aclopUnregisterCompileFunc(const char* opType){
 aclError aclopUpdateParams(const char* opType, int numInputs, const aclTensorDesc* const inputDesc[], int numOutputs, const aclTensorDesc* const outputDesc[], const aclopAttr* attr){
     BEGIN_FUNC_HOOK(aclopUpdateParams);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclopUpdateParams, opType, , , , , );
+        PASS_FUNC(aclopUpdateParams, opType, numInputs, inputDesc, numOutputs, outputDesc, attr);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclopUpdateParams,opType, , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclopUpdateParams,opType, numInputs, inputDesc, numOutputs, outputDesc, attr);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3443,10 +3431,10 @@ aclError aclopUpdateParams(const char* opType, int numInputs, const aclTensorDes
 aclprofConfig* aclprofCreateConfig(uint32_t* deviceIdList, uint32_t deviceNums, aclprofAicoreMetrics aicoreMetrics, aclprofAicoreEvents* aicoreEvents, uint64_t dataTypeConfig){
     BEGIN_FUNC_HOOK(aclprofCreateConfig);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofCreateConfig, deviceIdList, , , , );
+        PASS_FUNC(aclprofCreateConfig, deviceIdList, deviceNums, aicoreMetrics, aicoreEvents, dataTypeConfig);
     #else
         DEFINE_RETURN_VARIBLE(aclprofConfig*, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofCreateConfig,deviceIdList, , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofCreateConfig,deviceIdList, deviceNums, aicoreMetrics, aicoreEvents, dataTypeConfig);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3491,10 +3479,10 @@ aclprofStepInfo* aclprofCreateStepInfo(void){
 aclprofSubscribeConfig* aclprofCreateSubscribeConfig(int8_t timeInfoSwitch, aclprofAicoreMetrics aicoreMetrics, void* fd){
     BEGIN_FUNC_HOOK(aclprofCreateSubscribeConfig);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofCreateSubscribeConfig, timeInfoSwitch, , );
+        PASS_FUNC(aclprofCreateSubscribeConfig, timeInfoSwitch, aicoreMetrics, fd);
     #else
         DEFINE_RETURN_VARIBLE(aclprofSubscribeConfig*, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofCreateSubscribeConfig,timeInfoSwitch, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofCreateSubscribeConfig,timeInfoSwitch, aicoreMetrics, fd);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3530,7 +3518,7 @@ void aclprofDestroyStamp(void* stamp){
     #ifdef END_FUNC_HOOK_ON
         END_FUNC_HOOK(func);
     #endif
-    return result;
+    return ;
 }
 void aclprofDestroyStepInfo(aclprofStepInfo* stepinfo){
     BEGIN_FUNC_HOOK(aclprofDestroyStepInfo);
@@ -3542,7 +3530,7 @@ void aclprofDestroyStepInfo(aclprofStepInfo* stepinfo){
     #ifdef END_FUNC_HOOK_ON
         END_FUNC_HOOK(func);
     #endif
-    return result;
+    return ;
 }
 aclError aclprofDestroySubscribeConfig(const aclprofSubscribeConfig* profSubscribeConfig){
     BEGIN_FUNC_HOOK(aclprofDestroySubscribeConfig);
@@ -3579,10 +3567,10 @@ aclError aclprofFinalize(){
 size_t aclprofGetModelId(const void* opInfo, size_t opInfoLen, uint32_t index){
     BEGIN_FUNC_HOOK(aclprofGetModelId);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofGetModelId, opInfo, , );
+        PASS_FUNC(aclprofGetModelId, opInfo, opInfoLen, index);
     #else
         DEFINE_RETURN_VARIBLE(size_t, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofGetModelId,opInfo, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofGetModelId,opInfo, opInfoLen, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3611,10 +3599,10 @@ aclError aclprofGetOpDescSize(size_t* opDescSize){
 uint64_t aclprofGetOpDuration(const void* opInfo, size_t opInfoLen, uint32_t index){
     BEGIN_FUNC_HOOK(aclprofGetOpDuration);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofGetOpDuration, opInfo, , );
+        PASS_FUNC(aclprofGetOpDuration, opInfo, opInfoLen, index);
     #else
         DEFINE_RETURN_VARIBLE(uint64_t, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofGetOpDuration,opInfo, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofGetOpDuration,opInfo, opInfoLen, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3627,10 +3615,10 @@ uint64_t aclprofGetOpDuration(const void* opInfo, size_t opInfoLen, uint32_t ind
 uint64_t aclprofGetOpEnd(const void* opInfo, size_t opInfoLen, uint32_t index){
     BEGIN_FUNC_HOOK(aclprofGetOpEnd);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofGetOpEnd, opInfo, , );
+        PASS_FUNC(aclprofGetOpEnd, opInfo, opInfoLen, index);
     #else
         DEFINE_RETURN_VARIBLE(uint64_t, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofGetOpEnd,opInfo, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofGetOpEnd,opInfo, opInfoLen, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3643,10 +3631,10 @@ uint64_t aclprofGetOpEnd(const void* opInfo, size_t opInfoLen, uint32_t index){
 aclError aclprofGetOpName(const void* opInfo, size_t opInfoLen, uint32_t index, char* opName, size_t opNameLen){
     BEGIN_FUNC_HOOK(aclprofGetOpName);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofGetOpName, opInfo, , , , );
+        PASS_FUNC(aclprofGetOpName, opInfo, opInfoLen, index, opName, opNameLen);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofGetOpName,opInfo, , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofGetOpName,opInfo, opInfoLen, index, opName, opNameLen);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3659,10 +3647,10 @@ aclError aclprofGetOpName(const void* opInfo, size_t opInfoLen, uint32_t index, 
 aclError aclprofGetOpNameLen(const void* opInfo, size_t opInfoLen, uint32_t index, size_t* opNameLen){
     BEGIN_FUNC_HOOK(aclprofGetOpNameLen);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofGetOpNameLen, opInfo, , , );
+        PASS_FUNC(aclprofGetOpNameLen, opInfo, opInfoLen, index, opNameLen);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofGetOpNameLen,opInfo, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofGetOpNameLen,opInfo, opInfoLen, index, opNameLen);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3675,10 +3663,10 @@ aclError aclprofGetOpNameLen(const void* opInfo, size_t opInfoLen, uint32_t inde
 aclError aclprofGetOpNum(const void* opInfo, size_t opInfoLen, uint32_t* opNumber){
     BEGIN_FUNC_HOOK(aclprofGetOpNum);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofGetOpNum, opInfo, , );
+        PASS_FUNC(aclprofGetOpNum, opInfo, opInfoLen, opNumber);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofGetOpNum,opInfo, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofGetOpNum,opInfo, opInfoLen, opNumber);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3691,10 +3679,10 @@ aclError aclprofGetOpNum(const void* opInfo, size_t opInfoLen, uint32_t* opNumbe
 uint64_t aclprofGetOpStart(const void* opInfo, size_t opInfoLen, uint32_t index){
     BEGIN_FUNC_HOOK(aclprofGetOpStart);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofGetOpStart, opInfo, , );
+        PASS_FUNC(aclprofGetOpStart, opInfo, opInfoLen, index);
     #else
         DEFINE_RETURN_VARIBLE(uint64_t, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofGetOpStart,opInfo, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofGetOpStart,opInfo, opInfoLen, index);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3707,10 +3695,10 @@ uint64_t aclprofGetOpStart(const void* opInfo, size_t opInfoLen, uint32_t index)
 aclError aclprofGetOpType(const void* opInfo, size_t opInfoLen, uint32_t index, char* opType, size_t opTypeLen){
     BEGIN_FUNC_HOOK(aclprofGetOpType);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofGetOpType, opInfo, , , , );
+        PASS_FUNC(aclprofGetOpType, opInfo, opInfoLen, index, opType, opTypeLen);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofGetOpType,opInfo, , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofGetOpType,opInfo, opInfoLen, index, opType, opTypeLen);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3723,10 +3711,10 @@ aclError aclprofGetOpType(const void* opInfo, size_t opInfoLen, uint32_t index, 
 aclError aclprofGetOpTypeLen(const void* opInfo, size_t opInfoLen, uint32_t index, size_t* opTypeLen){
     BEGIN_FUNC_HOOK(aclprofGetOpTypeLen);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofGetOpTypeLen, opInfo, , , );
+        PASS_FUNC(aclprofGetOpTypeLen, opInfo, opInfoLen, index, opTypeLen);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofGetOpTypeLen,opInfo, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofGetOpTypeLen,opInfo, opInfoLen, index, opTypeLen);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3739,10 +3727,10 @@ aclError aclprofGetOpTypeLen(const void* opInfo, size_t opInfoLen, uint32_t inde
 aclError aclprofGetStepTimestamp(aclprofStepInfo* stepInfo, aclprofStepTag tag, aclrtStream stream){
     BEGIN_FUNC_HOOK(aclprofGetStepTimestamp);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofGetStepTimestamp, stepInfo, , );
+        PASS_FUNC(aclprofGetStepTimestamp, stepInfo, tag, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofGetStepTimestamp,stepInfo, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofGetStepTimestamp,stepInfo, tag, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3755,10 +3743,10 @@ aclError aclprofGetStepTimestamp(aclprofStepInfo* stepInfo, aclprofStepTag tag, 
 aclError aclprofInit(const char* profilerResultPath, size_t length){
     BEGIN_FUNC_HOOK(aclprofInit);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofInit, profilerResultPath, );
+        PASS_FUNC(aclprofInit, profilerResultPath, length);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofInit,profilerResultPath, );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofInit,profilerResultPath, length);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3787,10 +3775,10 @@ aclError aclprofMark(void* stamp){
 aclError aclprofMarkEx(const char* msg, size_t msgLen, aclrtStream stream){
     BEGIN_FUNC_HOOK(aclprofMarkEx);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofMarkEx, msg, , );
+        PASS_FUNC(aclprofMarkEx, msg, msgLen, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofMarkEx,msg, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofMarkEx,msg, msgLen, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3803,10 +3791,10 @@ aclError aclprofMarkEx(const char* msg, size_t msgLen, aclrtStream stream){
 aclError aclprofModelSubscribe(uint32_t modelId, const aclprofSubscribeConfig* profSubscribeConfig){
     BEGIN_FUNC_HOOK(aclprofModelSubscribe);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofModelSubscribe, modelId, );
+        PASS_FUNC(aclprofModelSubscribe, modelId, profSubscribeConfig);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofModelSubscribe,modelId, );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofModelSubscribe,modelId, profSubscribeConfig);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3867,10 +3855,10 @@ aclError aclprofPush(void* stamp){
 aclError aclprofRangeStart(void* stamp, uint32_t* rangeId){
     BEGIN_FUNC_HOOK(aclprofRangeStart);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofRangeStart, stamp, );
+        PASS_FUNC(aclprofRangeStart, stamp, rangeId);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofRangeStart,stamp, );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofRangeStart,stamp, rangeId);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3899,10 +3887,10 @@ aclError aclprofRangeStop(uint32_t rangeId){
 aclError aclprofSetConfig(aclprofConfigType configType, const char* config, size_t configLength){
     BEGIN_FUNC_HOOK(aclprofSetConfig);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofSetConfig, configType, , );
+        PASS_FUNC(aclprofSetConfig, configType, config, configLength);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofSetConfig,configType, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofSetConfig,configType, config, configLength);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3915,10 +3903,10 @@ aclError aclprofSetConfig(aclprofConfigType configType, const char* config, size
 aclError aclprofSetStampTraceMessage(void* stamp, const char* msg, uint32_t msgLen){
     BEGIN_FUNC_HOOK(aclprofSetStampTraceMessage);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclprofSetStampTraceMessage, stamp, , );
+        PASS_FUNC(aclprofSetStampTraceMessage, stamp, msg, msgLen);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclprofSetStampTraceMessage,stamp, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclprofSetStampTraceMessage,stamp, msg, msgLen);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -3995,10 +3983,10 @@ aclError aclrtAllocatorDestroyDesc(aclrtAllocatorDesc allocatorDesc){
 aclError aclrtAllocatorRegister(aclrtStream stream, aclrtAllocatorDesc allocatorDesc){
     BEGIN_FUNC_HOOK(aclrtAllocatorRegister);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtAllocatorRegister, stream, );
+        PASS_FUNC(aclrtAllocatorRegister, stream, allocatorDesc);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtAllocatorRegister,stream, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtAllocatorRegister,stream, allocatorDesc);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4011,10 +3999,10 @@ aclError aclrtAllocatorRegister(aclrtStream stream, aclrtAllocatorDesc allocator
 aclError aclrtAllocatorSetAllocAdviseFuncToDesc(aclrtAllocatorDesc allocatorDesc, aclrtAllocatorAllocAdviseFunc func){
     BEGIN_FUNC_HOOK(aclrtAllocatorSetAllocAdviseFuncToDesc);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtAllocatorSetAllocAdviseFuncToDesc, allocatorDesc, );
+        PASS_FUNC(aclrtAllocatorSetAllocAdviseFuncToDesc, allocatorDesc, func);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtAllocatorSetAllocAdviseFuncToDesc,allocatorDesc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtAllocatorSetAllocAdviseFuncToDesc,allocatorDesc, func);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4027,10 +4015,10 @@ aclError aclrtAllocatorSetAllocAdviseFuncToDesc(aclrtAllocatorDesc allocatorDesc
 aclError aclrtAllocatorSetAllocFuncToDesc(aclrtAllocatorDesc allocatorDesc, aclrtAllocatorAllocFunc func){
     BEGIN_FUNC_HOOK(aclrtAllocatorSetAllocFuncToDesc);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtAllocatorSetAllocFuncToDesc, allocatorDesc, );
+        PASS_FUNC(aclrtAllocatorSetAllocFuncToDesc, allocatorDesc, func);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtAllocatorSetAllocFuncToDesc,allocatorDesc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtAllocatorSetAllocFuncToDesc,allocatorDesc, func);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4043,10 +4031,10 @@ aclError aclrtAllocatorSetAllocFuncToDesc(aclrtAllocatorDesc allocatorDesc, aclr
 aclError aclrtAllocatorSetFreeFuncToDesc(aclrtAllocatorDesc allocatorDesc, aclrtAllocatorFreeFunc func){
     BEGIN_FUNC_HOOK(aclrtAllocatorSetFreeFuncToDesc);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtAllocatorSetFreeFuncToDesc, allocatorDesc, );
+        PASS_FUNC(aclrtAllocatorSetFreeFuncToDesc, allocatorDesc, func);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtAllocatorSetFreeFuncToDesc,allocatorDesc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtAllocatorSetFreeFuncToDesc,allocatorDesc, func);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4059,10 +4047,10 @@ aclError aclrtAllocatorSetFreeFuncToDesc(aclrtAllocatorDesc allocatorDesc, aclrt
 aclError aclrtAllocatorSetGetAddrFromBlockFuncToDesc(aclrtAllocatorDesc allocatorDesc, aclrtAllocatorGetAddrFromBlockFunc func){
     BEGIN_FUNC_HOOK(aclrtAllocatorSetGetAddrFromBlockFuncToDesc);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtAllocatorSetGetAddrFromBlockFuncToDesc, allocatorDesc, );
+        PASS_FUNC(aclrtAllocatorSetGetAddrFromBlockFuncToDesc, allocatorDesc, func);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtAllocatorSetGetAddrFromBlockFuncToDesc,allocatorDesc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtAllocatorSetGetAddrFromBlockFuncToDesc,allocatorDesc, func);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4075,10 +4063,10 @@ aclError aclrtAllocatorSetGetAddrFromBlockFuncToDesc(aclrtAllocatorDesc allocato
 aclError aclrtAllocatorSetObjToDesc(aclrtAllocatorDesc allocatorDesc, aclrtAllocator allocator){
     BEGIN_FUNC_HOOK(aclrtAllocatorSetObjToDesc);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtAllocatorSetObjToDesc, allocatorDesc, );
+        PASS_FUNC(aclrtAllocatorSetObjToDesc, allocatorDesc, allocator);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtAllocatorSetObjToDesc,allocatorDesc, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtAllocatorSetObjToDesc,allocatorDesc, allocator);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4107,10 +4095,10 @@ aclError aclrtAllocatorUnregister(aclrtStream stream){
 aclError aclrtBinaryGetFunction(const aclrtBinHandle binHandle, const char* kernelName, aclrtFuncHandle* funcHandle){
     BEGIN_FUNC_HOOK(aclrtBinaryGetFunction);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtBinaryGetFunction, binHandle, , );
+        PASS_FUNC(aclrtBinaryGetFunction, binHandle, kernelName, funcHandle);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtBinaryGetFunction,binHandle, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtBinaryGetFunction,binHandle, kernelName, funcHandle);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4123,10 +4111,10 @@ aclError aclrtBinaryGetFunction(const aclrtBinHandle binHandle, const char* kern
 aclError aclrtBinaryLoad(const aclrtBinary binary, aclrtBinHandle* binHandle){
     BEGIN_FUNC_HOOK(aclrtBinaryLoad);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtBinaryLoad, binary, );
+        PASS_FUNC(aclrtBinaryLoad, binary, binHandle);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtBinaryLoad,binary, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtBinaryLoad,binary, binHandle);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4155,10 +4143,10 @@ aclError aclrtBinaryUnLoad(aclrtBinHandle binHandle){
 aclrtBinary aclrtCreateBinary(const void* data, size_t dataLen){
     BEGIN_FUNC_HOOK(aclrtCreateBinary);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtCreateBinary, data, );
+        PASS_FUNC(aclrtCreateBinary, data, dataLen);
     #else
         DEFINE_RETURN_VARIBLE(aclrtBinary, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtCreateBinary,data, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtCreateBinary,data, dataLen);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4171,10 +4159,10 @@ aclrtBinary aclrtCreateBinary(const void* data, size_t dataLen){
 aclError aclrtCreateContext(aclrtContext* context, int32_t deviceId){
     BEGIN_FUNC_HOOK(aclrtCreateContext);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtCreateContext, context, );
+        PASS_FUNC(aclrtCreateContext, context, deviceId);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtCreateContext,context, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtCreateContext,context, deviceId);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4203,10 +4191,10 @@ aclError aclrtCreateEvent(aclrtEvent* event){
 aclError aclrtCreateEventExWithFlag(aclrtEvent* event, uint32_t flag){
     BEGIN_FUNC_HOOK(aclrtCreateEventExWithFlag);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtCreateEventExWithFlag, event, );
+        PASS_FUNC(aclrtCreateEventExWithFlag, event, flag);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtCreateEventExWithFlag,event, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtCreateEventExWithFlag,event, flag);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4219,10 +4207,10 @@ aclError aclrtCreateEventExWithFlag(aclrtEvent* event, uint32_t flag){
 aclError aclrtCreateEventWithFlag(aclrtEvent* event, uint32_t flag){
     BEGIN_FUNC_HOOK(aclrtCreateEventWithFlag);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtCreateEventWithFlag, event, );
+        PASS_FUNC(aclrtCreateEventWithFlag, event, flag);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtCreateEventWithFlag,event, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtCreateEventWithFlag,event, flag);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4267,10 +4255,10 @@ aclError aclrtCreateStream(aclrtStream* stream){
 aclError aclrtCreateStreamWithConfig(aclrtStream* stream, uint32_t priority, uint32_t flag){
     BEGIN_FUNC_HOOK(aclrtCreateStreamWithConfig);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtCreateStreamWithConfig, stream, , );
+        PASS_FUNC(aclrtCreateStreamWithConfig, stream, priority, flag);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtCreateStreamWithConfig,stream, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtCreateStreamWithConfig,stream, priority, flag);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4283,10 +4271,10 @@ aclError aclrtCreateStreamWithConfig(aclrtStream* stream, uint32_t priority, uin
 aclError aclrtCtxGetSysParamOpt(aclSysParamOpt opt, int64_t* value){
     BEGIN_FUNC_HOOK(aclrtCtxGetSysParamOpt);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtCtxGetSysParamOpt, opt, );
+        PASS_FUNC(aclrtCtxGetSysParamOpt, opt, value);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtCtxGetSysParamOpt,opt, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtCtxGetSysParamOpt,opt, value);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4299,10 +4287,10 @@ aclError aclrtCtxGetSysParamOpt(aclSysParamOpt opt, int64_t* value){
 aclError aclrtCtxSetSysParamOpt(aclSysParamOpt opt, int64_t value){
     BEGIN_FUNC_HOOK(aclrtCtxSetSysParamOpt);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtCtxSetSysParamOpt, opt, );
+        PASS_FUNC(aclrtCtxSetSysParamOpt, opt, value);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtCtxSetSysParamOpt,opt, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtCtxSetSysParamOpt,opt, value);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4411,10 +4399,10 @@ aclError aclrtDestroyStreamForce(aclrtStream stream){
 aclError aclrtDeviceCanAccessPeer(int32_t* canAccessPeer, int32_t deviceId, int32_t peerDeviceId){
     BEGIN_FUNC_HOOK(aclrtDeviceCanAccessPeer);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtDeviceCanAccessPeer, canAccessPeer, , );
+        PASS_FUNC(aclrtDeviceCanAccessPeer, canAccessPeer, deviceId, peerDeviceId);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtDeviceCanAccessPeer,canAccessPeer, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtDeviceCanAccessPeer,canAccessPeer, deviceId, peerDeviceId);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4443,10 +4431,10 @@ aclError aclrtDeviceDisablePeerAccess(int32_t peerDeviceId){
 aclError aclrtDeviceEnablePeerAccess(int32_t peerDeviceId, uint32_t flags){
     BEGIN_FUNC_HOOK(aclrtDeviceEnablePeerAccess);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtDeviceEnablePeerAccess, peerDeviceId, );
+        PASS_FUNC(aclrtDeviceEnablePeerAccess, peerDeviceId, flags);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtDeviceEnablePeerAccess,peerDeviceId, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtDeviceEnablePeerAccess,peerDeviceId, flags);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4475,10 +4463,10 @@ aclError aclrtDeviceGetBareTgid(int32_t* pid){
 aclError aclrtEventElapsedTime(float* ms, aclrtEvent startEvent, aclrtEvent endEvent){
     BEGIN_FUNC_HOOK(aclrtEventElapsedTime);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtEventElapsedTime, ms, , );
+        PASS_FUNC(aclrtEventElapsedTime, ms, startEvent, endEvent);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtEventElapsedTime,ms, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtEventElapsedTime,ms, startEvent, endEvent);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4635,10 +4623,10 @@ aclError aclrtGetDeviceSatMode(aclrtFloatOverflowMode* mode){
 aclError aclrtGetDeviceUtilizationRate(int32_t deviceId, aclrtUtilizationInfo* utilizationInfo){
     BEGIN_FUNC_HOOK(aclrtGetDeviceUtilizationRate);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtGetDeviceUtilizationRate, deviceId, );
+        PASS_FUNC(aclrtGetDeviceUtilizationRate, deviceId, utilizationInfo);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtGetDeviceUtilizationRate,deviceId, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtGetDeviceUtilizationRate,deviceId, utilizationInfo);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4683,10 +4671,10 @@ aclError aclrtGetGroupCount(uint32_t* count){
 aclError aclrtGetGroupInfoDetail(const aclrtGroupInfo* groupInfo, int32_t groupIndex, aclrtGroupAttr attr, void* attrValue, size_t valueLen, size_t* paramRetSize){
     BEGIN_FUNC_HOOK(aclrtGetGroupInfoDetail);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtGetGroupInfoDetail, groupInfo, , , , , );
+        PASS_FUNC(aclrtGetGroupInfoDetail, groupInfo, groupIndex, attr, attrValue, valueLen, paramRetSize);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtGetGroupInfoDetail,groupInfo, , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtGetGroupInfoDetail,groupInfo, groupIndex, attr, attrValue, valueLen, paramRetSize);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4699,10 +4687,10 @@ aclError aclrtGetGroupInfoDetail(const aclrtGroupInfo* groupInfo, int32_t groupI
 aclError aclrtGetMemInfo(aclrtMemAttr attr, size_t* free, size_t* total){
     BEGIN_FUNC_HOOK(aclrtGetMemInfo);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtGetMemInfo, attr, , );
+        PASS_FUNC(aclrtGetMemInfo, attr, free, total);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtGetMemInfo,attr, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtGetMemInfo,attr, free, total);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4715,10 +4703,10 @@ aclError aclrtGetMemInfo(aclrtMemAttr attr, size_t* free, size_t* total){
 aclError aclrtGetOverflowStatus(void* outputAddr, size_t outputSize, aclrtStream stream){
     BEGIN_FUNC_HOOK(aclrtGetOverflowStatus);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtGetOverflowStatus, outputAddr, , );
+        PASS_FUNC(aclrtGetOverflowStatus, outputAddr, outputSize, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtGetOverflowStatus,outputAddr, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtGetOverflowStatus,outputAddr, outputSize, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4779,10 +4767,10 @@ uint32_t aclrtGetStreamIdFromExceptionInfo(const aclrtExceptionInfo* info){
 aclError aclrtGetStreamOverflowSwitch(aclrtStream stream, uint32_t* flag){
     BEGIN_FUNC_HOOK(aclrtGetStreamOverflowSwitch);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtGetStreamOverflowSwitch, stream, );
+        PASS_FUNC(aclrtGetStreamOverflowSwitch, stream, flag);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtGetStreamOverflowSwitch,stream, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtGetStreamOverflowSwitch,stream, flag);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4827,10 +4815,10 @@ uint32_t aclrtGetThreadIdFromExceptionInfo(const aclrtExceptionInfo* info){
 aclError aclrtGetVersion(int32_t* majorVersion, int32_t* minorVersion, int32_t* patchVersion){
     BEGIN_FUNC_HOOK(aclrtGetVersion);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtGetVersion, majorVersion, , );
+        PASS_FUNC(aclrtGetVersion, majorVersion, minorVersion, patchVersion);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtGetVersion,majorVersion, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtGetVersion,majorVersion, minorVersion, patchVersion);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4843,10 +4831,10 @@ aclError aclrtGetVersion(int32_t* majorVersion, int32_t* minorVersion, int32_t* 
 aclError aclrtLaunchCallback(aclrtCallback fn, void* userData, aclrtCallbackBlockType blockType, aclrtStream stream){
     BEGIN_FUNC_HOOK(aclrtLaunchCallback);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtLaunchCallback, fn, , , );
+        PASS_FUNC(aclrtLaunchCallback, fn, userData, blockType, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtLaunchCallback,fn, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtLaunchCallback,fn, userData, blockType, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4859,10 +4847,10 @@ aclError aclrtLaunchCallback(aclrtCallback fn, void* userData, aclrtCallbackBloc
 aclError aclrtLaunchKernel(aclrtFuncHandle funcHandle, uint32_t blockDim, const void* argsData, size_t argsSize, aclrtStream stream){
     BEGIN_FUNC_HOOK(aclrtLaunchKernel);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtLaunchKernel, funcHandle, , , , );
+        PASS_FUNC(aclrtLaunchKernel, funcHandle, blockDim, argsData, argsSize, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtLaunchKernel,funcHandle, , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtLaunchKernel,funcHandle, blockDim, argsData, argsSize, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4875,10 +4863,10 @@ aclError aclrtLaunchKernel(aclrtFuncHandle funcHandle, uint32_t blockDim, const 
 aclError aclrtMalloc(void** devPtr, size_t size, aclrtMemMallocPolicy policy){
     BEGIN_FUNC_HOOK(aclrtMalloc);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMalloc, devPtr, , );
+        PASS_FUNC(aclrtMalloc, devPtr, size, policy);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMalloc,devPtr, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMalloc,devPtr, size, policy);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4891,10 +4879,10 @@ aclError aclrtMalloc(void** devPtr, size_t size, aclrtMemMallocPolicy policy){
 aclError aclrtMallocAlign32(void** devPtr, size_t size, aclrtMemMallocPolicy policy){
     BEGIN_FUNC_HOOK(aclrtMallocAlign32);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMallocAlign32, devPtr, , );
+        PASS_FUNC(aclrtMallocAlign32, devPtr, size, policy);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMallocAlign32,devPtr, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMallocAlign32,devPtr, size, policy);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4907,10 +4895,10 @@ aclError aclrtMallocAlign32(void** devPtr, size_t size, aclrtMemMallocPolicy pol
 aclError aclrtMallocCached(void** devPtr, size_t size, aclrtMemMallocPolicy policy){
     BEGIN_FUNC_HOOK(aclrtMallocCached);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMallocCached, devPtr, , );
+        PASS_FUNC(aclrtMallocCached, devPtr, size, policy);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMallocCached,devPtr, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMallocCached,devPtr, size, policy);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4923,10 +4911,10 @@ aclError aclrtMallocCached(void** devPtr, size_t size, aclrtMemMallocPolicy poli
 aclError aclrtMallocHost(void** hostPtr, size_t size){
     BEGIN_FUNC_HOOK(aclrtMallocHost);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMallocHost, hostPtr, );
+        PASS_FUNC(aclrtMallocHost, hostPtr, size);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMallocHost,hostPtr, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMallocHost,hostPtr, size);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4939,10 +4927,10 @@ aclError aclrtMallocHost(void** hostPtr, size_t size){
 aclError aclrtMallocPhysical(aclrtDrvMemHandle* handle, size_t size, const aclrtPhysicalMemProp* prop, uint64_t flags){
     BEGIN_FUNC_HOOK(aclrtMallocPhysical);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMallocPhysical, handle, , , );
+        PASS_FUNC(aclrtMallocPhysical, handle, size, prop, flags);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMallocPhysical,handle, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMallocPhysical,handle, size, prop, flags);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4955,10 +4943,10 @@ aclError aclrtMallocPhysical(aclrtDrvMemHandle* handle, size_t size, const aclrt
 aclError aclrtMapMem(void* virPtr, size_t size, size_t offset, aclrtDrvMemHandle handle, uint64_t flags){
     BEGIN_FUNC_HOOK(aclrtMapMem);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMapMem, virPtr, , , , );
+        PASS_FUNC(aclrtMapMem, virPtr, size, offset, handle, flags);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMapMem,virPtr, , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMapMem,virPtr, size, offset, handle, flags);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4971,10 +4959,10 @@ aclError aclrtMapMem(void* virPtr, size_t size, size_t offset, aclrtDrvMemHandle
 aclError aclrtMemExportToShareableHandle(aclrtDrvMemHandle handle, aclrtMemHandleType handleType, uint64_t flags, uint64_t* shareableHandle){
     BEGIN_FUNC_HOOK(aclrtMemExportToShareableHandle);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMemExportToShareableHandle, handle, , , );
+        PASS_FUNC(aclrtMemExportToShareableHandle, handle, handleType, flags, shareableHandle);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMemExportToShareableHandle,handle, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMemExportToShareableHandle,handle, handleType, flags, shareableHandle);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -4987,10 +4975,10 @@ aclError aclrtMemExportToShareableHandle(aclrtDrvMemHandle handle, aclrtMemHandl
 aclError aclrtMemFlush(void* devPtr, size_t size){
     BEGIN_FUNC_HOOK(aclrtMemFlush);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMemFlush, devPtr, );
+        PASS_FUNC(aclrtMemFlush, devPtr, size);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMemFlush,devPtr, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMemFlush,devPtr, size);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5003,10 +4991,10 @@ aclError aclrtMemFlush(void* devPtr, size_t size){
 aclError aclrtMemGetAllocationGranularity(aclrtPhysicalMemProp* prop, aclrtMemGranularityOptions option, size_t* granularity){
     BEGIN_FUNC_HOOK(aclrtMemGetAllocationGranularity);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMemGetAllocationGranularity, prop, , );
+        PASS_FUNC(aclrtMemGetAllocationGranularity, prop, option, granularity);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMemGetAllocationGranularity,prop, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMemGetAllocationGranularity,prop, option, granularity);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5019,10 +5007,10 @@ aclError aclrtMemGetAllocationGranularity(aclrtPhysicalMemProp* prop, aclrtMemGr
 aclError aclrtMemImportFromShareableHandle(uint64_t shareableHandle, int32_t deviceId, aclrtDrvMemHandle* handle){
     BEGIN_FUNC_HOOK(aclrtMemImportFromShareableHandle);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMemImportFromShareableHandle, shareableHandle, , );
+        PASS_FUNC(aclrtMemImportFromShareableHandle, shareableHandle, deviceId, handle);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMemImportFromShareableHandle,shareableHandle, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMemImportFromShareableHandle,shareableHandle, deviceId, handle);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5035,10 +5023,10 @@ aclError aclrtMemImportFromShareableHandle(uint64_t shareableHandle, int32_t dev
 aclError aclrtMemInvalidate(void* devPtr, size_t size){
     BEGIN_FUNC_HOOK(aclrtMemInvalidate);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMemInvalidate, devPtr, );
+        PASS_FUNC(aclrtMemInvalidate, devPtr, size);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMemInvalidate,devPtr, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMemInvalidate,devPtr, size);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5051,10 +5039,10 @@ aclError aclrtMemInvalidate(void* devPtr, size_t size){
 aclError aclrtMemSetPidToShareableHandle(uint64_t shareableHandle, int32_t* pid, size_t pidNum){
     BEGIN_FUNC_HOOK(aclrtMemSetPidToShareableHandle);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMemSetPidToShareableHandle, shareableHandle, , );
+        PASS_FUNC(aclrtMemSetPidToShareableHandle, shareableHandle, pid, pidNum);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMemSetPidToShareableHandle,shareableHandle, , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMemSetPidToShareableHandle,shareableHandle, pid, pidNum);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5067,10 +5055,10 @@ aclError aclrtMemSetPidToShareableHandle(uint64_t shareableHandle, int32_t* pid,
 aclError aclrtMemcpy(void* dst, size_t destMax, const void* src, size_t count, aclrtMemcpyKind kind){
     BEGIN_FUNC_HOOK(aclrtMemcpy);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMemcpy, dst, , , , );
+        PASS_FUNC(aclrtMemcpy, dst, destMax, src, count, kind);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMemcpy,dst, , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMemcpy,dst, destMax, src, count, kind);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5083,10 +5071,10 @@ aclError aclrtMemcpy(void* dst, size_t destMax, const void* src, size_t count, a
 aclError aclrtMemcpy2d(void* dst, size_t dpitch, const void* src, size_t spitch, size_t width, size_t height, aclrtMemcpyKind kind){
     BEGIN_FUNC_HOOK(aclrtMemcpy2d);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMemcpy2d, dst, , , , , , );
+        PASS_FUNC(aclrtMemcpy2d, dst, dpitch, src, spitch, width, height, kind);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMemcpy2d,dst, , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMemcpy2d,dst, dpitch, src, spitch, width, height, kind);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5099,10 +5087,10 @@ aclError aclrtMemcpy2d(void* dst, size_t dpitch, const void* src, size_t spitch,
 aclError aclrtMemcpy2dAsync(void* dst, size_t dpitch, const void* src, size_t spitch, size_t width, size_t height, aclrtMemcpyKind kind, aclrtStream stream){
     BEGIN_FUNC_HOOK(aclrtMemcpy2dAsync);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMemcpy2dAsync, dst, , , , , , , );
+        PASS_FUNC(aclrtMemcpy2dAsync, dst, dpitch, src, spitch, width, height, kind, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMemcpy2dAsync,dst, , , , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMemcpy2dAsync,dst, dpitch, src, spitch, width, height, kind, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5115,10 +5103,10 @@ aclError aclrtMemcpy2dAsync(void* dst, size_t dpitch, const void* src, size_t sp
 aclError aclrtMemcpyAsync(void* dst, size_t destMax, const void* src, size_t count, aclrtMemcpyKind kind, aclrtStream stream){
     BEGIN_FUNC_HOOK(aclrtMemcpyAsync);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMemcpyAsync, dst, , , , , );
+        PASS_FUNC(aclrtMemcpyAsync, dst, destMax, src, count, kind, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMemcpyAsync,dst, , , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMemcpyAsync,dst, destMax, src, count, kind, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5131,10 +5119,10 @@ aclError aclrtMemcpyAsync(void* dst, size_t destMax, const void* src, size_t cou
 aclError aclrtMemset(void* devPtr, size_t maxCount, int32_t value, size_t count){
     BEGIN_FUNC_HOOK(aclrtMemset);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMemset, devPtr, , , );
+        PASS_FUNC(aclrtMemset, devPtr, maxCount, value, count);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMemset,devPtr, , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMemset,devPtr, maxCount, value, count);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5147,10 +5135,10 @@ aclError aclrtMemset(void* devPtr, size_t maxCount, int32_t value, size_t count)
 aclError aclrtMemsetAsync(void* devPtr, size_t maxCount, int32_t value, size_t count, aclrtStream stream){
     BEGIN_FUNC_HOOK(aclrtMemsetAsync);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtMemsetAsync, devPtr, , , , );
+        PASS_FUNC(aclrtMemsetAsync, devPtr, maxCount, value, count, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtMemsetAsync,devPtr, , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtMemsetAsync,devPtr, maxCount, value, count, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5179,10 +5167,10 @@ aclError aclrtProcessReport(int32_t timeout){
 aclError aclrtQueryDeviceStatus(int32_t deviceId, aclrtDeviceStatus* deviceStatus){
     BEGIN_FUNC_HOOK(aclrtQueryDeviceStatus);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtQueryDeviceStatus, deviceId, );
+        PASS_FUNC(aclrtQueryDeviceStatus, deviceId, deviceStatus);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtQueryDeviceStatus,deviceId, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtQueryDeviceStatus,deviceId, deviceStatus);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5195,10 +5183,10 @@ aclError aclrtQueryDeviceStatus(int32_t deviceId, aclrtDeviceStatus* deviceStatu
 aclError aclrtQueryEvent(aclrtEvent event, aclrtEventStatus* status){
     BEGIN_FUNC_HOOK(aclrtQueryEvent);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtQueryEvent, event, );
+        PASS_FUNC(aclrtQueryEvent, event, status);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtQueryEvent,event, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtQueryEvent,event, status);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5211,10 +5199,10 @@ aclError aclrtQueryEvent(aclrtEvent event, aclrtEventStatus* status){
 aclError aclrtQueryEventStatus(aclrtEvent event, aclrtEventRecordedStatus* status){
     BEGIN_FUNC_HOOK(aclrtQueryEventStatus);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtQueryEventStatus, event, );
+        PASS_FUNC(aclrtQueryEventStatus, event, status);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtQueryEventStatus,event, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtQueryEventStatus,event, status);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5227,10 +5215,10 @@ aclError aclrtQueryEventStatus(aclrtEvent event, aclrtEventRecordedStatus* statu
 aclError aclrtQueryEventWaitStatus(aclrtEvent event, aclrtEventWaitStatus* status){
     BEGIN_FUNC_HOOK(aclrtQueryEventWaitStatus);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtQueryEventWaitStatus, event, );
+        PASS_FUNC(aclrtQueryEventWaitStatus, event, status);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtQueryEventWaitStatus,event, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtQueryEventWaitStatus,event, status);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5243,10 +5231,10 @@ aclError aclrtQueryEventWaitStatus(aclrtEvent event, aclrtEventWaitStatus* statu
 aclError aclrtRecordEvent(aclrtEvent event, aclrtStream stream){
     BEGIN_FUNC_HOOK(aclrtRecordEvent);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtRecordEvent, event, );
+        PASS_FUNC(aclrtRecordEvent, event, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtRecordEvent,event, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtRecordEvent,event, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5275,10 +5263,10 @@ aclError aclrtReleaseMemAddress(void* virPtr){
 aclError aclrtReserveMemAddress(void** virPtr, size_t size, size_t alignment, void* expectPtr, uint64_t flags){
     BEGIN_FUNC_HOOK(aclrtReserveMemAddress);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtReserveMemAddress, virPtr, , , , );
+        PASS_FUNC(aclrtReserveMemAddress, virPtr, size, alignment, expectPtr, flags);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtReserveMemAddress,virPtr, , , , );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtReserveMemAddress,virPtr, size, alignment, expectPtr, flags);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5387,10 +5375,10 @@ aclError aclrtSetOpWaitTimeout(uint32_t timeout){
 aclError aclrtSetStreamFailureMode(aclrtStream stream, uint64_t mode){
     BEGIN_FUNC_HOOK(aclrtSetStreamFailureMode);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtSetStreamFailureMode, stream, );
+        PASS_FUNC(aclrtSetStreamFailureMode, stream, mode);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtSetStreamFailureMode,stream, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtSetStreamFailureMode,stream, mode);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5403,10 +5391,10 @@ aclError aclrtSetStreamFailureMode(aclrtStream stream, uint64_t mode){
 aclError aclrtSetStreamOverflowSwitch(aclrtStream stream, uint32_t flag){
     BEGIN_FUNC_HOOK(aclrtSetStreamOverflowSwitch);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtSetStreamOverflowSwitch, stream, );
+        PASS_FUNC(aclrtSetStreamOverflowSwitch, stream, flag);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtSetStreamOverflowSwitch,stream, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtSetStreamOverflowSwitch,stream, flag);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5435,10 +5423,10 @@ aclError aclrtSetTsDevice(aclrtTsId tsId){
 aclError aclrtStreamQuery(aclrtStream stream, aclrtStreamStatus* status){
     BEGIN_FUNC_HOOK(aclrtStreamQuery);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtStreamQuery, stream, );
+        PASS_FUNC(aclrtStreamQuery, stream, status);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtStreamQuery,stream, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtStreamQuery,stream, status);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5451,10 +5439,10 @@ aclError aclrtStreamQuery(aclrtStream stream, aclrtStreamStatus* status){
 aclError aclrtStreamWaitEvent(aclrtStream stream, aclrtEvent event){
     BEGIN_FUNC_HOOK(aclrtStreamWaitEvent);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtStreamWaitEvent, stream, );
+        PASS_FUNC(aclrtStreamWaitEvent, stream, event);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtStreamWaitEvent,stream, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtStreamWaitEvent,stream, event);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5467,10 +5455,10 @@ aclError aclrtStreamWaitEvent(aclrtStream stream, aclrtEvent event){
 aclError aclrtSubscribeReport(uint64_t threadId, aclrtStream stream){
     BEGIN_FUNC_HOOK(aclrtSubscribeReport);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtSubscribeReport, threadId, );
+        PASS_FUNC(aclrtSubscribeReport, threadId, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtSubscribeReport,threadId, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtSubscribeReport,threadId, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5515,10 +5503,10 @@ aclError aclrtSynchronizeEvent(aclrtEvent event){
 aclError aclrtSynchronizeEventWithTimeout(aclrtEvent event, int32_t timeout){
     BEGIN_FUNC_HOOK(aclrtSynchronizeEventWithTimeout);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtSynchronizeEventWithTimeout, event, );
+        PASS_FUNC(aclrtSynchronizeEventWithTimeout, event, timeout);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtSynchronizeEventWithTimeout,event, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtSynchronizeEventWithTimeout,event, timeout);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5547,10 +5535,10 @@ aclError aclrtSynchronizeStream(aclrtStream stream){
 aclError aclrtSynchronizeStreamWithTimeout(aclrtStream stream, int32_t timeout){
     BEGIN_FUNC_HOOK(aclrtSynchronizeStreamWithTimeout);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtSynchronizeStreamWithTimeout, stream, );
+        PASS_FUNC(aclrtSynchronizeStreamWithTimeout, stream, timeout);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtSynchronizeStreamWithTimeout,stream, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtSynchronizeStreamWithTimeout,stream, timeout);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif
@@ -5563,10 +5551,10 @@ aclError aclrtSynchronizeStreamWithTimeout(aclrtStream stream, int32_t timeout){
 aclError aclrtUnSubscribeReport(uint64_t threadId, aclrtStream stream){
     BEGIN_FUNC_HOOK(aclrtUnSubscribeReport);
     #ifdef PASS_FUNC_ON
-        PASS_FUNC(aclrtUnSubscribeReport, threadId, );
+        PASS_FUNC(aclrtUnSubscribeReport, threadId, stream);
     #else
         DEFINE_RETURN_VARIBLE(aclError, result);
-        CALL_FUNC_WITH_RETURN(result,so_aclrtUnSubscribeReport,threadId, );
+        CALL_FUNC_WITH_RETURN(result,so_aclrtUnSubscribeReport,threadId, stream);
         #ifdef CHECK_ACL_RESULT_ON
             CHECK_ACL_RESULT(result);
         #endif

@@ -1,3 +1,6 @@
+#include "config.h"
+
+
 #ifndef PRELOAD_MICRO
     #define PRELOAD_MICRO
     #define DEFFTYPE(rtype, func, ...) typedef rtype(*so_##func##_t)(__VA_ARGS__)
@@ -5,19 +8,26 @@
 #endif
 
 
-#define LDSYM(so_handle, so_func, func)  do { \
+#ifdef SKIP_ASSERT_CHECK
+    #define LDSYM(so_handle, so_func, func) LDSYM_WITHOUT_CHECK(so_handle, so_func, func)
+#else
+    #define LDSYM(so_handle, so_func, func) LDSYM_WITH_CHECK(so_handle, so_func, func)
+#endif
+
+#define LDSYM_WITHOUT_CHECK(so_handle, so_func, func) do{\
     so_func = (so_func##_t)(dlsym(so_handle, #func)); \
-    #ifndef SKIP_ASSERT_CHECK \
-        assert(so_func != NULL); \
-    #endif \
 } while(0)
+
+#define LDSYM_WITH_CHECK(so_handle, so_func, func) do{\
+    so_func = (so_func##_t)(dlsym(so_handle, #func)); \
+    assert(so_func != NULL); \
+} while(0)
+
 
 #define ACL_LDSYM(so_handle, func) LDSYM(so_handle, so_##func, func)
 
 
-#define END_FUNC_HOOK_ON 
-#define CHECK_ACL_RESULT_ON
-// #define PASS_FUNC_ON
+
 
 
 #define PASS_FUNC(func, ...) return func(__VA_ARGS__)
@@ -36,7 +46,7 @@
 // only for checking aclerror, if the rtype is not aclerror, we just ignore the check and do nothing. 
 #define CHECK_ACL_RESULT(result) do{\
     if(result != ACL_SUCCESS){ \
-        fprintf(stderr,"ERROR: file %s, line %d, func %s, error code is %d\n",__file__,__LINE__,__func__,result); \
+        fprintf(stderr,"ERROR: file %s, line %d, func %s, error code is %d\n",__FILE__,__LINE__,__func__,result); \
     } \
 } while(0)
 
