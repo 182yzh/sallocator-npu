@@ -1,4 +1,5 @@
 #include "config.h"
+#include "begin_end_func.h"
 
 
 #ifndef PRELOAD_MICRO

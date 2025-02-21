@@ -162,7 +162,7 @@ __attribute__((constructor)) void aclrt_init(){
         fprintf(stderr, "error for open the acl rt lib (file %s), error msg %s\\n", ACLRT_LIBFILE, dlerror());
         exit(1);
     }
-    load_all_funcs(so_aclrt_handle);
+    load_all_rt_funcs(so_aclrt_handle);
 }
 """
 def add_constructors():
@@ -175,7 +175,7 @@ headers = '''
 #include <acl/acl_rt.h>
 #include <acl/acl_op_compiler.h>
 #include <acl/acl_rt_allocator.h>
-#include "../../common.h"
+#include "../common.h"
 #include <dlfcn.h>
 #include <assert.h>
 #include <stdio.h>
@@ -186,18 +186,18 @@ def add_header_files():
     print(headers)
 
 
-begin_and_end_func = """
-void begin_func(const char* funcname){
-    return;
-}
+# begin_and_end_func = """
+# void begin_func(const char* funcname){
+#     return;
+# }
 
-void end_func(const char* funcname){
-    return;
-}
-"""
+# void end_func(const char* funcname){
+#     return;
+# }
+# """
 
-def add_begin_and_end_func():
-    print(begin_and_end_func)  
+# def add_begin_and_end_func():
+#     print(begin_and_end_func)  
 
 
 notes="""
@@ -234,11 +234,13 @@ def main():
         #     print(sym, cnt)   
     add_notes()
     add_header_files()
-    add_begin_and_end_func()
+    # add_begin_and_end_func()
     Check(1)
     
     #add the load_all_funcs
-    print("void load_all_funcs(void *so_aclrt_handle){")
+    print("void load_all_rt_funcs(void *so_aclrt_handle){")
+    print("   fprintf(stderr, \"%s called \\n\", __func__);")
+
     Check(2)
     print("}")
 
