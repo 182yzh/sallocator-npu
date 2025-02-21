@@ -1,3 +1,4 @@
 stderr
 *.so
 *.o
+build
