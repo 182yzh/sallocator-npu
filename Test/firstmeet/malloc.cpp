@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <acl/acl_rt.h>
+#include <stdlib.h>
 
 #define check_acl_err(err) do{\
     if(err != ACL_ERROR){ \
@@ -16,9 +17,12 @@ int main(){
     err = aclInit(NULL);
     check_acl_err(err);
 
+    err = aclrtSetDevice(0);
+    check_acl_err(err);
+
     void *dptr =NULL;
 
-    err = aclrtMalloc(&dptr,alloc_size);
+    err = aclrtMalloc(&dptr,alloc_size,ACL_MEM_MALLOC_NORMAL_ONLY);
     check_acl_err(err);
     fprintf(stderr, "the dptr is %p\n",dptr);
 
