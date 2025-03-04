@@ -2,3 +2,4 @@ stderr
 *.so
 *.o
 build
+env.sh
