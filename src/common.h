@@ -32,8 +32,10 @@
 
 
 #define PASS_FUNC(func, ...) return func(__VA_ARGS__)
-#define END_FUNC_HOOK(func)  end_func(#func)
-#define BEGIN_FUNC_HOOK(func) begin_func(#func)
+// #define END_FUNC_HOOK(func)  end_func(#func)
+#define END_FUNC_HOOK(func)  
+// #define BEGIN_FUNC_HOOK(func) begin_func(#func)
+#define BEGIN_FUNC_HOOK(func)  
 #define DEFINE_RETURN_VARIBLE(rtype, rvarible_name) rtype rvarible_name
 #define CALL_FUNC_WITH_RETURN(rvarible_name, func, ...) rvarible_name = func(__VA_ARGS__) 
 #define CALL_FUNC_WITHOUT_RETURN(func, ...) func(__VA_ARGS__) 

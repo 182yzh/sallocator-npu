@@ -119,9 +119,9 @@ def Check(flag):
                 print("    BEGIN_FUNC_HOOK({:s});".format(func))
                 print("    #ifdef PASS_FUNC_ON")
                 if func_para != "" and func_para != "void":
-                    print("        PASS_FUNC({:s}, {:s});".format(func,func_para))
+                    print("        PASS_FUNC({:s}, {:s});".format("so_" + func,func_para))
                 else:
-                    print("        PASS_FUNC({:s});".format(func))
+                    print("        PASS_FUNC({:s});".format("so_" + func))
                 print("    #else")
                 if rtype != "void":
                     print("        DEFINE_RETURN_VARIBLE({:s}, result);".format(rtype))
@@ -143,10 +143,13 @@ def Check(flag):
                 print("    #ifdef END_FUNC_HOOK_ON")
                 print("        END_FUNC_HOOK(func);")
                 print("    #endif")
+                print("    #ifndef PASS_FUNC_ON")
                 if rtype != "void":
                     print("    return result;")
                 else:
                     print("    return ;")
+                print("    #endif")
+                
                 print("}")
         else:  
             if flag == 1:

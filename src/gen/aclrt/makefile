@@ -12,6 +12,8 @@ test:tmp.cpp
 compile: aclrtgen.py
 	@python aclrtgen.py > $(OUTPUT_DIR)/libaclrt.cpp
 	g++ $(OUTPUT_DIR)/libaclrt.cpp -c -o $(OUTPUT_DIR)/libaclrt.o --shared -fPIC -I /usr/local/Ascend/ascend-toolkit/latest/include/ -L /usr/local/Ascend/ascend-toolkit/latest/acllib/lib64/ -lascendcl
+	
+	g++ $(OUTPUT_DIR)/libaclrt.cpp -o $(OUTPUT_DIR)/libaclrt.so --shared -fPIC -I /usr/local/Ascend/ascend-toolkit/latest/include/ -L /usr/local/Ascend/ascend-toolkit/latest/acllib/lib64/ -lascendcl
 
 clean:
 	rm $(OUTPUT_DIR)/libaclrt.o
