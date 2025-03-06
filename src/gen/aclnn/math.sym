@@ -1,0 +1,14 @@
+aclnnGcdGetWorkspaceSize
+aclnnGcd
+aclnnLinalgQr
+aclnnUniqueDim
+aclnnUniqueDimGetWorkspaceSize
+aclnnMinNGetWorkspaceSize
+aclnnLinalgQrGetWorkspaceSize
+aclnnMaxNGetWorkspaceSize
+aclnnQrGetWorkspaceSize
+aclnnQr
+aclnnLinalgCross
+aclnnMaxN
+aclnnLinalgCrossGetWorkspaceSize
+aclnnMinN

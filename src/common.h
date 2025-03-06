@@ -34,11 +34,13 @@
 #define PASS_FUNC(func, ...) return func(__VA_ARGS__)
 // #define END_FUNC_HOOK(func)  end_func(#func)
 #define END_FUNC_HOOK(func)  
-// #define BEGIN_FUNC_HOOK(func) begin_func(#func)
-#define BEGIN_FUNC_HOOK(func)  
+#define BEGIN_FUNC_HOOK(func) begin_func(#func)
+// #define BEGIN_FUNC_HOOK(func)  
 #define DEFINE_RETURN_VARIBLE(rtype, rvarible_name) rtype rvarible_name
 #define CALL_FUNC_WITH_RETURN(rvarible_name, func, ...) rvarible_name = func(__VA_ARGS__) 
 #define CALL_FUNC_WITHOUT_RETURN(func, ...) func(__VA_ARGS__) 
+
+
 // for each virtual object, should add a command for this.
 // for examples, for virtualize aclrtStream. 
 // DEFINE_AND_GET_PHYSICAL_OBJECT(aclrtStream, stream, get_origin_stream)
@@ -47,9 +49,18 @@
 
 
 // only for checking aclerror, if the rtype is not aclerror, we just ignore the check and do nothing. 
-#define CHECK_ACL_RESULT(result) do{\
-    if(result != ACL_SUCCESS){ \
-        fprintf(stderr,"ERROR: file %s, line %d, func %s, error code is %d\n",__FILE__,__LINE__,__func__,result); \
+#define CHECK_ACLRT_ERROR(err) do{\
+    if(err != ACL_SUCCESS){ \
+        fprintf(stderr,"ERROR: file %s, line %d, func %s, error code is %d\n",__FILE__,__LINE__,__func__,err); \
+    } \
+} while(0)
+
+
+
+// only for checking aclnn status, if the rtype is not aclnnstatus, we just ignore the check and do nothing. 
+#define CHECK_ACLNN_STATUS(status) do{\
+    if(status != ACLNN_SUCCESS ){ \
+        fprintf(stderr,"ERROR: file %s, line %d, func %s, error code is %d\n",__FILE__,__LINE__,__func__,status); \
     } \
 } while(0)
 

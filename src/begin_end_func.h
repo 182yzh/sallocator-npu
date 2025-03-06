@@ -5,9 +5,9 @@ static void begin_func(const char *func){
     fprintf(stderr,"Begin to execute %s\n", func);
 }
 
-static void end_func(const char *func){
-    fprintf(stderr,"End to execute %s\n", func);
-}
+// static void end_func(const char *func){
+//     fprintf(stderr,"End to execute %s\n", func);
+// }
 #endif
 
 /*
