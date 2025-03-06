@@ -23,7 +23,7 @@ generate:
 	mv *.cpp $(BUILD_DIR)/
 
 totalso: $(OBJS)
-	$(CXX) $(CXXFLAGS)  $(ACLRTFLAGS) $(OBJS) -o $(BUILD_DIR)/clientaclrt.so
+	$(CXX) $(CXXFLAGS)  $(ACLRTFLAGS) $(OBJ_FILES) -o $(BUILD_DIR)/clientaclrt.so
 
 
 $(BUILD_DIR)/%.o: $(BUILD_DIR)/%.cpp

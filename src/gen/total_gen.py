@@ -199,6 +199,7 @@ def add_constructors(libname):
         '    }}\n'
         '    load_all_{0}_funcs(so_{0}_handle);\n'
         '}}\n' 
+        ''
     ).format(libname, LIBNAME)
 
     print(constructor)
@@ -215,7 +216,7 @@ headers = '''
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <memory.h>
+//#include <memory.h>
 #include <acl/acl_prof.h>
 '''
 
@@ -223,9 +224,20 @@ headers = '''
 #include "aclnnop/aclnn_rand.h"
 #include "aclnnop/aclnn_ops_infer.h"
 #include "aclnnop/aclnn_ops_train.h"
+extern_c_micro_start="""
+#ifdef  __cplusplus
+extern "C" {
+#endif
+"""
 
+extern_c_micro_end="""
+#ifdef  __cplusplus
+    }
+#endif  /* end of __cplusplus */
+"""
 def add_header_files():
     print(headers)
+  
 
 
 nn_headers = """
@@ -239,6 +251,7 @@ nn_headers = """
 def add_nnheaders():
     print(headers)
     print(nn_headers)
+    print(extern_c_micro_start)
 
 
 # notes="""
@@ -271,7 +284,9 @@ def generate_for_one(lib_sosym_file, lib_headfile,libname):
         # if cnt  != 1 and cnt != 0 :
         #     print("=====",sym, cnt)   
     # add_notes()
-    add_header_files()
+    add_header_files()  
+    if libname != "aclprof":
+        print(extern_c_micro_start)
     # add_begin_and_end_func()
     write_defs(sosym,heads)
     
@@ -286,6 +301,8 @@ def generate_for_one(lib_sosym_file, lib_headfile,libname):
     write_funcs(sosym,heads)
 
     add_constructors(libname)
+    if libname != "aclprof":
+        print(extern_c_micro_end)
     return
     
 
@@ -296,7 +313,7 @@ def aclrt_main():
 
  
 
-    sys.stdout = open("opcompiler.cpp","w")
+    sys.stdout = open("libopcompiler.cpp","w")
     generate_for_one("acl_op_compiler/libopcompiler.sym", "acl_op_compiler/aclopcompiler_head.h","aclopcompiler")
     sys.stdout.close()
     
