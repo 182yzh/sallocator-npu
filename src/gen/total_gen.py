@@ -63,23 +63,24 @@ def write_defs(sosym,heads):
             if tar.find(aim) != -1:
                 cnt+=1
                 ans = tar
-                if cnt > 1 and (tar.find("enum") != -1 or tar.find("struct") != -1 or tar.find("union") != -1):
-                    ans = tar
         
-        if cnt == 1 :    
-            rtype,func,para = GetRtypeFuncPara(ans)
-            if func != sym :
-                raise Exception(sym+"/"+func)
-            
-            if para=="" or para=="void":
-                print("DEFFTYPE({:s}, {:s});".format(rtype,func))
-                print("DEFFUNCV({:s});".format(func))
+        if cnt != 1 :
+            if cnt ==0 :
+                continue
             else:
-                print("DEFFTYPE({:s}, {:s}, {:s});".format(rtype,func,para))
-                print("DEFFUNCV({:s});".format(func))
+                raise Exception("mult define for ",sosym)
+        
+        rtype,func,para = GetRtypeFuncPara(ans)
+        if func != sym :
+            raise Exception(sym+"/"+func)
+        
+        if para=="" or para=="void":
+            print("DEFFTYPE({:s}, {:s});".format(rtype,func))
+            print("DEFFUNCV({:s});".format(func))
         else:
-            print("cnt == {:d}, func == {:s}".format(cnt,sym))
-
+            print("DEFFTYPE({:s}, {:s}, {:s});".format(rtype,func,para))
+            print("DEFFUNCV({:s});".format(func))
+        
 
 def write_load_funcs(sosym,heads,libname):
     for sym in sosym:
@@ -92,11 +93,12 @@ def write_load_funcs(sosym,heads,libname):
                 ans = tar
 
         if cnt != 1:
-            if cnt >1:
+            if cnt > 1:
                 print(func,cnt)
-            return 
+                raise Exception("multi def for func",func )
+            else:
+                continue
         
-
         rtype,func,para = GetRtypeFuncPara(ans)
         if func != sym :
             raise Exception(sym+"/"+func)
@@ -119,7 +121,8 @@ def write_funcs(sosym,heads):
         if cnt != 1 :
             if cnt > 1: 
                 print(func, cnt)
-            return
+                raise Exception("multi define for func", func)
+            continue
     
         rtype,func,para = GetRtypeFuncPara(ans)
         if func != sym :
@@ -143,21 +146,21 @@ def write_funcs(sosym,heads):
         
 
         if rtype != "void":
-            print("        DEFINE_RETURN_VARIBLE({:s}, result);".format(rtype))
+            print("        DEFINE_RETURN_VARIBLE({:s}, tmp_res);".format(rtype))
             if func_para != "" and func_para != "void":
-                print("        CALL_FUNC_WITH_RETURN(result,{:s},{:s});".format("so_" + func, func_para))
+                print("        CALL_FUNC_WITH_RETURN(tmp_res,{:s},{:s});".format("so_" + func, func_para))
             else :
-                print("        CALL_FUNC_WITH_RETURN(result,{:s});".format("so_" + func))
+                print("        CALL_FUNC_WITH_RETURN(tmp_res,{:s});".format("so_" + func))
             
             
             if rtype == "aclError":
                 print("        #ifdef CHECK_ACL_ERROR_ON")
-                print("            CHECK_ACLRT_ERROR(result);")
+                print("            CHECK_ACLRT_ERROR(tmp_res);")
                 print("        #endif")
 
             if rtype == "aclnnStatus":
                 print("        #ifdef CHECK_ACLNN_STATUS_ON")
-                print("            CHECK_ACLNN_STATUS(result);")
+                print("            CHECK_ACLNN_STATUS(tmp_res);")
                 print("        #endif")
 
         else:
@@ -175,7 +178,7 @@ def write_funcs(sosym,heads):
         
         print("    #ifndef PASS_FUNC_ON")
         if rtype != "void":
-            print("    return result;")
+            print("    return tmp_res;")
         else:
             print("    return ;")
         print("    #endif")
@@ -201,6 +204,24 @@ def add_constructors(libname):
         '}}\n' 
         ''
     ).format(libname, LIBNAME)
+
+
+
+    if libname== "aclnn_ops_train" :
+        constructor = (
+            '__attribute__((constructor)) void {0}_init(){{\n'
+            'dlopen("/usr/local/Ascend/ascend-toolkit/8.0.0.alpha001/opp/built-in/op_impl/ai_core/tbe/op_api/lib/linux/aarch64/libopapi.so",RTLD_GLOBAL | RTLD_NOW);\n'
+            '    void *so_{0}_handle = dlopen({1}_LIBFILE,RTLD_GLOBAL | RTLD_NOW);\n'
+            '    if(so_{0}_handle == NULL){{\n'
+            '    fprintf(stderr, "error open the {0} (file %s), msg %s\\n", {1}_LIBFILE, dlerror());\n' 
+            '    exit(1);\n'
+            '    }}\n'
+            '    load_all_{0}_funcs(so_{0}_handle);\n'
+            '}}\n' 
+            ''
+        ).format(libname, LIBNAME)
+    
+    
 
     print(constructor)
 
@@ -235,23 +256,19 @@ extern_c_micro_end="""
     }
 #endif  /* end of __cplusplus */
 """
-def add_header_files():
+def add_headers():
     print(headers)
   
 
 
 nn_headers = """
-#include "aclnnop/aclnn_math.h"
-#include "aclnnop/aclnn_rand.h"
-#include "aclnnop/aclnn_ops_infer.h"
-#include "aclnnop/aclnn_ops_train.h"
+#include "../../aclnn_ops_custom.h"
 """
 
 
 def add_nnheaders():
     print(headers)
     print(nn_headers)
-    print(extern_c_micro_start)
 
 
 # notes="""
@@ -271,29 +288,24 @@ def add_nnheaders():
     
 
 def generate_for_one(lib_sosym_file, lib_headfile,libname):
-    sosym,heads = ReadFile(lib_sosym_file,lib_headfile)
-    for sym in sosym:
-        aim = sym+"("
-        cnt = 0
-        ans = ""
-        for tar in heads:
-            if tar.find(aim) != -1:
-                cnt+=1
-                ans = tar
+    sosym, heads = ReadFile(lib_sosym_file,lib_headfile)
 
-        # if cnt  != 1 and cnt != 0 :
-        #     print("=====",sym, cnt)   
-    # add_notes()
-    add_header_files()  
+
+    if libname.find("aclnn") != -1 :
+        add_nnheaders()
+    else:
+        add_headers()  
+
     if libname != "aclprof":
         print(extern_c_micro_start)
-    # add_begin_and_end_func()
+    # add_begin_and_end_func 
     write_defs(sosym,heads)
     
     #add the load_all_funcs
     print("void load_all_{:s}_funcs(void *so_{:s}_handle){{".format(libname,libname) )
     print("   fprintf(stderr, \"%s called \\n\", __func__);")
 
+    
     write_load_funcs(sosym,heads,libname)
     print("}")
 
@@ -332,18 +344,26 @@ def aclnn_main():
     generate_for_one("aclnn/train.sym", "aclnn/api.h","aclnn_ops_train")
     sys.stdout.close()
 
-    sys.stdout = open("libaclnn_rand.cpp","w")
-    generate_for_one("aclnn/rand.sym", "aclnn/api.h","aclnn_rand")
+    sys.stdout = open("libaclnn_opbase.cpp","w")
+    generate_for_one("aclnn/base.sym", "aclnn/api.h","aclnn_opbase")
     sys.stdout.close()
 
-    sys.stdout = open("libaclnn_math.cpp","w")
-    generate_for_one("aclnn/math.sym", "aclnn/api.h","aclnn_math")
-    sys.stdout.close()
+    # sys.stdout = open("libaclnn_rand.cpp","w")
+    # generate_for_one("aclnn/rand.sym", "aclnn/api.h","aclnn_rand")
+    # sys.stdout.close()
+
+    # sys.stdout = open("libaclnn_math.cpp","w")
+    # generate_for_one("aclnn/math.sym", "aclnn/api.h","aclnn_math")
+    # sys.stdout.close()
 
 
-def main():
-    aclrt_main()
-    # aclnn_main()
+def main(target):
+    if target == "aclrt":
+        aclrt_main()
+    elif target == "aclnn":
+        aclnn_main()
+    else:
+        print("unknown target")
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1])

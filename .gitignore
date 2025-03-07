@@ -3,3 +3,6 @@ stderr
 *.o
 build
 env.sh
+stderr
+stderr*
+fusion_result.json

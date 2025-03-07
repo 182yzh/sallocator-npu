@@ -1,6 +1,7 @@
 import time
 start = time.time()
 import torch
+import sys
 
 import torch_npu
 from torchvision import models
@@ -19,7 +20,7 @@ last_time = time.time()
 
 while cnt < max_cnt:
     if cnt% 1 == 0 and cnt !=0 :
-        print("infer cnt: 1", "time consume average:" , (time.time() - last_time)/1 )
+        print("infer cnt: 1", "time consume average:" , (time.time() - last_time)/1, file=sys.stderr )
         last_time = time.time()
     
     # Create fake input data (simulating a single 224x224 RGB image)

@@ -20,7 +20,7 @@ all: generate $(SO_FILES) totalso
 
 generate:
 	@python total_gen.py
-	mv *.cpp $(BUILD_DIR)/
+	mv *aclrt*.cpp $(BUILD_DIR)/
 
 totalso: $(OBJS)
 	$(CXX) $(CXXFLAGS)  $(CXXASCENDFLAGS) $(OBJS) -o $(BUILD_DIR)/clientaclrt.so
