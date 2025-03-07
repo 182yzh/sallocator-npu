@@ -2,7 +2,7 @@
 
 CXX := g++
 CXXFLAGS := -Wall -O2 --shared -fPIC 
-ACLNNFLAGS := -I /usr/local/Ascend/ascend-toolkit/latest/include/ -L /usr/local/Ascend/ascend-toolkit/latest/lib64 -lascendcl -laclnn_ops_infer -laclnn_ops_train 
+ACLNNFLAGS := -I /usr/local/Ascend/ascend-toolkit/latest/include/ -L /usr/local/Ascend/ascend-toolkit/latest/lib64 -lascendcl -laclnn_ops_infer -laclnn_ops_train -lopapi 
 
 BUILD_DIR ?= ../build/aclnn
 

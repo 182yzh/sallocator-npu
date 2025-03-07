@@ -14,3 +14,4 @@
 #define ACLNN_OPS_INFER_LIBFILE "/usr/local/Ascend/ascend-toolkit/latest/lib64/libaclnn_ops_infer.so"
 #define ACLNN_OPS_TRAIN_LIBFILE "/usr/local/Ascend/ascend-toolkit/latest/lib64/libaclnn_ops_train.so"
 #define ACLNN_OPBASE_LIBFILE "/usr/local/Ascend/ascend-toolkit/latest/lib64/libnnopbase.so"
+#define ACLNN_OPAPI_LIBFILE "/usr/local/Ascend/ascenLD)

@@ -66,6 +66,7 @@ def write_defs(sosym,heads):
         
         if cnt != 1 :
             if cnt ==0 :
+                # print(sym,cnt)
                 continue
             else:
                 raise Exception("mult define for ",sosym)
@@ -336,16 +337,22 @@ def aclrt_main():
 
     
 def aclnn_main():
-    sys.stdout = open("libaclnn_ops_infer.cpp","w")
-    generate_for_one("aclnn/infer.sym", "aclnn/api.h","aclnn_ops_infer")
-    sys.stdout.close()
+    # sys.stdout = open("libaclnn_ops_infer.cpp","w")
+    # generate_for_one("aclnn/infer.sym", "aclnn/api.h","aclnn_ops_infer")
+    # sys.stdout.close()
 
-    sys.stdout = open("libaclnn_ops_train.cpp","w")
-    generate_for_one("aclnn/train.sym", "aclnn/api.h","aclnn_ops_train")
-    sys.stdout.close()
+    # sys.stdout = open("libaclnn_ops_train.cpp","w")
+    # generate_for_one("aclnn/train.sym", "aclnn/api.h","aclnn_ops_train")
+    # sys.stdout.close()
+
+
 
     sys.stdout = open("libaclnn_opbase.cpp","w")
     generate_for_one("aclnn/base.sym", "aclnn/api.h","aclnn_opbase")
+    sys.stdout.close()
+
+    sys.stdout = open("libopapi.cpp","w")
+    generate_for_one("aclnn/opapi.sym", "aclnn/api.h","aclnn_opapi")
     sys.stdout.close()
 
     # sys.stdout = open("libaclnn_rand.cpp","w")
