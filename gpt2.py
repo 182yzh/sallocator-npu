@@ -17,7 +17,7 @@ inputs = tokenizer.encode(text, return_tensors='pt').to(device)
 # 调用 generate 方法进行推理
 outputs = model.generate(
     inputs, 
-    max_length=200, 
+    max_length=100, 
     do_sample=True, 
     num_beams=5, 
     no_repeat_ngram_size=2, 

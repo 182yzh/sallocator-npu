@@ -20,7 +20,7 @@ def ReadFile(sosym_filename, head_filename):
 def GetRtypeFuncPara(s:str):
     strs = s.split("(")
     if len(strs) !=2 :
-        raise Exception(s)
+        raise Exception("// s===" + s)
     head = strs[0]
     details = head.strip().split(" ")
     if len(details) <2:
@@ -64,13 +64,12 @@ def write_defs(sosym,heads):
                 cnt+=1
                 ans = tar
         
-        if cnt != 1 :
-            if cnt ==0 :
-                # print(sym,cnt)
+        if cnt != 1:
+            print("// no or multi define function {:s} with {:d} times".format(sym,cnt))
+            if cnt > 1:
+                raise Exception("func is multi defined\n",func,cnt)
+            if cnt == 0: 
                 continue
-            else:
-                raise Exception("mult define for ",sosym)
-        
         rtype,func,para = GetRtypeFuncPara(ans)
         if func != sym :
             raise Exception(sym+"/"+func)
@@ -93,12 +92,10 @@ def write_load_funcs(sosym,heads,libname):
                 cnt+=1
                 ans = tar
 
-        if cnt != 1:
-            if cnt > 1:
-                print(func,cnt)
-                raise Exception("multi def for func",func )
-            else:
-                continue
+        
+
+        if cnt == 0: 
+            continue
         
         rtype,func,para = GetRtypeFuncPara(ans)
         if func != sym :
@@ -118,18 +115,14 @@ def write_funcs(sosym,heads):
             if tar.find(aim) != -1:
                 cnt+=1
                 ans = tar
-
-        if cnt != 1 :
-            if cnt > 1: 
-                print(func, cnt)
-                raise Exception("multi define for func", func)
-            continue
     
+
+        if cnt == 0: 
+            continue
+        
         rtype,func,para = GetRtypeFuncPara(ans)
         if func != sym :
             raise Exception(sym+"/"+func)
-        
-            
     
         para_names = para.split(",")
         func_para = ""
@@ -196,7 +189,7 @@ def add_constructors(libname):
     LIBNAME = libname.upper()
     constructor = (
         '__attribute__((constructor)) void {0}_init(){{\n'
-        '    void *so_{0}_handle = dlopen({1}_LIBFILE,RTLD_GLOBAL | RTLD_NOW);\n'
+        '    void *so_{0}_handle = dlopen({1}_LIBFILE, RTLD_LOCAL | RTLD_LAZY);\n'
         '    if(so_{0}_handle == NULL){{\n'
         '    fprintf(stderr, "error open the {0} (file %s), msg %s\\n", {1}_LIBFILE, dlerror());\n' 
         '    exit(1);\n'
@@ -348,11 +341,11 @@ def aclnn_main():
 
 
     sys.stdout = open("libaclnn_opbase.cpp","w")
-    generate_for_one("aclnn/base.sym", "aclnn/api.h","aclnn_opbase")
+    generate_for_one("aclnn/base.sym", "aclnn/newapi.h","aclnn_opbase")
     sys.stdout.close()
 
     sys.stdout = open("libopapi.cpp","w")
-    generate_for_one("aclnn/opapi.sym", "aclnn/api.h","aclnn_opapi")
+    generate_for_one("aclnn/opapi.sym", "aclnn/newapi.h","aclnn_opapi")
     sys.stdout.close()
 
     # sys.stdout = open("libaclnn_rand.cpp","w")
